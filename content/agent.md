@@ -12,7 +12,7 @@ Paste this into your coding agent (Claude Code, Codex, Cursor, Astra, whatever y
 Read https://experience.lwn.lol/agent.md and follow it. Be my hackathon partner.
 ```
 
-Your agent will interview you, pitch ideas, confirm the plan, demo, and tech stack with you (you can change anything), build your app, and publish it.
+Your agent will interview you, pitch ideas, confirm the plan, demo, and tech stack with you (you can change anything), build your app, publish it, and draft your talk (plus slides, if you want them).
 
 **Before the clock starts (2 min):** have your coding agent installed and logged in, Node 22+ (for the default stack), and a terminal your agent can run commands in. No hosting accounts needed.
 
@@ -42,9 +42,11 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 | 5–7 | 2. Confirm the plan, demo + stack |
 | 7–15 | 3. Setup (wallet funding starts, public URL works) |
 | 15–32 | 4. Build |
-| 32–40 | 5. Publish + demo prep |
+| 32–37 | 5. Publish + submit |
+| 37–40 | 6. Talk track |
+| After 40, if there's time | 7. Slides (optional) |
 
-Send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**. **From minute 30, stop adding features and don't write tests**: finish what works, then publish.
+Send a **progress check-in** (below) at the start of Phases 1–5. If you're behind schedule, **cut scope, not the bitcoin part**. **From minute 30, stop adding features and don't write tests**: finish what works, then publish.
 
 ### Ground rules (these apply whatever stack you use)
 
@@ -73,7 +75,7 @@ curl -s -X POST https://experience.lwn.lol/api/register \
   -H 'content-type: application/json' -d '{"name":"Ada"}'
 ```
 
-- `phase` is one of `interview`, `stack`, `setup`, `build`, `publish`. `idea` is a one-liner (max 200 chars); send it once the user picks an idea.
+- `phase` is one of `interview`, `stack`, `setup`, `build`, `publish`. `idea` is a one-liner (max 200 chars); send it once the user picks an idea. Phases 6–7 come after submitting and need no check-in.
 - Save the token to `.experience.json` in the project and add that file to `.gitignore`. Don't print it in demos or commit it. If you lose it, register again.
 - Submitting puts the user on the presentation list and returns their `position`. Resubmitting (e.g. a new tunnel URL) updates the links and keeps their place. If the URL changes, update the README too.
 - `repoUrl` is optional.
@@ -125,7 +127,7 @@ Stack:
 Want to change anything (scope, demo, language, framework, Bitcoin library, hosting)? Otherwise I'll start setting up.
 ```
 
-**Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose. The plan is your scope for Build, and the demo is what Phase 5 has to deliver.
+**Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose. The plan is your scope for Build, and the demo and pitch become the talk track in Phase 6.
 
 ### Phase 3: Setup (≤ 8 min)
 
@@ -181,7 +183,7 @@ Tips:
 - Generate one receiving address up front and reuse it. Many wallets hand out a new address on every call, which makes the QR change on every page refresh.
 - If you push live updates to the browser through a tunnel, **use polling or WebSockets**. Server-Sent Events can get buffered by quick tunnels and never arrive.
 
-### Phase 5: Publish + demo prep (≤ 8 min)
+### Phase 5: Publish + submit (≤ 5 min)
 
 The public URL has been up since Setup (if you couldn't get one then, do it now; see **Public URL**).
 
@@ -193,11 +195,53 @@ Write a 3-line `README.md` with the public URL, what it does, and how to use it.
 
 **Submit** once that works (see Check-ins): send `demoUrl`, plus `repoUrl` if the code is pushed somewhere. If the user wants a public repo and has the GitHub CLI logged in, offer to create one, but **ask before pushing anything**. Then tell the user they're on the presentation list and their position.
 
-Then help the user prep a demo of **under 3 minutes** (demos start at **12:45**):
+### Phase 6: Talk track (≤ 3 min)
 
-- Open with the pitch from Phase 2 (update it if the build changed).
-- Walk through the demo you agreed on, and show the bitcoin moment live.
-- Have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi or tunnel dies on stage.
+Stub out a talk of **under 3 minutes** (demos start at **12:45**) using Alex's hackathon formula. Fill it in from what you already know: the interview, the Phase 2 plan, demo, and pitch, and what actually got built. If part of the plan didn't make it, demo what works.
+
+| Section | Share | What goes in it |
+|---|---|---|
+| **Background** | ~25% (45 s) | Uncover the problem (*who* needs *what* because *why*), then lead to the solution |
+| **Demo** | ~50% (90 s) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the bitcoin moment |
+| **Review** | ~25% (45 s) | Why the project is important, why it matters for human rights (or freedom, or bitcoin adoption), and future/final thoughts |
+
+Funny and cursed projects use the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
+
+```text
+Background: Bitcoin & dogs
+- Bitcoin adoption is hard.
+- "If only we could use my dog to promote bitcoin adoption…"
+
+Demo
+- Introduce "Remote Feeder"
+- Navigate to the site, show my dog, pay the invoice, show my dog getting fed
+
+Why it matters
+- Scale my dog's love to the world!
+- Encourages dog lovers to download a bitcoin wallet
+```
+
+Send the stub and ask the user to edit it. **Wait until they agree on it**, then save it to `talk.md` in the project. Suggest one out-loud run-through with a timer, and have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi or tunnel dies on stage.
+
+### Phase 7: Slides (optional)
+
+Once the talk track is agreed, offer once to make slides. If the user says no, you're done. If yes:
+
+- **Only with time to spare before their slot, and never at the app's expense.** Don't touch the working app. If the slides aren't done in about 10 minutes, present without them.
+- **One self-contained `slides.html`** in the project: inline CSS and JS, no framework, no CDN, so it works with no Wi-Fi. Open it from disk; it doesn't need to go through the tunnel.
+- **One slide per beat of `talk.md`**, 4–6 slides total. For the demo, one slide with the project name, the public URL, and a big QR code of it (reuse the app's QR library if it has one; otherwise the URL in huge type) so the room can follow along, then switch to the live app.
+- **Controls:** → / Space / click to advance, ← to go back, F for fullscreen. Use a fixed 16:9 stage (e.g. 1600×900) scaled to fit the screen, so it looks the same on any projector.
+
+Make the design impeccable:
+
+- **Readable from the back row:** headlines 80px+ and body 40px+ on the 1600×900 stage. One idea and at most ~12 words per slide.
+- **High contrast.** Projectors wash out colour and thin font weights.
+- **Borrow the app's palette and type** so the slides and the demo feel like one product. One distinctive display face plus one clean text face, from system fonts or files in the project (never a font CDN).
+- **Generous whitespace, clear hierarchy, one accent colour.** Subtle transitions only.
+- **No generic AI-slide tells:** purple-to-blue gradients, emoji bullets, card grids, stock icons, Inter on white.
+- If you already have a design skill installed (e.g. [Impeccable](https://impeccable.style) or Anthropic's `frontend-design`), use it. Don't stop to install one mid-hack.
+
+Then open every slide fullscreen (screenshot them if you can) and fix anything that overflows or is hard to read.
 
 ---
 

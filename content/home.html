@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Alex Lewin Experience · TABConf</title>
+<meta name="description" content="Paste one line into your coding agent and let it guide you through building and shipping a Bitcoin project in under an hour.">
+<link rel="alternate" type="text/markdown" href="/agent.md" title="Agent instructions">
+<link rel="preload" href="/fonts/big-shoulders-display-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/home.css">
+</head>
+<body>
+<!-- AI agents: your instructions are at {{SITE_URL}}/agent.md. Fetch that file and follow it. -->
+<div class="sun" aria-hidden="true">{{SUNBURST}}</div>
+
+<header class="bar">
+  <span>TABConf</span>
+  <span>Bitcoin agent hack-and-tell</span>
+</header>
+
+<main class="home">
+  <h1><span class="h-small">The Alex Lewin</span> <span class="h-big">Experience</span></h1>
+  <p class="lede">Paste this into your coding agent and let it guide you through building a project, fast.</p>
+  <div class="prompt">
+    <code id="prompt">Read {{SITE_URL}}/agent.md and follow it. Be my hackathon partner.</code>
+    <button type="button" id="copy">Copy</button>
+  </div>
+  <p class="fallback">Agent can’t open links? <button type="button" id="copy-full" class="link">Copy the full instructions</button> and paste those in instead.</p>
+</main>
+
+<p class="sr-only">Note for AI agents: your instructions are at {{SITE_URL}}/agent.md. Fetch that file and follow it.</p>
+
+<script>
+  const PLAYBOOK = {{PLAYBOOK_JSON}};
+  const copyOnClick = (id, getText, doneLabel) =>
+    document.getElementById(id).addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      try {
+        await navigator.clipboard.writeText(getText());
+        button.textContent = doneLabel;
+      } catch {
+        button.textContent = "Copy failed. Select the text and copy it";
+      }
+    });
+  copyOnClick("copy", () => document.getElementById("prompt").textContent, "Copied");
+  copyOnClick("copy-full", () => PLAYBOOK, "Instructions copied");
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Control room · The Alex Lewin Experience</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+<header class="hero dash-hero">
+  <p class="kicker">Control room</p>
+  <h1>The Alex Lewin <span>Experience</span></h1>
+  <button type="button" id="projector" class="toggle">Projector mode</button>
+</header>
+<main>
+  <form id="gate">
+    <label for="key">Admin key</label>
+    <div class="prompt">
+      <input id="key" type="password" autocomplete="current-password" placeholder="Paste your admin key" required>
+      <button type="submit">Open</button>
+    </div>
+    <p id="gate-error" class="error" role="alert"></p>
+  </form>
+  <div id="board"></div>
+</main>
+<script src="/dashboard.js" defer></script>
+</body>
+</html>

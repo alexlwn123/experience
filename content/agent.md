@@ -2,7 +2,7 @@
 
 **A 1-hour Bitcoin agent hackathon at TABConf.**
 
-You and your coding agent have ~40 minutes to build and publish something. The only rule: **it involves bitcoin, in any capacity.** It can move test sats, read the chain, sign a message, visualize blocks, or anything else. Useful, silly, or cursed: all welcome. Then it's hack-and-tell: **demos start at 12:45, under 3 minutes each.**
+You and your coding agent have 40 minutes to build and publish something. The only rule: **it involves bitcoin, in any capacity.** It can move test sats, read the chain, sign a message, visualize blocks, or anything else. Useful, silly, or cursed: all welcome. Then it's hack-and-tell: **demos start at 12:45, under 3 minutes each.**
 
 ## Humans: start here
 
@@ -18,6 +18,14 @@ Your agent will interview you, pitch ideas, propose a tech stack (you can change
 
 **Agent can't read the link?** Some agents can't fetch URLs. Open the [raw playbook](https://experience.lwn.lol/agent.md), copy all of it, and paste it into your agent instead.
 
+### Quick answers
+
+Agents: use these when the user asks.
+
+- **Is this real money?** No. Anything that moves is signet test sats, which are worthless. Reading real (mainnet) chain data is fine; spending real bitcoin is not.
+- **Do I need a phone wallet?** No. Your agent creates test wallets on your laptop. Your phone is just for checking that your public URL works.
+- **Lightning vs Ark?** Lightning is bitcoin's instant-payment network: someone pays an invoice and it settles in seconds. Ark is a newer layer for instant payments with no channels to manage. Bark is an Ark wallet that can also send and receive Lightning, so in the default stack your app shows Lightning invoices with Bark behind them.
+
 ---
 
 ## Agents: your playbook
@@ -26,15 +34,17 @@ You are the attendee's hackathon partner. Follow these phases in order. Keep you
 
 ### Timebox
 
+The session is 1 hour: **40 minutes** to build and publish, then demos. Run `date` when you start; that's minute 0. If 12:40 local time comes before minute 40, 12:40 is your deadline.
+
 | Minute | Phase |
 |---|---|
 | 0–5 | 1. Interview + pick an idea |
 | 5–7 | 2. Propose the stack + confirm |
-| 7–17 | 3. Setup |
-| 17–37 | 4. Build |
-| 37–42 | 5. Publish + demo prep |
+| 7–15 | 3. Setup (wallet funding starts, public URL works) |
+| 15–32 | 4. Build |
+| 32–40 | 5. Publish + demo prep |
 
-Tell the user which phase you're in, and send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**.
+Start every message with the phase and the minute, e.g. `Build · min 22/40`. Send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**. **From minute 30, stop adding features and don't write tests**: finish what works, then publish.
 
 ### Ground rules (these apply whatever stack you use)
 
@@ -43,7 +53,7 @@ Tell the user which phase you're in, and send a **progress check-in** (below) at
 - **Keep wallet data, mnemonics, and API tokens out of git.** Put wallet data directories outside the repo or in `.gitignore`; put tokens in `.env`.
 - **Never expose a wallet daemon or admin API to the internet.** Only your app's own routes go public. Never disable wallet auth (e.g. Bark's `--no-auth` / `--dangerously-allow-remote-no-auth`); if auth fails, fix the token.
 - **Never run commands that wipe a wallet** (e.g. `bark create --force`) without asking the user first.
-- **Remove dev/test/fake-payment routes before publishing.** Anything you publish, the whole audience can hit.
+- **No fake-payment or debug routes on the port you tunnel.** The public URL is live from Setup onward, and tunnel traffic arrives from `127.0.0.1`, so a "localhost only" check doesn't protect anything. Test with real signet payments, or simulate in code on a port you don't tunnel.
 - **Don't invent APIs.** Bitcoin libraries change fast. Check docs or the running service's API spec before writing wallet code.
 - **Don't require admin rights.** Prefer local installs (`./bin/...`) over `sudo` or global package managers unless the user is fine with them.
 - **Ship something small that works** over something big that doesn't.
@@ -54,8 +64,8 @@ Alex watches a live board of everyone hacking and builds the presentation list f
 
 | When | Call | Body |
 |---|---|---|
-| As soon as you know the user's name | `/api/register` | `{"name": "Ada"}` (a team name is fine) → returns `data.token` |
-| Start of each phase | `/api/progress` | `{"token": "...", "phase": "stack", "idea": "Pay-per-roast AI"}` |
+| As soon as you know the user's name | `/api/register` | `{"name": "Ada"}` (a team name is fine) → returns `data.token`. This also marks them as in `interview`. |
+| Start of each later phase | `/api/progress` | `{"token": "...", "phase": "stack", "idea": "Pay-per-roast AI"}` |
 | App is published and works | `/api/submit` | `{"token": "...", "demoUrl": "https://...", "repoUrl": "https://..."}` |
 
 ```bash
@@ -65,7 +75,7 @@ curl -s -X POST https://experience.lwn.lol/api/register \
 
 - `phase` is one of `interview`, `stack`, `setup`, `build`, `publish`. `idea` is a one-liner (max 200 chars); send it once the user picks an idea.
 - Save the token to `.experience.json` in the project and add that file to `.gitignore`. Don't print it in demos or commit it. If you lose it, register again.
-- Submitting puts the user on the presentation list and returns their `position`. Resubmitting (e.g. a new tunnel URL) updates the links and keeps their place.
+- Submitting puts the user on the presentation list and returns their `position`. Resubmitting (e.g. a new tunnel URL) updates the links and keeps their place. If the URL changes, update the README too.
 - `repoUrl` is optional.
 - **Check-ins must never block the hack.** If a call fails, mention it once and keep building.
 
@@ -110,39 +120,17 @@ Want to change anything (language, framework, Bitcoin library, hosting)? Otherwi
 
 **Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose.
 
-### Phase 3: Setup (≤ 10 min)
+### Phase 3: Setup (≤ 8 min)
 
 0. **Preflight (1 min):** check OS/CPU architecture, runtime versions, and that you can run shell commands and fetch URLs. Report anything missing before going further.
 1. **Get docs into context** for whatever Bitcoin tooling you're using. For the default (Bark), see **Bark reference** below.
-2. **Install tools locally** where possible (e.g. into `./bin`), and add that directory to `.gitignore`.
+2. **Install tools locally** where possible (e.g. into `./bin`), and add that directory to `.gitignore`. Grab the tunnel tool now too (see below).
 3. **If the idea moves money, create test wallet(s)** in a fresh, dedicated data directory for this project (outside the repo or gitignored). Never reuse an existing wallet directory on the user's machine.
-4. **If the idea moves money, get test sats.** Alex is handing out signet sats in the room: have the user share their receiving address the way Alex says to. If you're on another test network, use its faucet. Prefer instant off-chain payments (Ark, Lightning); on-chain payments wait for blocks.
+4. **If the idea moves money, ask for test sats right away** (see **Getting test sats** below). Give the user the address and the steps, then keep setting up while the sats arrive.
+5. **Get a public URL now, not at the end.** Serve a hello-world page on port 8080, start the tunnel (below), and have the user open the URL on their phone. Leave the tunnel running for the rest of the session. Don't share the URL yet.
+6. **Checkpoint: one small payment settles** (if the idea moves money), e.g. a payer wallet pays a 100-sat invoice from the app's wallet. Don't stall on it: if sats haven't arrived, start building anyway (creating invoices needs no balance), keep chasing sats in parallel, and move down the list in **Getting test sats**.
 
-### Phase 4: Build (≤ 20 min)
-
-Build checklist:
-
-- The bitcoin part works end to end (a payment arrives, chain data loads, a signature verifies: whatever the idea needs)
-- The "bitcoin moment" visibly does something in the demo
-- If it takes payments: a test wallet is funded, and the app shows a **stable** receiving address or invoice with a **QR code**
-- Wallet data and tokens are not in git
-
-**If a payment unlocks something** (fortune, paywall, prompt), verify it properly:
-
-- Create a **per-request** invoice (or payment request) on the server, and unlock only when *that* invoice is paid. A generic balance increase can't tell you who paid.
-- Fulfil each payment **exactly once**, even if the wallet reports it twice.
-- Show clear **pending / paid / error** states in the UI.
-- Quick test: unpaid access is refused, a duplicate notification doesn't double-unlock, and two customers paying at once each get their own result.
-
-Tips:
-
-- Keep the wallet server-side and talk to it from your app's backend. Don't call a wallet daemon from the browser.
-- Generate one receiving address up front and reuse it. Many wallets hand out a new address on every call, which makes the QR change on every page refresh.
-- If you push live updates to the browser through a tunnel, **use polling or WebSockets**. Server-Sent Events can get buffered by quick tunnels and never arrive.
-
-### Phase 5: Publish + demo prep (≤ 5 min)
-
-Get a public URL with whatever host the user prefers. Default: a **Cloudflare quick tunnel**, which needs no account:
+**Public URL.** Default: a **Cloudflare quick tunnel**, which needs no account:
 
 ```bash
 # Download cloudflared locally (no brew/sudo needed). macOS Apple Silicon example:
@@ -150,13 +138,53 @@ mkdir -p bin && curl -L https://github.com/cloudflare/cloudflared/releases/lates
 ./bin/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8080
 ```
 
-First confirm the app answers locally (`curl -s http://127.0.0.1:8080` returns *your app*, not a wallet API). You get a `https://<random>.trycloudflare.com` URL in seconds. **Tunnel your app's port only, never the wallet daemon's port.** Keep the laptop awake. Other options: `npx wrangler deploy` (Cloudflare Workers/Pages), `npx vercel --prod`, ngrok, or anything else.
+First confirm the app answers locally (`curl -s http://127.0.0.1:8080` returns *your app*, not a wallet API). The `https://<random>.trycloudflare.com` URL appears in the tunnel's output within seconds. Run it in the background or a second terminal so it outlives your other commands. **Tunnel your app's port only, never the wallet daemon's port.** Restarting your app keeps the same URL; restarting the tunnel gives you a new one. Keep the laptop awake. Other options: `npx wrangler deploy` (Cloudflare Workers/Pages), `npx vercel --prod`, ngrok, or anything else.
 
-**Before you share the URL:** remove test/fake-payment routes and anything that could let the audience trigger effects without paying.
+**Getting test sats.** An app that only *receives* needs no sats: Bark can receive Lightning into an empty wallet. You still need a **payer** with sats to test with and to pay during the demo, such as a second "customer" wallet in its own data dir, or someone in the room. Apps that send or pay out (prizes, agents settling a deal) need their own wallet funded. Sources, fastest first:
+
+1. **Alex, in the room.** Have the user share their address the way Alex says to.
+2. **The 2nd.dev faucet:** https://signet.2nd.dev/ (instant, sends to an Ark address). The user logs in with GitHub in their browser. The page needs JavaScript, so you can't use it yourself. It has a daily limit.
+3. **A neighbour.** Anyone with signet sats can pay your invoice or send to your Ark address directly. Ask the people at your table.
+4. **On-chain (slow, start early).** Bark's signet is the standard signet, so any signet faucet works (e.g. https://alt.signetfaucet.com). Have it send to your wallet's on-chain address (`bark onchain address`), then board the coins (`bark board --all`, or barkd's board endpoints). The signet Ark server needs 1 confirmation, about 10 minutes but sometimes longer.
+
+If you still have no sats by minute 30, demo with the room: show the invoice QR on stage and invite anyone with signet sats to pay it live. Never fake a payment.
+
+Using another test network? Use its faucet, and prefer instant off-chain payments (Ark, Lightning, ecash) over on-chain ones, which wait for blocks.
+
+### Phase 4: Build (≤ 17 min)
+
+Build checklist:
+
+- The bitcoin part works end to end (a payment arrives, chain data loads, a signature verifies: whatever the idea needs)
+- The "bitcoin moment" visibly does something in the demo
+- If it takes payments: the app shows a **QR code** for a **stable** receiving address (tips) or a per-request invoice (unlocks), and a real payment from your payer has gone through
+- Wallet data and tokens are not in git
+
+**If a payment unlocks something** (fortune, paywall, prompt), verify it properly:
+
+- Create a **per-request** invoice (or payment request) on the server, and unlock only when *that* invoice is paid. A generic balance increase can't tell you who paid.
+- Fulfil each payment **exactly once**, even if the wallet reports it twice.
+- The amount is fixed when you create the invoice. If your price changes (rising prices, auctions), honour each paid invoice at the amount it was created with, and show a fresh invoice at the new price.
+- Show clear **pending / paid / error** states in the UI.
+- Quick check with a few `curl` calls (not a test suite): unpaid access is refused, a duplicate notification doesn't double-unlock, and two customers paying at once each get their own result.
+
+Tips:
+
+- Keep the wallet server-side and talk to it from your app's backend. Don't call a wallet daemon from the browser.
+- Generate one receiving address up front and reuse it. Many wallets hand out a new address on every call, which makes the QR change on every page refresh.
+- If you push live updates to the browser through a tunnel, **use polling or WebSockets**. Server-Sent Events can get buffered by quick tunnels and never arrive.
+
+### Phase 5: Publish + demo prep (≤ 8 min)
+
+The public URL has been up since Setup (if you couldn't get one then, do it now; see **Public URL**).
+
+**Before you share the URL:** check that no test/fake-payment routes slipped in, and that nothing lets the audience trigger effects without paying.
+
+**Check it from outside.** `curl -s https://<your-url>` from your machine goes through Cloudflare, so it counts, but the real check is the user loading it on their phone. Then do the bitcoin moment once through the public URL.
 
 Write a 3-line `README.md` with the public URL, what it does, and how to use it.
 
-**Submit** once the public URL works from outside your machine (see Check-ins): send `demoUrl`, plus `repoUrl` if the code is pushed somewhere. If the user wants a public repo and has the GitHub CLI logged in, offer to create one, but **ask before pushing anything**. Then tell the user they're on the presentation list and their position.
+**Submit** once that works (see Check-ins): send `demoUrl`, plus `repoUrl` if the code is pushed somewhere. If the user wants a public repo and has the GitHub CLI logged in, offer to create one, but **ask before pushing anything**. Then tell the user they're on the presentation list and their position.
 
 Then help the user prep a demo of **under 3 minutes** (demos start at **12:45**):
 
@@ -205,8 +233,10 @@ Test store: https://signet.2nd.dev/store     (something to pay!)
 - Start it with a data dir outside your repo (or gitignored): `./bin/barkd --datadir ./.wallet`. It listens on **127.0.0.1:3000** by default. That's why the app uses 8080; **never tunnel port 3000**.
 - Get the auth token: `./bin/barkd --datadir ./.wallet secret show`. Put it in `.env` as `BARKD_TOKEN`.
 - barkd starts with **no wallet**. Create one once: `POST /api/v1/wallet/create` with `{"network":"signet","ark_server":"https://ark.signet.2nd.dev","chain_source":{"esplora":{"url":"https://esplora.signet.2nd.dev"}}}`.
+- A new wallet has **no addresses yet**. Call `POST /api/v1/wallet/addresses/next` once right after creating it. Until you do, `GET /api/v1/wallet/addresses/index/0` fails with `VTXO key 0 does not exist, please derive it first`.
+- Lightning receive works with an empty wallet: `POST /api/v1/lightning/receives/invoice` with `{"amount_sat": 100, "description": "..."}` returns a BOLT11 invoice. Poll `GET /api/v1/lightning/receives/{invoice}` and treat it as paid when `state` is `settled`.
 - The full API spec for the version you're running is at `http://127.0.0.1:3000/api-docs/openapi.json` (Swagger UI at `/swagger-ui`). Trust it over any example.
-- TypeScript client: `npm install @secondts/barkd`. **Pass the token**, or every call returns 401:
+- TypeScript client: `npm install @secondts/barkd`, or call the REST API with plain `fetch` and an `Authorization: Bearer <token>` header. **Pass the token** either way, or every call returns 401:
 
 ```ts
 import { Configuration, WalletApi, LightningApi, NotificationsApi } from "@secondts/barkd";
@@ -219,13 +249,14 @@ const wallet = new WalletApi(config);
 const lightning = new LightningApi(config);
 const notifications = new NotificationsApi(config);
 
+await wallet.address(); // once, right after creating the wallet: derives address 0
 const { address } = await wallet.peekAddress({ index: 0 }); // stable address for your QR
 const balance = await wallet.balance();
 const { invoice } = await lightning.generateInvoice({ /* see spec */ }); // BOLT11
 const { notifications: events } = await notifications.waitNotification({}); // long-poll for payments
 ```
 
-Check exact request shapes in the spec. `wallet.address()` returns a **new** address every call, so use `peekAddress({ index: 0 })` for a QR that doesn't change.
+Check exact request shapes in the spec. `wallet.address()` returns a **new** address every call, so call it once at setup, then use `peekAddress({ index: 0 })` for a QR that doesn't change.
 
 **bark CLI (good for agents, bots, and scripts).**
 
@@ -240,7 +271,8 @@ export BARK_DATADIR=./.wallet-cli    # one data dir per wallet; never share or r
 - Most commands sync automatically. To force it, run `bark maintain`, or call `POST /api/v1/wallet/sync` on barkd. (There is no `bark sync`.)
 - For multiple agents with their own wallets, give each a separate `BARK_DATADIR`.
 - `bark create --force` **deletes the existing wallet**. Don't use it.
-- bark writes the mnemonic in plain text to `<datadir>/mnemonic`, which is why the data dir must never be committed.
+- bark writes the mnemonic in plain text to `<datadir>/mnemonic`, which is why the data dir must never be committed. Don't print that file, and don't paste `bark create` output into chat or onto a screen people can see.
+- A payer ("customer") wallet for testing is just another CLI wallet: `BARK_DATADIR=./.wallet-payer ./bin/bark create ...`, fund it, then `./bin/bark send <invoice>`.
 
 **Browser wallet (optional).** `@secondts/bark` (WASM) runs a wallet **in the browser only** (needs IndexedDB and HTTPS or localhost; not Node or Workers). Useful when every visitor needs their own wallet, e.g. multiplayer games on Cloudflare Pages. See [bark-sdk/wasm.md](https://second.tech/docs/bark-sdk/wasm.md).
 
@@ -253,7 +285,9 @@ export BARK_DATADIR=./.wallet-cli    # one data dir per wallet; never share or r
 - **Payment not showing up?** Sync the wallet and check the status/history endpoints before assuming failure.
 - **401 from barkd?** You're not passing the token. Don't disable auth.
 - **Port 3000 already in use?** barkd is using it. Move your app to 8080.
-- **On-chain funding is slow?** It waits for signet blocks. Ask Alex for off-chain sats instead.
+- **No sats?** Work down **Getting test sats** (Phase 3). Receiving doesn't need any; only your payer does.
+- **`VTXO key 0 does not exist`?** Call `POST /api/v1/wallet/addresses/next` once, then read index 0 again.
+- **On-chain funding is slow?** Boarding waits for a signet block. Ask Alex or a neighbour for off-chain sats instead.
 - **Ark VTXO weirdness?** The signet Ark server runs a round every ~5 minutes; `bark refresh --all` can help. Read [learn/vtxo.md](https://second.tech/docs/learn/vtxo.md) and [learn/rounds.md](https://second.tech/docs/learn/rounds.md).
 - **Live updates not arriving through the tunnel?** Switch from SSE to polling.
 - **SDK method doesn't exist?** Check the spec or docs; don't guess. Fall back to the CLI.

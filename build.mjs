@@ -57,6 +57,7 @@ await Promise.all([
   ...["slides.html", "slides.css", "slides.js"].map(async (file) =>
     writeFile(`${OUT_DIR}/${file}`, await readFile(`content/${file}`, "utf8")),
   ),
+  ...["favicon.svg", "favicon.ico", "apple-touch-icon.png"].map((file) => cp(`content/${file}`, `${OUT_DIR}/${file}`)),
   cp("content/fonts", `${OUT_DIR}/fonts`, { recursive: true }),
   build({
     entryPoints: ["src/dashboard.ts"],

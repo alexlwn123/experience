@@ -12,7 +12,7 @@ Paste this into your coding agent (Claude Code, Codex, Cursor, Astra, whatever y
 Read https://experience.lwn.lol/agent.md and follow it. Be my hackathon partner.
 ```
 
-Your agent will interview you, pitch ideas, propose a tech stack (you can change anything), build your app, and publish it.
+Your agent will interview you, pitch ideas, confirm the plan, demo, and tech stack with you (you can change anything), build your app, and publish it.
 
 **Before the clock starts (2 min):** have your coding agent installed and logged in, Node 22+ (for the default stack), and a terminal your agent can run commands in. No hosting accounts needed.
 
@@ -39,7 +39,7 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 | Minute | Phase |
 |---|---|
 | 0–5 | 1. Interview + pick an idea |
-| 5–7 | 2. Propose the stack + confirm |
+| 5–7 | 2. Confirm the plan, demo + stack |
 | 7–15 | 3. Setup (wallet funding starts, public URL works) |
 | 15–32 | 4. Build |
 | 32–40 | 5. Publish + demo prep |
@@ -103,23 +103,29 @@ Idea seeds to remix (don't just copy these):
 - **Explainer agent:** paste a transaction or address and an AI explains what happened in plain English.
 - **Sign in with bitcoin:** prove you hold a key by signing a message, and unlock something with it.
 
-### Phase 2: Propose the stack + confirm (≤ 2 min)
+### Phase 2: Confirm the plan, demo + stack (≤ 2 min)
+
+Before building anything, play the idea back so you and the user agree on what "done" looks like: the plan (the smallest version that works), the demo, and the elevator pitch.
 
 The **Default stack** (see below) exists so attendees who don't know what to pick don't have to. **It is a suggestion, not a requirement.** If the user already knows a language, framework, Bitcoin library, or host, use theirs. If the idea fits a different tool better, propose that instead.
 
-Send the user a short proposal, for example:
+Send it all in one short message, for example:
 
 ```text
-Here's the stack I'd use for <idea>:
+Plan: <the MVP in 1–2 lines: the smallest version that works, nothing extra>
+Demo: <what we'll show on stage in under 3 minutes, step by step, ending on the bitcoin moment>
+Pitch: <one sentence: what it is and why it's fun>
+
+Stack:
 - Bitcoin: Bark (Ark + Lightning on signet) if the idea moves money; the mempool.space API if it only reads chain data
 - App: Node + Hono on port 8080
 - Live updates: browser polling
 - Publish: Cloudflare quick tunnel (no account needed)
 
-Want to change anything (language, framework, Bitcoin library, hosting)? Otherwise I'll start setting up.
+Want to change anything (scope, demo, language, framework, Bitcoin library, hosting)? Otherwise I'll start setting up.
 ```
 
-**Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose.
+**Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose. The plan is your scope for Build, and the demo is what Phase 5 has to deliver.
 
 ### Phase 3: Setup (≤ 8 min)
 
@@ -189,8 +195,8 @@ Write a 3-line `README.md` with the public URL, what it does, and how to use it.
 
 Then help the user prep a demo of **under 3 minutes** (demos start at **12:45**):
 
-- One sentence: what it is and why it's fun.
-- Show the bitcoin moment live.
+- Open with the pitch from Phase 2 (update it if the build changed).
+- Walk through the demo you agreed on, and show the bitcoin moment live.
 - Have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi or tunnel dies on stage.
 
 ---

@@ -38,10 +38,10 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 
 | Minute | Phase |
 |---|---|
-| 0–10 | 1. Interview + develop the idea |
-| 10–12 | 2. Confirm the plan, demo + stack |
-| 12–18 | 3. Setup (wallet funding starts, public URL works) |
-| 18–32 | 4. Build |
+| 0–12 | 1. Interview + develop the idea |
+| 12–14 | 2. Confirm the plan, demo + stack |
+| 14–20 | 3. Setup (wallet funding starts, public URL works) |
+| 20–32 | 4. Build |
 | 32–37 | 5. Publish + submit |
 | 37–40 | 6. Talk track |
 | After 40, if there's time | 7. Slides (optional) |
@@ -81,9 +81,9 @@ curl -s -X POST https://experience.lwn.lol/api/register \
 - `repoUrl` is optional.
 - **Check-ins must never block the hack.** If a call fails, mention it once and keep building.
 
-### Phase 1: Interview + develop the idea (≤ 10 min)
+### Phase 1: Interview + develop the idea (≤ 12 min)
 
-Don't rush this. The build goes fast; the idea is what makes the demo. Develop it over **up to 3 short rounds**, one message each, waiting for answers between them. Give lettered options so the user can reply in a few keystrokes (e.g. `1b 2a`), and always take their own answer instead. If they arrive with a clear idea, skip Round 2 and build on theirs.
+Don't rush this. The build goes fast; the idea is what makes the demo. Start with one quick round about the user, then grill the idea for **3–5 rounds** before committing to anything. Each round is one message; wait for answers between them. Give lettered options so the user can reply in a few keystrokes (e.g. `1b 2a`), and always take their own answer instead.
 
 **Round 1: You**
 
@@ -95,18 +95,19 @@ Don't rush this. The build goes fast; the idea is what makes the demo. Develop i
 
 As soon as they answer, **register** (see Check-ins).
 
-**Round 2: The impact** (tailor the options to their Round 1 answers)
+**Then grill the idea (3–5 rounds)**
 
-1. What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, bitcoin can do that?" (d) mild horror: make it cursed
-2. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun
-3. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
-4. What kind of bitcoin? (a) money moves: payments, tips, paywalls (b) reading the chain: blocks, fees, mempool (c) keys: signing and proving ownership (d) surprise me
+Dig into what they actually want to build. Each round is 2–4 sharp questions tailored to what they've said so far, and from the second round on, give them fresh options too (ideas, variations, twists), not just questions. Stop at 3 rounds if they're excited about something; go up to 5 if it's still fuzzy. If they arrived with a clear idea, start at **Push back** and grill theirs.
 
-**Round 3: Pick the idea**
+A typical arc (adapt it; don't read it out):
 
-Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; unless they asked for money moving, mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
+1. **Impact.** What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, bitcoin can do that?" (d) mild horror: make it cursed. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
+2. **Bitcoin + options.** What kind of bitcoin? (a) money moves: payments, tips, paywalls (b) reading the chain: blocks, fees, mempool (c) keys: signing and proving ownership (d) surprise me. Then pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and an obvious "bitcoin moment" for the demo. Unless they asked for money moving, include at least one idea that doesn't move money. Recommend one, and let them pick or remix.
+3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? Offer 2–3 variations (simpler, bigger, weirder) to choose from or combine.
+4. **Make it demoable.** What happens on stage, step by step? Does the room take part (pay, vote, scan a QR)? What's the first thing to cut if time runs short?
+5. **Last call.** Play the idea back in two lines and ask what they'd change, add, or cut. Repeat until they're happy.
 
-Then **ask for feedback** before moving on: what would they change, add, or cut? Play the refined idea back in a line or two and keep tweaking it with them until they're happy with it (a couple of quick passes, within the 10 minutes). Don't start Phase 2 until they say it's the one.
+**Don't start Phase 2 until they say it's the one.**
 
 Idea seeds to remix (don't just copy these):
 
@@ -174,7 +175,7 @@ If you still have no sats by minute 30, demo with the room: show the invoice QR 
 
 Using another test network? Use its faucet, and prefer instant off-chain payments (Ark, Lightning, ecash) over on-chain ones, which wait for blocks.
 
-### Phase 4: Build (≤ 14 min)
+### Phase 4: Build (≤ 12 min)
 
 Build checklist:
 

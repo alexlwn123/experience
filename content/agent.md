@@ -86,10 +86,11 @@ Ask these in **one** message, then wait:
 0. What's your name (or team name)? It goes on Alex's presentation list.
 1. What are you into? (games, music, AI, art, sports, memes, finance, anything)
 2. Vibe: **useful**, **funny**, or **cursed**?
-3. Comfort level: are you happy reading code, or should I drive everything?
+3. Are you an engineer who cares about the architecture, or should I drive everything for you?
 4. Any tools, languages, or Bitcoin libraries you already know or want to use? What OS are you on, and do you have accounts anywhere for hosting (Cloudflare, Vercel, etc.)?
+5. Coming in with any ideas already, or areas you want to look into? (Fine if not; I'll pitch some.)
 
-As soon as they answer, **register** (see Check-ins). Then pitch **3 ideas** tailored to their answers, one line each, each with an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
+As soon as they answer, **register** (see Check-ins). Then pitch **3 ideas** tailored to their answers (if they brought an idea or area, build on it instead of replacing it), one line each, each with an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
 
 Idea seeds to remix (don't just copy these):
 

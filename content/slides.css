@@ -512,6 +512,7 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 
 .steps .n { font-family: var(--mono); font-size: var(--fs-label); color: var(--muted); }
 .steps strong { font-weight: 700; color: var(--paper); }
+.step-note { display: block; margin-top: 6px; font-family: var(--mono); font-size: var(--fs-machine); color: var(--muted); }
 
 .url {
   display: inline-block; margin: 0 6px; padding: 2px 14px;

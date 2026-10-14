@@ -15,7 +15,7 @@ const llmsTxt = `# The Alex Lewin Experience
 
 > A 1-hour Bitcoin (signet) agent hackathon at TABConf. Coding agents: read the full playbook and follow it.
 
-- [Agent playbook](${SITE_URL}/agent.md): interview the attendee, pick an idea, set up a Bark signet wallet, build, and publish.
+- [Agent playbook](${SITE_URL}/agent.md): interview the attendee, pick an idea that involves bitcoin, build it, and publish.
 `;
 
 // Same sunburst as the slides, rendered at build time so the homepage needs no JS for it.

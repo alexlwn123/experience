@@ -2,7 +2,7 @@
 
 **A 1-hour Bitcoin agent hackathon at TABConf.**
 
-You and your coding agent have ~40 minutes to build and publish something where **bitcoin changes hands**. Useful, silly, or cursed: all welcome. The only rule: **a real (test-network) payment happens during your demo.** Then it's hack-and-tell: everyone who submits gets to show what they built.
+You and your coding agent have ~40 minutes to build and publish something. The only rule: **it involves bitcoin, in any capacity.** It can move test sats, read the chain, sign a message, visualize blocks, or anything else. Useful, silly, or cursed: all welcome. Then it's hack-and-tell: **demos start at 12:45, under 3 minutes each.**
 
 ## Humans: start here
 
@@ -34,11 +34,11 @@ You are the attendee's hackathon partner. Follow these phases in order. Keep you
 | 17–37 | 4. Build |
 | 37–42 | 5. Publish + demo prep |
 
-Tell the user which phase you're in, and send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the payment**.
+Tell the user which phase you're in, and send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**.
 
 ### Ground rules (these apply whatever stack you use)
 
-- **Test money only.** Use a test network (signet, testnet, mutinynet, regtest, test mints). Never mainnet, never real funds.
+- **Test money only.** If the project moves funds, use a test network (signet, testnet, mutinynet, regtest, test mints). Never move real funds. Reading public mainnet data (block explorers, mempool APIs) is fine.
 - **Never ask for the user's real seed phrase.** Generate fresh test wallets.
 - **Keep wallet data, mnemonics, and API tokens out of git.** Put wallet data directories outside the repo or in `.gitignore`; put tokens in `.env`.
 - **Never expose a wallet daemon or admin API to the internet.** Only your app's own routes go public. Never disable wallet auth (e.g. Bark's `--no-auth` / `--dangerously-allow-remote-no-auth`); if auth fails, fix the token.
@@ -79,7 +79,7 @@ Ask these in **one** message, then wait:
 3. Comfort level: are you happy reading code, or should I drive everything?
 4. Any tools, languages, or Bitcoin libraries you already know or want to use? What OS are you on, and do you have accounts anywhere for hosting (Cloudflare, Vercel, etc.)?
 
-As soon as they answer, **register** (see Check-ins). Then pitch **3 ideas** tailored to their answers, one line each, each with an obvious "money moment" for the demo. Recommend one. Let them pick or remix.
+As soon as they answer, **register** (see Check-ins). Then pitch **3 ideas** tailored to their answers, one line each, each with an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
 
 Idea seeds to remix (don't just copy these):
 
@@ -87,8 +87,10 @@ Idea seeds to remix (don't just copy these):
 - **Paywalled thing:** a joke, fortune, song, or secret behind a sats paywall.
 - **Agent bargaining:** two AI agents negotiate a price, then actually settle.
 - **Sats game:** pay to move/guess/play; winner takes the pot.
-- **Bounty board:** post a task with a sats reward; first to complete it gets paid.
 - **Tip-triggered chaos:** a payment makes something happen on screen (confetti, sound, a message on a big display).
+- **Chain art:** turn live blocks, fees, or the mempool into music, art, or a game (read-only chain data).
+- **Explainer agent:** paste a transaction or address and an AI explains what happened in plain English.
+- **Sign in with bitcoin:** prove you hold a key by signing a message, and unlock something with it.
 
 ### Phase 2: Propose the stack + confirm (≤ 2 min)
 
@@ -98,7 +100,7 @@ Send the user a short proposal, for example:
 
 ```text
 Here's the stack I'd use for <idea>:
-- Bitcoin: Bark (Ark + Lightning on signet), via barkd + TypeScript client
+- Bitcoin: Bark (Ark + Lightning on signet) if the idea moves money; the mempool.space API if it only reads chain data
 - App: Node + Hono on port 8080
 - Live updates: browser polling
 - Publish: Cloudflare quick tunnel (no account needed)
@@ -113,17 +115,16 @@ Want to change anything (language, framework, Bitcoin library, hosting)? Otherwi
 0. **Preflight (1 min):** check OS/CPU architecture, runtime versions, and that you can run shell commands and fetch URLs. Report anything missing before going further.
 1. **Get docs into context** for whatever Bitcoin tooling you're using. For the default (Bark), see **Bark reference** below.
 2. **Install tools locally** where possible (e.g. into `./bin`), and add that directory to `.gitignore`.
-3. **Create test wallet(s)** in a fresh, dedicated data directory for this project (outside the repo or gitignored). Never reuse an existing wallet directory on the user's machine.
-4. **Get test sats.** Alex is handing out signet sats in the room: have the user share their receiving address the way Alex says to. If you're on another test network, use its faucet. Prefer instant off-chain payments (Ark, Lightning); on-chain payments wait for blocks.
+3. **If the idea moves money, create test wallet(s)** in a fresh, dedicated data directory for this project (outside the repo or gitignored). Never reuse an existing wallet directory on the user's machine.
+4. **If the idea moves money, get test sats.** Alex is handing out signet sats in the room: have the user share their receiving address the way Alex says to. If you're on another test network, use its faucet. Prefer instant off-chain payments (Ark, Lightning); on-chain payments wait for blocks.
 
 ### Phase 4: Build (≤ 20 min)
 
 Build checklist:
 
-- Wallet created and funded on a test network
-- The app shows a **stable** receiving address or invoice, with a **QR code**
-- At least one end-to-end payment works (send *or* receive, ideally both)
-- The "money moment" visibly does something when sats move
+- The bitcoin part works end to end (a payment arrives, chain data loads, a signature verifies: whatever the idea needs)
+- The "bitcoin moment" visibly does something in the demo
+- If it takes payments: a test wallet is funded, and the app shows a **stable** receiving address or invoice with a **QR code**
 - Wallet data and tokens are not in git
 
 **If a payment unlocks something** (fortune, paywall, prompt), verify it properly:
@@ -153,15 +154,15 @@ First confirm the app answers locally (`curl -s http://127.0.0.1:8080` returns *
 
 **Before you share the URL:** remove test/fake-payment routes and anything that could let the audience trigger effects without paying.
 
-Write a 3-line `README.md` with the public URL, what it does, and how to pay it.
+Write a 3-line `README.md` with the public URL, what it does, and how to use it.
 
 **Submit** once the public URL works from outside your machine (see Check-ins): send `demoUrl`, plus `repoUrl` if the code is pushed somewhere. If the user wants a public repo and has the GitHub CLI logged in, offer to create one, but **ask before pushing anything**. Then tell the user they're on the presentation list and their position.
 
-Then help the user prep a **90-second demo**:
+Then help the user prep a demo of **under 3 minutes** (demos start at **12:45**):
 
 - One sentence: what it is and why it's fun.
-- Show the money moment live.
-- Have a backup ready (a screen recording or a screenshot of a completed payment) in case the Wi-Fi or tunnel dies on stage.
+- Show the bitcoin moment live.
+- Have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi or tunnel dies on stage.
 
 ---
 
@@ -171,7 +172,7 @@ A sensible default for people who don't have a preference. Swap any piece.
 
 | Piece | Default | Swap for anything, e.g. |
 |---|---|---|
-| Bitcoin | [Bark](https://second.tech) (Ark + Lightning) on **signet**, via `barkd` + `@secondts/barkd` | Any Lightning, ecash, or on-chain library/wallet that runs on a test network |
+| Bitcoin | To move money: [Bark](https://second.tech) (Ark + Lightning) on **signet**, via `barkd` + `@secondts/barkd`. To read chain data: the [mempool.space API](https://mempool.space/docs/api/rest) | Any Lightning, ecash, or on-chain library, wallet, or data API |
 | App | Node 22 + [Hono](https://hono.dev), port **8080** | Any language/framework |
 | Live updates | Browser polling (every 1–2 s) | WebSockets |
 | Publish | Cloudflare quick tunnel | Cloudflare Workers/Pages, Vercel, ngrok, Fly, … |
@@ -256,7 +257,7 @@ export BARK_DATADIR=./.wallet-cli    # one data dir per wallet; never share or r
 - **Ark VTXO weirdness?** The signet Ark server runs a round every ~5 minutes; `bark refresh --all` can help. Read [learn/vtxo.md](https://second.tech/docs/learn/vtxo.md) and [learn/rounds.md](https://second.tech/docs/learn/rounds.md).
 - **Live updates not arriving through the tunnel?** Switch from SSE to polling.
 - **SDK method doesn't exist?** Check the spec or docs; don't guess. Fall back to the CLI.
-- **Out of time?** Cut features. A single working payment beats a broken masterpiece.
+- **Out of time?** Cut features. One working bitcoin moment beats a broken masterpiece.
 
 ---
 

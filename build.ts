@@ -19,7 +19,7 @@ const llmsTxt = `# The Alex Lewin Experience
 `;
 
 // Same sunburst as the slides, rendered at build time so the homepage needs no JS for it.
-function sunburstSvg() {
+function sunburstSvg(): string {
   const rays = Array.from({ length: 72 }, (_, i) => {
     const angle = (i / 72) * Math.PI * 2;
     const inner = i % 2 === 0 ? 150 : 230;
@@ -35,7 +35,7 @@ function sunburstSvg() {
   return `<svg viewBox="-500 -500 1000 1000">${[...rays, ...rings].join("")}</svg>`;
 }
 
-const fill = (template, values) =>
+const fill = (template: string, values: Record<string, string>): string =>
   Object.entries(values).reduce((out, [key, value]) => out.replaceAll(`{{${key}}}`, () => value), template);
 
 const html = fill(await readFile("content/home.html", "utf8"), {

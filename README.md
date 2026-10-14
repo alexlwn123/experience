@@ -14,7 +14,7 @@ Attendees paste one line into their coding agent. The agent follows the playbook
 
 ## Stack
 
-- Static site built by `build.mjs` and deployed on Vercel (`vercel.json` holds the rewrites)
+- Static site built by `build.ts` and deployed on Vercel (`vercel.json` holds the rewrites)
 - [Convex](https://convex.dev) backend in `convex/`: HTTP routes in `http.ts`, data and admin functions in `participants.ts`
 - Dashboard in `src/`, bundled with esbuild and subscribed to Convex live
 
@@ -29,7 +29,7 @@ set -a; . ./.env.local; set +a; pnpm build   # builds dist/
 
 ## Deploy
 
-Pushing to `main` deploys everything. Vercel's build runs `npx convex deploy` (using `CONVEX_DEPLOY_KEY` from Vercel's Production env), which pushes the backend and then runs `node build.mjs` with `CONVEX_URL` set. Other branches don't deploy (`git.deploymentEnabled` in `vercel.json`).
+Pushing to `main` deploys everything. Vercel's build runs `npx convex deploy` (using `CONVEX_DEPLOY_KEY` from Vercel's Production env), which pushes the backend and then runs `node --experimental-strip-types build.ts` with `CONVEX_URL` set. Other branches don't deploy (`git.deploymentEnabled` in `vercel.json`).
 
 Manual deploy, if you need one:
 

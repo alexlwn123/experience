@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx convex deploy --cmd 'node build.mjs' --cmd-url-env-var-name CONVEX_URL",
+  "buildCommand": "npx convex deploy --cmd 'node --experimental-strip-types build.ts' --cmd-url-env-var-name CONVEX_URL",
   "outputDirectory": "dist",
   "git": {
     "deploymentEnabled": {

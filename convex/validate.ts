@@ -31,6 +31,12 @@ export function cleanPhase(input: unknown): Result<Phase> {
     : { ok: false, error: `phase must be one of: ${PHASES.join(", ")}` };
 }
 
+export function assertAdmin(key: string) {
+  const expected = process.env.ADMIN_KEY;
+  if (!expected) throw new Error("ADMIN_KEY is not configured");
+  if (!safeEqual(key, expected)) throw new Error("Unauthorized");
+}
+
 export function safeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
   const diff = [...a].reduce((acc, char, i) => acc | (char.charCodeAt(0) ^ b.charCodeAt(i)), 0);

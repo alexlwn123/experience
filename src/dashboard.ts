@@ -41,6 +41,12 @@ function actionsFor(key: string): Actions {
   };
 }
 
+// Looks for slides at each submitted demo's /slides route; found ones arrive via the live list.
+// A failed check is simply retried on the next refresh.
+function checkSlides(key: string) {
+  client.action(api.slides.adminCheckSlides, { key }).catch(() => undefined);
+}
+
 function draw(key: string) {
   board.replaceChildren(renderBoard(latest, Date.now(), actionsFor(key)));
 }
@@ -64,16 +70,22 @@ function connect(key: string) {
     { key },
     (participants) => {
       localStorage.setItem(KEY_STORAGE, key);
+      const firstUpdate = !gate.hidden;
       gate.hidden = true;
       latest = participants;
       draw(key);
+      if (firstUpdate) checkSlides(key);
     },
     () => signOut("That key didn't work."),
   );
 }
 
-// Keeps the "last update" column fresh between live updates.
-setInterval(() => currentKey && gate.hidden && draw(currentKey), REFRESH_MS);
+// Keeps the "last update" column fresh between live updates, and picks up newly added slides.
+setInterval(() => {
+  if (!currentKey || !gate.hidden) return;
+  draw(currentKey);
+  checkSlides(currentKey);
+}, REFRESH_MS);
 
 gate.addEventListener("submit", (event) => {
   event.preventDefault();

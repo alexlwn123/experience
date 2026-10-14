@@ -65,7 +65,11 @@ function readyRow(ready: Participant[], index: number, actions: Actions): HTMLEl
       el("strong", {}, [p.name]),
       p.idea ? el("span", { class: "idea" }, [p.idea]) : null,
     ]),
-    el("div", { class: "links" }, [safeLink(p.demoUrl, "Demo ↗"), safeLink(p.repoUrl, "Repo ↗")]),
+    el("div", { class: "links" }, [
+      safeLink(p.demoUrl, "Demo ↗"),
+      safeLink(p.slidesUrl, "Slides ↗"),
+      safeLink(p.repoUrl, "Repo ↗"),
+    ]),
     el("div", { class: "admin" }, [
       button("↑", () => move(index - 1), "move", index === 0),
       button("↓", () => move(index + 1), "move", index === ready.length - 1),

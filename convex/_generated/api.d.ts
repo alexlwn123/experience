@@ -11,6 +11,7 @@
 import type * as http from "../http.js";
 import type * as model from "../model.js";
 import type * as participants from "../participants.js";
+import type * as slides from "../slides.js";
 import type * as validate from "../validate.js";
 
 import type {
@@ -23,6 +24,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   model: typeof model;
   participants: typeof participants;
+  slides: typeof slides;
   validate: typeof validate;
 }>;
 

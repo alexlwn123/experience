@@ -2,13 +2,7 @@ import { v } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
 import { internalMutation, mutation, query, type QueryCtx } from "./_generated/server";
 import { LIMITS, READY_PHASE } from "./model";
-import { safeEqual } from "./validate";
-
-function assertAdmin(key: string) {
-  const expected = process.env.ADMIN_KEY;
-  if (!expected) throw new Error("ADMIN_KEY is not configured");
-  if (!safeEqual(key, expected)) throw new Error("Unauthorized");
-}
+import { assertAdmin } from "./validate";
 
 const slotOf = (p: Doc<"participants">) => p.slot ?? p.submittedAt ?? Number.POSITIVE_INFINITY;
 
@@ -65,6 +59,8 @@ export const submit = internalMutation({
     await ctx.db.patch(participant._id, {
       demoUrl,
       repoUrl,
+      // A new demo URL means new slides (if any); the dashboard looks again.
+      ...(participant.demoUrl !== demoUrl ? { slidesUrl: undefined } : {}),
       phase: READY_PHASE,
       submittedAt: participant.submittedAt ?? now,
       slot,

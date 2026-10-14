@@ -9,6 +9,8 @@ export default defineSchema({
     idea: v.optional(v.string()),
     demoUrl: v.optional(v.string()),
     repoUrl: v.optional(v.string()),
+    // Set by slides.adminCheckSlides once the demo site serves slides at /slides.
+    slidesUrl: v.optional(v.string()),
     registeredAt: v.number(),
     lastSeenAt: v.number(),
     submittedAt: v.optional(v.number()),

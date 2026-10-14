@@ -44,7 +44,7 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 | 15–32 | 4. Build |
 | 32–40 | 5. Publish + demo prep |
 
-Start every message with the phase and the minute, e.g. `Build · min 22/40`. Send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**. **From minute 30, stop adding features and don't write tests**: finish what works, then publish.
+Send a **progress check-in** (below) at the start of each phase. If you're behind schedule, **cut scope, not the bitcoin part**. **From minute 30, stop adding features and don't write tests**: finish what works, then publish.
 
 ### Ground rules (these apply whatever stack you use)
 

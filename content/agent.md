@@ -38,10 +38,10 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 
 | Minute | Phase |
 |---|---|
-| 0–5 | 1. Interview + pick an idea |
-| 5–7 | 2. Confirm the plan, demo + stack |
-| 7–15 | 3. Setup (wallet funding starts, public URL works) |
-| 15–32 | 4. Build |
+| 0–10 | 1. Interview + develop the idea |
+| 10–12 | 2. Confirm the plan, demo + stack |
+| 12–18 | 3. Setup (wallet funding starts, public URL works) |
+| 18–32 | 4. Build |
 | 32–37 | 5. Publish + submit |
 | 37–40 | 6. Talk track |
 | After 40, if there's time | 7. Slides (optional) |
@@ -81,18 +81,32 @@ curl -s -X POST https://experience.lwn.lol/api/register \
 - `repoUrl` is optional.
 - **Check-ins must never block the hack.** If a call fails, mention it once and keep building.
 
-### Phase 1: Interview (≤ 5 min)
+### Phase 1: Interview + develop the idea (≤ 10 min)
 
-Ask these in **one** message, then wait:
+Don't rush this. The build goes fast; the idea is what makes the demo. Develop it over **up to 3 short rounds**, one message each, waiting for answers between them. Give lettered options so the user can reply in a few keystrokes (e.g. `1b 2a`), and always take their own answer instead. If they arrive with a clear idea, skip Round 2 and build on theirs.
+
+**Round 1: You**
 
 0. What's your name (or team name)? It goes on Alex's presentation list.
-1. What are you into? (games, music, AI, art, sports, memes, finance, anything)
-2. Vibe: **useful**, **funny**, or **cursed**?
+1. What areas interest you? (games, music, AI, art, sports, memes, finance, privacy, your day job, anything)
+2. Coming in with an idea already, or something you want to look into? (Fine if not.)
 3. Are you an engineer who cares about the architecture, or should I drive everything for you?
-4. Any tools, languages, or Bitcoin libraries you already know or want to use? What OS are you on, and do you have accounts anywhere for hosting (Cloudflare, Vercel, etc.)?
-5. Coming in with any ideas already, or areas you want to look into? (Fine if not; I'll pitch some.)
+4. Any tools, languages, or Bitcoin libraries you know or want to use? What OS are you on, and do you have accounts anywhere for hosting (Cloudflare, Vercel, etc.)?
 
-As soon as they answer, **register** (see Check-ins). Then pitch **3 ideas** tailored to their answers (if they brought an idea or area, build on it instead of replacing it), one line each, each with an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
+As soon as they answer, **register** (see Check-ins).
+
+**Round 2: The impact** (tailor the options to their Round 1 answers)
+
+1. What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, bitcoin can do that?" (d) mild horror: make it cursed
+2. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun
+3. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
+4. What kind of bitcoin? (a) money moves: payments, tips, paywalls (b) reading the chain: blocks, fees, mempool (c) keys: signing and proving ownership (d) surprise me
+
+**Round 3: Pick the idea**
+
+Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and an obvious "bitcoin moment" for the demo. It doesn't have to be a payment; unless they asked for money moving, mix in at least one idea that doesn't move money. Recommend one. Let them pick or remix.
+
+Then **ask for feedback** before moving on: what would they change, add, or cut? Play the refined idea back in a line or two and keep tweaking it with them until they're happy with it (a couple of quick passes, within the 10 minutes). Don't start Phase 2 until they say it's the one.
 
 Idea seeds to remix (don't just copy these):
 
@@ -129,7 +143,7 @@ Want to change anything (scope, demo, language, framework, Bitcoin library, host
 
 **Wait for the user to confirm or change it before installing or building anything.** Then adapt Phases 3–5 to whatever they chose. The plan is your scope for Build, and the demo and pitch become the talk track in Phase 6.
 
-### Phase 3: Setup (≤ 8 min)
+### Phase 3: Setup (≤ 6 min)
 
 0. **Preflight (1 min):** check OS/CPU architecture, runtime versions, and that you can run shell commands and fetch URLs. Report anything missing before going further.
 1. **Get docs into context** for whatever Bitcoin tooling you're using. For the default (Bark), see **Bark reference** below.
@@ -160,7 +174,7 @@ If you still have no sats by minute 30, demo with the room: show the invoice QR 
 
 Using another test network? Use its faucet, and prefer instant off-chain payments (Ark, Lightning, ecash) over on-chain ones, which wait for blocks.
 
-### Phase 4: Build (≤ 17 min)
+### Phase 4: Build (≤ 14 min)
 
 Build checklist:
 

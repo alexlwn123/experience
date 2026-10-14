@@ -1,6 +1,12 @@
 {
-  "buildCommand": "node build.mjs",
+  "buildCommand": "npx convex deploy --cmd 'node build.mjs' --cmd-url-env-var-name CONVEX_URL",
   "outputDirectory": "dist",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "**": false
+    }
+  },
   "headers": [
     {
       "source": "/(.*)\\.md",

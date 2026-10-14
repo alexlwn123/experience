@@ -29,10 +29,13 @@ set -a; . ./.env.local; set +a; pnpm build   # builds dist/
 
 ## Deploy
 
+Pushing to `main` deploys everything. Vercel's build runs `npx convex deploy` (using `CONVEX_DEPLOY_KEY` from Vercel's Production env), which pushes the backend and then runs `node build.mjs` with `CONVEX_URL` set. Other branches don't deploy (`git.deploymentEnabled` in `vercel.json`).
+
+Manual deploy, if you need one:
+
 ```bash
-npx convex deploy                           # backend (prod)
-npx convex env set ADMIN_KEY <key> --prod   # dashboard key
-vercel deploy --prod                        # site; CONVEX_URL is set in Vercel env
+vercel deploy --prod                        # same build as a push to main: backend + site
+npx convex env set ADMIN_KEY <key> --prod   # dashboard key (one-time)
 ```
 
 Get the current dashboard key with `npx convex env get ADMIN_KEY --prod`.

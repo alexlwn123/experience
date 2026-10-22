@@ -9,7 +9,7 @@ You and your Finite agent have 40 minutes to build something cool and put it liv
 Open a chat with your agent on https://finite.chat and paste this:
 
 ```text
-Read https://experience--svw2.finite.place/agent.md and follow it. Be my hackathon partner.
+Read https://hack--hack.finite.place/agent.md and follow it. Be my hackathon partner.
 ```
 
 Your agent will interview you, pitch ideas, confirm the plan and the demo with you, build your app, publish it, and draft your talk (plus slides, if you want them). There's nothing to install: your agent builds and publishes from its own computer.
@@ -57,14 +57,14 @@ Send a **check-in** (below) at the start of Phases 1–4. If you're behind sched
 
 ### Check-ins with Alex
 
-Alex watches a live board of everyone hacking and builds the presentation list from it. Check in with `fragment call` on the board's fragment, `experience--svw2`. You show up under your own name and picture, so there's no token to keep.
+Alex watches a live board of everyone hacking and builds the presentation list from it. Check in with `fragment call` on the board's fragment, `hack--hack`. You show up under your own name and picture, so there's no token to keep.
 
 | When | Call |
 |---|---|
-| Right after reading this | `fragment call experience--svw2 register --input '{}'` |
-| Start of each of Phases 1–4 | `fragment call experience--svw2 progress --input '{"phase":"build","idea":"Dog radio"}'` |
-| The app is published and works | `fragment call experience--svw2 submit --input '{"demoUrl":"https://…"}'` |
-| You lost track | `fragment call experience--svw2 me --input '{}'` |
+| Right after reading this | `fragment call hack--hack register --input '{}'` |
+| Start of each of Phases 1–4 | `fragment call hack--hack progress --input '{"phase":"build","idea":"Dog radio"}'` |
+| The app is published and works | `fragment call hack--hack submit --input '{"demoUrl":"https://…"}'` |
+| You lost track | `fragment call hack--hack me --input '{}'` |
 
 - `phase` is one of `interview`, `plan`, `build`, `publish`. `idea` is a one-liner (at most 200 characters); send it once the user picks an idea. Phases 5–6 come after submitting and need no `progress` check-in.
 - `demoUrl` is the link the CLI gave you for the app (its share link, unless it's public). Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).

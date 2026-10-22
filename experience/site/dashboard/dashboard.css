@@ -18,16 +18,10 @@
 .admin button:disabled { opacity: 0.3; cursor: default; }
 .admin { display: flex; gap: 0.4rem; justify-content: flex-end; }
 
-#gate label { display: block; color: var(--muted); margin-bottom: 0.5rem; }
-#gate input {
-  flex: 1;
-  min-width: 0;
-  background: none;
-  border: 0;
-  color: var(--text);
-  font: inherit;
-  outline: none;
-}
+#gate { margin-bottom: 1.5rem; }
+a.toggle { display: inline-block; text-decoration: none; }
+[hidden] { display: none !important; }
+
 .error { color: #ff8a7a; min-height: 1.5em; }
 
 .stats { font-family: var(--mono); color: var(--accent); }
@@ -44,6 +38,16 @@
 }
 .ready .slot { font-family: var(--mono); font-size: 1.4rem; color: var(--accent); }
 .ready .who { display: flex; flex-direction: column; }
+.bot { display: inline-flex; align-items: center; gap: 0.6rem; }
+.avatar {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--line);
+}
+body.projector .avatar { width: 40px; height: 40px; }
 .ready .idea { color: var(--muted); font-size: 0.9rem; }
 .ready .links { display: flex; gap: 0.8rem; }
 .ready.presented { opacity: 0.4; }

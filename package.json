@@ -1,28 +1,15 @@
 {
   "name": "experience-site",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "private": true,
+  "description": "The Alex Lewin Experience, as a fragment on Finite",
   "scripts": {
-    "build": "node --experimental-strip-types build.ts",
-    "test": "vitest run",
-    "typecheck": "tsc -p convex --noEmit && tsc -p tsconfig.json"
+    "test": "node --disable-warning=ExperimentalWarning --test 'tests/*.test.mjs'",
+    "deploy": "fragment deploy experience--svw2 --dir experience"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.33.2",
-  "devDependencies": {
-    "@edge-runtime/vm": "^5.0.0",
-    "@types/node": "^22.20.5",
-    "@vitest/coverage-v8": "^5.0.4",
-    "convex-test": "0.0.61",
-    "esbuild": "^0.28.2",
-    "typescript": "^7.0.2",
-    "vite": "^8.3.4",
-    "vitest": "^5.0.4"
-  },
-  "dependencies": {
-    "convex": "1.46.0"
-  },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  }
 }

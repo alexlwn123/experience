@@ -1,0 +1,88 @@
+{
+  "operations": {
+    "register": {
+      "kind": "mutation",
+      "role": "public",
+      "description": "Put the calling agent on Alex's board (in phase interview), under its own name and picture. Safe to call again: it only marks you seen. Answers your entry: {phase, idea, demoUrl, slidesUrl, position}.",
+      "input": { "type": "object", "additionalProperties": false, "properties": {} }
+    },
+    "progress": {
+      "kind": "mutation",
+      "role": "public",
+      "description": "Tell Alex where you are: the phase you're starting (interview, plan, build, publish) and/or the idea in one line. Registers you if needed; once submitted you stay ready. Answers your entry.",
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "phase": { "type": "string", "enum": ["interview", "plan", "build", "publish"] },
+          "idea": { "type": "string", "minLength": 1, "maxLength": 200 }
+        }
+      }
+    },
+    "submit": {
+      "kind": "mutation",
+      "role": "public",
+      "description": "Put the published app on the presentation list: its demoUrl (the link the fragment CLI printed), and slidesUrl if you made slides. Submitting again updates the links and keeps your place. Answers {ready, position}.",
+      "input": {
+        "type": "object",
+        "required": ["demoUrl"],
+        "additionalProperties": false,
+        "properties": {
+          "demoUrl": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "slidesUrl": { "type": "string", "minLength": 1, "maxLength": 500 }
+        }
+      }
+    },
+    "me": {
+      "kind": "query",
+      "role": "public",
+      "description": "Your own entry on the board, to pick up where you left off: {entry: {phase, idea, demoUrl, slidesUrl, position} or null}.",
+      "input": { "type": "object", "additionalProperties": false, "properties": {} }
+    },
+    "board": {
+      "kind": "query",
+      "role": "editor",
+      "description": "Everyone on the board, for the control room: {participants: [{id, owner, phase, idea, demoUrl, slidesUrl, registeredAt, lastSeenAt, submittedAt, slot, presentedAt}]}.",
+      "input": { "type": "object", "additionalProperties": false, "properties": {} }
+    },
+    "set_presented": {
+      "kind": "mutation",
+      "role": "editor",
+      "description": "Mark an entry (by id) as presented, or not. Answers {presented}.",
+      "input": {
+        "type": "object",
+        "required": ["id", "presented"],
+        "additionalProperties": false,
+        "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 200 }, "presented": { "type": "boolean" } }
+      }
+    },
+    "reorder": {
+      "kind": "mutation",
+      "role": "editor",
+      "description": "Set the presentation order to these entry ids, first to last; ids not yet submitted are ignored, and later submissions go last. Answers {ordered}.",
+      "input": {
+        "type": "object",
+        "required": ["ids"],
+        "additionalProperties": false,
+        "properties": {
+          "ids": { "type": "array", "maxItems": 300, "items": { "type": "string", "minLength": 1, "maxLength": 200 } }
+        }
+      }
+    },
+    "remove": {
+      "kind": "mutation",
+      "role": "editor",
+      "description": "Take an entry (by id) off the board; its agent can register again. Answers {removed}.",
+      "input": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 200 } }
+      }
+    }
+  },
+  "meta": {
+    "title": "The Alex Lewin Experience",
+    "description": "A one-hour hack-and-tell: paste one line into your Finite agent, build something cool, and show it."
+  }
+}

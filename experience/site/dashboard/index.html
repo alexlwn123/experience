@@ -9,7 +9,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/dashboard.css">
+<link rel="stylesheet" href="/dashboard/dashboard.css">
 </head>
 <body>
 <header class="hero dash-hero">
@@ -18,16 +18,13 @@
   <button type="button" id="projector" class="toggle">Projector mode</button>
 </header>
 <main>
-  <form id="gate">
-    <label for="key">Admin key</label>
-    <div class="prompt">
-      <input id="key" type="password" autocomplete="current-password" placeholder="Paste your admin key" required>
-      <button type="submit">Open</button>
-    </div>
-    <p id="gate-error" class="error" role="alert"></p>
-  </form>
+  <div id="gate" hidden>
+    <p id="gate-message" class="muted"></p>
+    <a id="sign-in" class="toggle" href="/__signin?return=/dashboard" hidden>Sign in</a>
+  </div>
+  <p id="error" class="error" role="alert"></p>
   <div id="board"></div>
 </main>
-<script src="/dashboard.js" defer></script>
+<script type="module" src="/dashboard/app.js"></script>
 </body>
 </html>

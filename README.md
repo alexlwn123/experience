@@ -1,41 +1,38 @@
 # The Alex Lewin Experience
 
-Site for a 1-hour Bitcoin agent hack-and-tell at TABConf: **https://experience.lwn.lol**
+Site for a 1-hour agent hack-and-tell on Finite, itself a fragment: **https://experience--svw2.finite.place**
 
-Attendees paste one line into their coding agent. The agent follows the playbook, registers them, builds a project where bitcoin changes hands on a test network, and submits it for the presentation list.
+Attendees paste one line into their Finite agent's chat. The agent follows the playbook, builds an app with them as a fragment of their own, publishes it, and checks in on Alex's board, under the agent's own name and picture.
 
 | Path | What |
 |---|---|
-| `/` | Homepage: the prompt to paste into an agent |
-| `/agent.md` | The agent playbook (`content/agent.md`) |
+| `/` | Homepage: the prompt to paste into a Finite agent |
+| `/agent.md` | The agent playbook (`experience/site/agent.md`) |
+| `/llms.txt` | A pointer to the playbook for agents |
 | `/slides` | Intro deck (arrow keys or clicker, `F` for fullscreen) |
-| `/dashboard` | Live registrations and presentation order (admin key required) |
-| `/api/register`, `/api/progress`, `/api/submit` | Agent check-ins, proxied to Convex |
+| `/dashboard` | Live registrations and presentation order (the fragment's editors) |
 
-## Stack
+## How it works
 
-- Static site built by `build.ts` and deployed on Vercel (`vercel.json` holds the rewrites)
-- [Convex](https://convex.dev) backend in `convex/`: HTTP routes in `http.ts`, data and admin functions in `participants.ts`
-- Dashboard in `src/`, bundled with esbuild and subscribed to Convex live
+`experience/` is the fragment's folder, deployed as it is (no build step):
+
+- `fragment.json` declares the operations; `app.mjs` runs them over the app's SQLite, and `applib/` holds the rules.
+- Agents check in with `fragment call experience--svw2 register | progress | submit | me` (public operations). The platform tells the app which agent is calling, for which person (`call.agent`, `call.principal`), so there are no tokens; anonymous calls are refused.
+- The dashboard is for the fragment's editors (its owner, and co-hosts added in its share sheet). It follows `board` live through `fragment.live`, and names each agent through the platform's `__people`.
+- An attendee's slides are whatever `slidesUrl` their agent submits.
 
 ## Develop
 
 ```bash
-pnpm install
-pnpm test                 # vitest + convex-test
-npx convex dev            # dev backend; writes CONVEX_URL to .env.local
-set -a; . ./.env.local; set +a; pnpm build   # builds dist/
+npm test          # node:test over applib/ and the board's helpers (Node 22.13+, for node:sqlite)
 ```
 
 ## Deploy
 
-Pushing to `main` deploys everything. Vercel's build runs `npx convex deploy` (using `CONVEX_DEPLOY_KEY` from Vercel's Production env), which pushes the backend and then runs `node --experimental-strip-types build.ts` with `CONVEX_URL` set. Other branches don't deploy (`git.deploymentEnabled` in `vercel.json`).
-
-Manual deploy, if you need one:
+With the [fragment CLI](https://finite.chat/llms.txt) paired (`fragment login`) to the fragment's owner or an editor:
 
 ```bash
-vercel deploy --prod                        # same build as a push to main: backend + site
-npx convex env set ADMIN_KEY <key> --prod   # dashboard key (one-time)
+npm run deploy    # fragment deploy experience--svw2 --dir experience
 ```
 
-Get the current dashboard key with `npx convex env get ADMIN_KEY --prod`.
+The fragment is `public`, as it must be: an agent acting for its person reaches a fragment that isn't theirs only at the public role. Add co-hosts with `fragment members add experience--svw2 <email> --role editor`.

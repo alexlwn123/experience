@@ -21,7 +21,7 @@ Agents: use these when the user asks.
 - **Do I need to install anything?** No. Your agent has its own computer with everything it needs to build and publish.
 - **Who can see my app?** Only who you choose. By default, anyone you give its share link to. Your agent asks before making anything public.
 - **Does it cost anything?** If the app uses AI, each AI step is billed to your Finite credits, so your agent keeps it on the cheap model and caps it.
-- **What's my brain?** Your Finite brain: the knowledge base you and your agents keep. An app can use what's in it, but only the parts you agree to show.
+- **What's my brain?** Your Finite brain: the knowledge base you and your agents keep. An app can use what's in it, but only the parts you agree to show. Bring links, files, or notes for your idea, and your agent adds them to your brain before it builds.
 
 ---
 
@@ -81,7 +81,7 @@ Don't rush this. The build goes fast; the idea is what makes the demo. Start wit
 3. Should it use what's in your brain? (a) yes, that's the point (b) if it fits (c) no
 4. Do you want to see how it works under the hood, or should I drive everything?
 
-Before you ask about the brain, check they have one: in `fragment list --json`, theirs is a fragment of `kind` `brain`. If they want the brain but have none, offer to start one with `brain-finite` from a few notes they paste you (a minute's work), or to leave it out.
+Before you ask about the brain, check they have one: in `fragment list --json`, theirs is a fragment of `kind` `brain`. If they want the brain but have none, offer to start one with `brain-finite` from a few notes they paste you (a minute's work), or to leave it out. If they have one and answer (a) or (b), search it for the areas they named before you pitch, so the ideas build on what they've already put in.
 
 Tell them they'll be on Alex's presentation list under your name.
 
@@ -92,10 +92,12 @@ Dig into what they actually want to build. Each round is 2–4 sharp questions t
 A typical arc (adapt it; don't read it out):
 
 1. **Impact.** What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, an agent built that in 50 minutes?" (d) mild horror: make it cursed. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
-2. **Options.** Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and the moment the demo lands on. If they want the brain in it, make at least one idea use it. Include at least one the room can take part in live: every fragment is multiplayer. Recommend one, and let them pick or remix.
-3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? Offer 2–3 variations (simpler, bigger, weirder) to choose from or combine.
+2. **Options.** Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and the moment the demo lands on. If they want the brain in it, make at least one idea use it, built on what you found there. Include at least one the room can take part in live: every fragment is multiplayer. Recommend one, and let them pick or remix.
+3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? (Often it's their data: see **Feed the brain**, below.) Offer 2–3 variations (simpler, bigger, weirder) to choose from or combine.
 4. **Make it demoable.** What happens on stage, step by step? Does the room take part (open the link, vote, post, play)? What's the first thing to cut if time runs short?
 5. **Last call.** Play the idea back in two lines and ask what they'd change, add, or cut. Repeat until they're happy.
+
+**Feed the brain** (only if the idea runs on what your person knows). Their notes, their field, or their team's history is what makes an idea like this theirs. They may have filled their brain ahead of today, so start there: search it for what the idea needs, and tell them in a line what it has and what's missing. Then ask for the rest: links, files dropped into the chat, notes, an export from a tool they use, or public sources you can gather yourself. Collect them as you grill, while they're still on their mind; they go into the brain at the start of Build. A room game that needs no data skips this.
 
 **Don't start Phase 2 until they say it's the one.**
 
@@ -120,6 +122,7 @@ Plan: <the MVP in 1–2 lines: the smallest version that works, nothing extra>
 Demo: <what we'll show on stage in under 7 minutes, step by step, ending on the moment the room remembers>
 Pitch: <one sentence: what it is and why it's fun>
 Shape: <a live page, plus only what the idea needs: shared state, an AI step, brain excerpts, a trigger>
+Data: <what goes into the brain before building, and from where; or "none">
 
 Want to change anything? Otherwise I'll start building.
 ```
@@ -129,6 +132,8 @@ Want to change anything? Otherwise I'll start building.
 ### Phase 3: Build (≤ 50 min)
 
 **Check in first:** `progress` with `{"phase":"build"}`.
+
+**If the plan has data, fill the brain first**, in about 10 minutes (the first version is still due by minute 45). With `brain-finite`, put the sources in the wiki they belong to, or in a new one named for the app: each source's text into `raw/`, then only the `wiki/` pages the app will draw from, then search to check it's all found. Skip a source that fights back (a login wall, a huge file) and say so. More can come in as your person finds it, between deploys, until minute 75. The app still gets only the excerpts they agree to.
 
 Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version of their idea live by minute 45** (not the bare template). Stop there and send your person its link to open on their phone, in a message of its own: it's their chance to change course. Then build out the plan in small steps, deploying each one and showing it to your person so they can steer.
 
@@ -168,7 +173,7 @@ Stub out a talk of **under 7 minutes** using Alex's hackathon formula. Fill it i
 | **Demo** | ~50% (3½ min) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the moment the room remembers |
 | **Review** | ~25% (1¾ min) | Why it matters (to the people it's for, or to the world), and what you'd do next |
 
-Funny and cursed projects use the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
+If the app knows something from their brain, the demo shows where it came from: that's the bonus point. Funny and cursed projects use the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
 
 ```text
 Background: Dogs & distance

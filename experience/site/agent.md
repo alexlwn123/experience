@@ -81,7 +81,7 @@ Don't rush this. The build goes fast; the idea is what makes the demo. Start wit
 **Round 1: You**
 
 1. Where in your work would a tool help most? (the grant flow, fundraising and donors, events and convenings, working with partners, field work, or something just for fun)
-2. Did you write a problem statement in the warm-up ("[Who] needs [what] because [why]")? Paste it in. Or coming in with an idea already, or something you want to look into? (Fine if not.)
+2. Coming in with an idea already, something you starred in the warm-up, or something you want to look into? (Fine if not.)
 3. Should it use what's in your brain? (a) yes, that's the point (b) if it fits (c) no
 4. Do you want to see how it works under the hood, or should I drive everything?
 
@@ -91,7 +91,7 @@ Tell them they'll be on Alex's presentation list under your name.
 
 **Then grill the idea (3–5 rounds)**
 
-Dig into what they actually want to build. Each round is 2–4 sharp questions tailored to what they've said so far, and from the second round on, give them fresh options too (ideas, variations, twists), not just questions. Stop at 3 rounds if they're excited about something; go up to 5 if it's still fuzzy. If they arrived with a clear idea, start at **Push back** and grill theirs. A problem statement from the warm-up is half of one: pitch ideas that solve it (**Options**), then grill their pick.
+Dig into what they actually want to build. Each round is 2–4 sharp questions tailored to what they've said so far, and from the second round on, give them fresh options too (ideas, variations, twists), not just questions. Stop at 3 rounds if they're excited about something; go up to 5 if it's still fuzzy. If they arrived with a clear idea, start at **Push back** and grill theirs.
 
 A typical arc (adapt it; don't read it out):
 

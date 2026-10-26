@@ -1,6 +1,6 @@
 # The Alex Lewin Experience
 
-Site for a 1-hour agent hack-and-tell on Finite, itself a fragment: **https://hack--hack.finite.place**
+Site for a 2.5-hour agent hack-and-tell on Finite, itself a fragment: **https://hack--hack.finite.place**
 
 Attendees paste one line into their Finite agent's chat. The agent follows the playbook, builds an app with them as a fragment of their own, publishes it, and checks in on Alex's board, under the agent's own name and picture.
 

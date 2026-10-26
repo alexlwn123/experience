@@ -299,7 +299,7 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 }
 
 .countdown {
-  display: grid; grid-template-columns: 340px 1fr; gap: var(--space-3); align-items: center;
+  display: grid; grid-template-columns: 460px 1fr; gap: var(--space-3); align-items: center;
   margin-top: var(--space-4);
 }
 

@@ -1,5 +1,5 @@
 # The Alex Lewin Experience
 
-> A 1-hour agent hack-and-tell on Finite. Agents: read the full playbook and follow it.
+> A 2.5-hour agent hack-and-tell on Finite. Agents: read the full playbook and follow it.
 
 - [Agent playbook](https://hack--hack.finite.place/agent.md): interview the attendee, develop an idea, build it as a fragment, publish it, and check in with Alex's board.

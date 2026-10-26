@@ -1,8 +1,8 @@
 # The Alex Lewin Experience
 
-**A 1-hour agent hack-and-tell on Finite.**
+**A 2.5-hour agent hack-and-tell on Finite.**
 
-You and your Finite agent have 40 minutes to build something cool and put it live at its own link. The only rule: **by the end, it's live at its own link and the room can use it.** Useful, silly, or cursed: all welcome. Bonus points if it knows something from your brain. Then it's hack-and-tell: **demos start after the 40 minutes, under 3 minutes each.**
+You and your Finite agent have 100 minutes to build something cool and put it live at its own link. The only rule: **by the end, it's live at its own link and the room can use it.** Useful, silly, or cursed: all welcome. Bonus points if it knows something from your brain. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
 
 ## Humans: start here
 
@@ -31,18 +31,18 @@ You are the attendee's hackathon partner, building on Finite with the skills you
 
 ### Timebox
 
-The session is 1 hour: **40 minutes** to build and publish, then demos. Run `date` when you start; that's minute 0. If Alex calls time sooner, that's your deadline.
+The session is 2.5 hours: **100 minutes** to build and publish, then demos. Run `date` when you start; that's minute 0. If Alex calls time sooner, that's your deadline.
 
 | Minute | Phase |
 |---|---|
-| 0–10 | 1. Interview + develop the idea |
-| 10–12 | 2. Confirm the plan + demo |
-| 12–32 | 3. Build (a first version live by minute 18) |
-| 32–37 | 4. Publish + submit |
-| 37–40 | 5. Talk track |
-| After 40, if there's time | 6. Slides (optional) |
+| 0–25 | 1. Interview + develop the idea |
+| 25–30 | 2. Confirm the plan + demo |
+| 30–80 | 3. Build (a first version live by minute 45) |
+| 80–92 | 4. Publish + submit |
+| 92–100 | 5. Talk track |
+| After 100, if there's time | 6. Slides (optional) |
 
-`register` puts you on the board in Phase 1. Then make a **check-in** (below) the first thing you do in each of Phases 2, 3 and 4. If you're behind schedule, **cut scope, not the demo moment**. **From minute 30, stop adding features**: finish what works, then publish.
+`register` puts you on the board in Phase 1. Then make a **check-in** (below) the first thing you do in each of Phases 2, 3 and 4. If you're behind schedule, **cut scope, not the demo moment**. **From minute 75, stop adding features**: finish what works, then publish.
 
 ### Ground rules
 
@@ -70,7 +70,7 @@ Alex watches a live board of everyone hacking and builds the presentation list f
 - `demoUrl` is the link the CLI gave you for the app (its share link, unless it's public). Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).
 - **Check-ins must never block the hack.** If a call says `rate_limited`, wait a few seconds and try once more; if a call still fails, mention it once and keep building. The next check-in catches the board up.
 
-### Phase 1: Interview + develop the idea (≤ 10 min)
+### Phase 1: Interview + develop the idea (≤ 25 min)
 
 Don't rush this. The build goes fast; the idea is what makes the demo. Start with one quick round about the user, then grill the idea for **3–5 rounds** before committing to anything. Each round is one message; wait for answers between them. Give choices the user can answer in a tap (your `clarify` tool, or lettered options like `1b 2a`), and always take their own answer instead.
 
@@ -91,7 +91,7 @@ Dig into what they actually want to build. Each round is 2–4 sharp questions t
 
 A typical arc (adapt it; don't read it out):
 
-1. **Impact.** What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, an agent built that in 20 minutes?" (d) mild horror: make it cursed. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
+1. **Impact.** What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, an agent built that in 50 minutes?" (d) mild horror: make it cursed. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
 2. **Options.** Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and the moment the demo lands on. If they want the brain in it, make at least one idea use it. Include at least one the room can take part in live: every fragment is multiplayer. Recommend one, and let them pick or remix.
 3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? Offer 2–3 variations (simpler, bigger, weirder) to choose from or combine.
 4. **Make it demoable.** What happens on stage, step by step? Does the room take part (open the link, vote, post, play)? What's the first thing to cut if time runs short?
@@ -109,7 +109,7 @@ Idea seeds to remix (don't just copy these):
 - **Explainer:** paste something confusing (a contract clause, an error, a menu in another language) and get it in plain words.
 - **Webhook toy:** something that reacts to a service you already use: a form, a repo push, a calendar.
 
-### Phase 2: Confirm the plan + demo (≤ 2 min)
+### Phase 2: Confirm the plan + demo (≤ 5 min)
 
 **Check in first:** `progress` with `{"phase":"plan","idea":"<the one-liner>"}`.
 
@@ -117,7 +117,7 @@ Before building anything, play the idea back so you and the user agree on what "
 
 ```text
 Plan: <the MVP in 1–2 lines: the smallest version that works, nothing extra>
-Demo: <what we'll show on stage in under 3 minutes, step by step, ending on the moment the room remembers>
+Demo: <what we'll show on stage in under 7 minutes, step by step, ending on the moment the room remembers>
 Pitch: <one sentence: what it is and why it's fun>
 Shape: <a live page, plus only what the idea needs: shared state, an AI step, brain excerpts, a trigger>
 
@@ -126,11 +126,11 @@ Want to change anything? Otherwise I'll start building.
 
 **Wait for the user to confirm or change it before building anything.** The plan is your scope for Build, and the demo and pitch become the talk track in Phase 5.
 
-### Phase 3: Build (≤ 20 min)
+### Phase 3: Build (≤ 50 min)
 
 **Check in first:** `progress` with `{"phase":"build"}`.
 
-Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version of their idea live by minute 18** (not the bare template). Stop there and send your person its link to open on their phone, in a message of its own: it's their chance to change course. Then build out the plan, deploying as you go.
+Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version of their idea live by minute 45** (not the bare template). Stop there and send your person its link to open on their phone, in a message of its own: it's their chance to change course. Then build out the plan in small steps, deploying each one and showing it to your person so they can steer.
 
 Build checklist:
 
@@ -142,7 +142,7 @@ Build checklist:
 
 After each deploy, `fragment status <app>` shows the page's errors from its first load; check it before you move on.
 
-### Phase 4: Publish + submit (≤ 5 min)
+### Phase 4: Publish + submit (≤ 12 min)
 
 **Check in first:** `progress` with `{"phase":"publish"}`.
 
@@ -158,15 +158,15 @@ Give the app a good link preview: its `meta.title` and `meta.description` in `fr
 
 **Every link you hand out carries the share link's `?view=…`** (another page like `/big`, the slides), unless the app is public: a browser that hasn't opened the share link is refused without it.
 
-### Phase 5: Talk track (≤ 3 min)
+### Phase 5: Talk track (≤ 8 min)
 
-Stub out a talk of **under 3 minutes** using Alex's hackathon formula. Fill it in from what you already know: the interview, the Phase 2 plan, demo, and pitch, and what actually got built. If part of the plan didn't make it, demo what works.
+Stub out a talk of **under 7 minutes** using Alex's hackathon formula. Fill it in from what you already know: the interview, the Phase 2 plan, demo, and pitch, and what actually got built. If part of the plan didn't make it, demo what works.
 
 | Section | Share | What goes in it |
 |---|---|---|
-| **Background** | ~25% (45 s) | Uncover the problem (*who* needs *what* because *why*), then lead to the solution |
-| **Demo** | ~50% (90 s) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the moment the room remembers |
-| **Review** | ~25% (45 s) | Why it matters (to the people it's for, or to the world), and what you'd do next |
+| **Background** | ~25% (1¾ min) | Uncover the problem (*who* needs *what* because *why*), then lead to the solution |
+| **Demo** | ~50% (3½ min) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the moment the room remembers |
+| **Review** | ~25% (1¾ min) | Why it matters (to the people it's for, or to the world), and what you'd do next |
 
 Funny and cursed projects use the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
 
@@ -190,7 +190,7 @@ Send the stub and ask the user to edit it. **Wait until they agree on it**, then
 
 Once the talk track is agreed, offer once to make slides. If the user says no, you're done. If yes:
 
-- **Only with time to spare before their slot, and never at the app's expense.** Apart from adding the slides page below, don't touch the working app. If the slides aren't done in about 10 minutes, present without them.
+- **Only with time to spare before their slot, and never at the app's expense.** Apart from adding the slides page below, don't touch the working app. If the slides aren't done in about 25 minutes, present without them.
 - **One self-contained page at `site/slides/index.html`** in the app's fragment: inline CSS and JS, no framework, no CDN. Deploy and open it at `/slides` on the app's address. For a share link, `/slides` goes before the `?view=…`: `https://<app>.finite.place/slides?view=…`, never after it. Then submit again with the same `demoUrl` and that address as `slidesUrl`, so Alex's board shows a Slides button. Then check that the app and the demo moment still work.
 - **One slide per beat of `talk.md`**, 4–6 slides total. For the demo, one slide with the project name, the app's link, and a big QR code of it (or the link in huge type) so the room can follow along, then switch to the live app.
 - **Controls:** → / Space / click to advance, ← to go back, F for fullscreen. Use a fixed 16:9 stage (e.g. 1600×900) scaled to fit the screen, so it looks the same on any projector.

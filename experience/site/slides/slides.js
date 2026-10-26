@@ -74,35 +74,6 @@
     node.replaceChildren(...parts);
   }
 
-  // Counts a number up from 0 when its slide appears. Each run gets a token so a
-  // quick back-and-forth never leaves two runs fighting over the same element.
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const COUNT_MS = 1100;
-  const easeOut = (t) => 1 - (1 - t) ** 3;
-
-  function runCount(node) {
-    const target = Number(node.dataset.count);
-    const run = String((Number(node.dataset.run) || 0) + 1);
-    node.dataset.run = run;
-    if (reducedMotion.matches) {
-      node.textContent = String(target);
-      return;
-    }
-    node.textContent = "0";
-    const startAt = performance.now() + Number(node.dataset.countAt || 0);
-    const tick = (now) => {
-      if (node.dataset.run !== run) return;
-      const t = Math.min(1, Math.max(0, (now - startAt) / COUNT_MS));
-      node.textContent = String(Math.round(easeOut(t) * target));
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-    // Guarantee the final value even if animation frames are throttled (e.g. background tab).
-    setTimeout(() => {
-      if (node.dataset.run === run) node.textContent = String(target);
-    }, Number(node.dataset.countAt || 0) + COUNT_MS + 100);
-  }
-
   const sun = document.getElementById("sun");
   buildSunburst(sun);
   document.querySelector(".final-sun").append(sun.cloneNode(true));
@@ -130,7 +101,6 @@
       slide.setAttribute("aria-hidden", String(i !== next));
     });
     document.body.dataset.slide = String(next + 1);
-    slides[next].querySelectorAll("[data-count]").forEach(runCount);
     counter.textContent = `${pad(next + 1)} / ${pad(slides.length)}`;
     progress.style.setProperty("--progress", String((next + 1) / slides.length));
     history.replaceState(null, "", `#${next + 1}`);

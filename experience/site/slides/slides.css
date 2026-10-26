@@ -2,13 +2,14 @@
    One 1600×900 canvas, scaled to fit.
 
    Design language: altitude.
-   - A horizon line divides every slide: above is ideas, below is implementation.
-     It drifts down as the talk rises, so the deck itself climbs.
-   - Two voices: machine (mono, small, gray) for implementation; human (display,
+   - A horizon line divides the slides: above is ideas, where this room already
+     lives; below is building, which used to be someone else's job.
+   - Two voices: machine (mono, small, gray) for building; human (display,
      large, open) for ideas.
-   - Horizontal motion means doing; vertical motion means shifting level.
-   - Orange means the shift. The orange dot is the protagonist: it races along the
-     wire, rises across the horizon, and bursts into the finale. */
+   - Horizontal motion means doing; vertical motion means crossing levels.
+   - Orange means the shift. The orange dot is the protagonist, you: it races
+     along the wire, loops across the horizon, drops into building, and bursts
+     into the finale. */
 
 :root {
   /* Color */
@@ -32,7 +33,6 @@
   --fs-lead-in: 72px;
   --fs-headline: 120px;
   --fs-statement: 168px;
-  --fs-hero: 300px;
   --fs-giant: 360px;
 
   /* Space */
@@ -90,14 +90,15 @@ h1, h2 { font-weight: inherit; }
 
 body[data-slide="1"] { --hy: 900px; --ho: 0; }
 body[data-slide="2"] { --hy: 900px; --ho: 0; }
-body[data-slide="3"] { --hy: 900px; --ho: 0; }
+body[data-slide="3"] { --hy: 330px; --ho: 1; }
 body[data-slide="4"] { --hy: 175px; --ho: 1; }
-body[data-slide="5"] { --hy: 770px; --ho: 1; }
-body[data-slide="6"] { --hy: 500px; --ho: 1; }
-body[data-slide="7"] { --hy: 600px; --ho: 1; }
+body[data-slide="5"] { --hy: 640px; --ho: 1; }
+body[data-slide="6"] { --hy: 770px; --ho: 1; }
+body[data-slide="7"] { --hy: 520px; --ho: 1; }
 body[data-slide="8"] { --hy: 760px; --ho: 1; }
-body[data-slide="9"] { --hy: 840px; --ho: 1; }
-body[data-slide="10"] { --hy: 900px; --ho: 0; }
+body[data-slide="9"] { --hy: 330px; --ho: 1; }
+body[data-slide="10"] { --hy: 862px; --ho: 1; }
+body[data-slide="11"] { --hy: 900px; --ho: 0; }
 
 .horizon {
   position: absolute; left: 0; right: 0; top: 0; z-index: 1; height: 0;
@@ -118,9 +119,9 @@ body[data-slide="10"] { --hy: 900px; --ho: 0; }
 .h-up::after { content: " ↑"; }
 .h-down::after { content: " ↓"; }
 
-/* Labels introduce the metaphor once, on slide 4; after that the line speaks for itself */
+/* Labels introduce the metaphor once, on slide 3; after that the line speaks for itself */
 .h-label { opacity: 0; }
-body[data-slide="4"] .h-label { opacity: 1; }
+body[data-slide="3"] .h-label { opacity: 1; }
 
 /* ---------- Sunburst: an idea radiating, only ever above the horizon ---------- */
 
@@ -139,14 +140,15 @@ body[data-slide="4"] .h-label { opacity: 1; }
 
 body[data-slide="1"] .sun { transform: translate(860px, -260px) rotate(0deg); opacity: 0.34; }
 body[data-slide="2"] .sun { transform: translate(760px, -420px) scale(0.9) rotate(-30deg); opacity: 0.22; }
-body[data-slide="3"] .sun { transform: translate(-160px, 420px) rotate(20deg); opacity: 0.3; }
-body[data-slide="4"] .sun { transform: translate(860px, -900px) scale(0.8) rotate(40deg); opacity: 0; }
+body[data-slide="3"] .sun { transform: translate(860px, -900px) scale(0.8) rotate(40deg); opacity: 0; }
+body[data-slide="4"] .sun { transform: translate(860px, -900px) scale(0.8) rotate(60deg); opacity: 0; }
 body[data-slide="5"] .sun { transform: translate(1000px, -620px) scale(0.8) rotate(80deg); opacity: 0.18; }
-body[data-slide="6"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(120deg); opacity: 0; }
-body[data-slide="7"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(160deg); opacity: 0; }
+body[data-slide="6"] .sun { transform: translate(1000px, -760px) scale(0.8) rotate(110deg); opacity: 0.12; }
+body[data-slide="7"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(140deg); opacity: 0; }
 body[data-slide="8"] .sun { transform: translate(760px, -800px) rotate(200deg); opacity: 0.26; }
-body[data-slide="9"] .sun { transform: translate(1060px, -760px) scale(0.7) rotate(240deg); opacity: 0.16; }
-body[data-slide="10"] .sun { transform: translate(100px, -250px) scale(1.3) rotate(280deg); opacity: 0; }
+body[data-slide="9"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(220deg); opacity: 0; }
+body[data-slide="10"] .sun { transform: translate(1060px, -760px) scale(0.7) rotate(240deg); opacity: 0.16; }
+body[data-slide="11"] .sun { transform: translate(100px, -250px) scale(1.3) rotate(280deg); opacity: 0; }
 
 /* ---------- Chrome ---------- */
 
@@ -168,8 +170,8 @@ body[data-slide="10"] .sun { transform: translate(100px, -250px) scale(1.3) rota
   transition: transform 0.8s var(--ease-in-out), background 0.4s ease 0.4s;
 }
 
-body[data-slide="10"] .chrome { color: var(--ink); }
-body[data-slide="10"] .progress span { background: var(--ink); }
+body[data-slide="11"] .chrome { color: var(--ink); }
+body[data-slide="11"] .progress span { background: var(--ink); }
 
 /* ---------- Slides: next one rises in, previous one drifts up and out ---------- */
 
@@ -214,6 +216,21 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 
 @keyframes char-up { to { transform: none; } }
 
+/* Strike-through: what no longer stands in the way */
+.strike { position: relative; display: inline-block; }
+
+.strike::after {
+  content: ""; position: absolute; left: -4%; right: -4%; top: 50%;
+  height: 3px; background: var(--orange);
+  transform: scaleX(0); transform-origin: left;
+}
+
+.js .is-active .strike { animation: dim 0.4s ease forwards; animation-delay: var(--strike-at); }
+.js .is-active .strike::after { animation: draw 0.4s var(--ease-in-out) forwards; animation-delay: var(--strike-at); }
+
+@keyframes dim { to { color: var(--muted); } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
 /* ---------- Type: the human voice ---------- */
 
 .headline {
@@ -238,8 +255,6 @@ body[data-slide="10"] .progress span { background: var(--ink); }
   color: var(--muted);
 }
 
-.muted { color: var(--muted); }
-
 /* ---------- 1 · Title ---------- */
 
 .s-title { justify-content: flex-end; padding-bottom: 140px; }
@@ -259,37 +274,9 @@ body[data-slide="10"] .progress span { background: var(--ink); }
   color: var(--muted);
 }
 
-/* ---------- 2 · The mystery: guesses get struck out, the question mark stays ---------- */
+/* ---------- 2 · The hook: the idea arrives word by word, then its excuses get struck out ---------- */
 
-.s-mystery { justify-content: flex-start; padding-top: 150px; }
-.s-mystery .headline > span { display: block; }
-
-.qmark { display: inline-block; color: var(--orange); }
-.js .qmark { opacity: 0; transform: scale(0.6) rotate(-18deg); transform-origin: 30% 80%; }
-.js .is-active .qmark { animation: settle 0.8s var(--ease-out) 0.85s forwards; }
-
-.guesses {
-  display: flex; gap: var(--space-4); margin-top: var(--space-4); list-style: none;
-  font-family: var(--mono); font-size: 26px; color: var(--paper-dim);
-}
-
-/* Strike-through, used only for the guesses */
-.strike { position: relative; display: inline-block; }
-
-.strike::after {
-  content: ""; position: absolute; left: -4%; right: -4%; top: 50%;
-  height: 3px; background: var(--orange);
-  transform: scaleX(0); transform-origin: left;
-}
-
-.js .is-active .strike { animation: dim 0.4s ease forwards; animation-delay: var(--strike-at); }
-.js .is-active .strike::after { animation: draw 0.4s var(--ease-in-out) forwards; animation-delay: var(--strike-at); }
-
-@keyframes dim { to { color: var(--muted); } }
-
-/* ---------- 3 · The reveal: words arrive one by one, then 0 counts up to 60 ---------- */
-
-.s-reveal { justify-content: flex-start; padding-top: 150px; }
+.s-hook { justify-content: flex-start; padding-top: 150px; }
 
 .words .w { display: inline-block; }
 .js .words .w { opacity: 0; transform: translateY(0.3em); }
@@ -299,21 +286,29 @@ body[data-slide="10"] .progress span { background: var(--ink); }
   animation-delay: calc(var(--base, 400ms) + var(--i) * 70ms);
 }
 
-.countdown {
-  display: grid; grid-template-columns: 460px 1fr; gap: var(--space-3); align-items: center;
-  margin-top: var(--space-4);
+.guesses {
+  display: flex; gap: var(--space-4); margin-top: var(--space-4); list-style: none;
+  font-family: var(--mono); font-size: 26px; color: var(--paper-dim);
 }
 
-/* Fixed column + right alignment, so the count never shifts the text beside it */
-.count {
-  font-family: var(--display); font-weight: 900; font-size: var(--fs-hero); line-height: 0.82;
-  text-align: right; color: var(--orange);
+/* ---------- 3 · The old path: each hand-off steps further down and right, and arrives slower ---------- */
+
+.s-path { justify-content: flex-start; padding-top: 150px; }
+
+.path {
+  list-style: none; margin-top: var(--space-3);
+  font-family: var(--mono); font-size: 24px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--paper-dim);
 }
 
-.count-text { font-size: var(--fs-lede); line-height: 1.2; color: var(--paper-dim); }
+.path li { display: flex; align-items: center; gap: 14px; height: 56px; padding-left: calc(var(--step) * 132px); }
+.path li + li::before { content: "↳"; color: var(--muted); }
+.path li:last-child { color: var(--muted); }
+.path .idea { color: var(--paper); }
+.path .dot { width: 16px; height: 16px; border-radius: 50%; background: var(--orange); }
 
-.count-unit {
-  display: block;
+.path-end {
+  margin-top: var(--space-3);
   font-family: var(--display); font-weight: 900; font-size: var(--fs-lead-in); line-height: 1;
   color: var(--paper);
 }
@@ -344,7 +339,6 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 .js .is-active .wire::before { animation: draw 1.1s linear 0.5s both; }
 .js .is-active .wire .dot { animation: travel 1.1s linear 0.5s both; }
 
-@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes travel { from { transform: translateX(0); } to { transform: translateX(440px); } }
 
 .shift { display: grid; grid-template-columns: 300px 1fr; align-items: center; }
@@ -352,10 +346,11 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 .label-stack { display: grid; }
 .label-stack > * { grid-area: 1 / 1; }
 
+/* 192px: "An afternoon." fills the column beside the labels, inside the gutter */
 .word-stack {
   display: grid; overflow: hidden;
   padding: 0.06em 0 0.16em; margin: -0.06em 0 -0.16em;
-  font-family: var(--display); font-weight: 900; font-size: var(--fs-hero); line-height: 0.9;
+  font-family: var(--display); font-weight: 900; font-size: 192px; line-height: 0.9;
 }
 
 .word { grid-area: 1 / 1; white-space: nowrap; }
@@ -386,41 +381,64 @@ body[data-slide="10"] .progress span { background: var(--ink); }
   animation-delay: calc(var(--base, 2s) + var(--i) * 40ms);
 }
 
-/* ---------- 5 · Executives: memos and decks sink, a working page rises ---------- */
+/* Who builds it: "someone else" is struck, and you take its place */
+.by { margin: var(--space-4) 0 0 300px; font-size: var(--fs-lede); line-height: 1.2; color: var(--paper-dim); }
+.by-you { font-weight: 700; color: var(--orange); }
+.js .by-you { opacity: 0; }
+.js .is-active .by-you { animation: fade-in 0.5s ease 3.4s forwards; }
 
-.s-exec { justify-content: flex-start; padding-top: 150px; }
-.s-exec .column { max-width: 860px; }
-.s-exec .copy p, .s-eng .copy p { font-size: var(--fs-body); }
+/* ---------- 5 · The hard part: what the room already has sits above; building waits below ---------- */
+
+.s-hard { justify-content: flex-start; padding-top: 150px; }
+
+.haves { list-style: none; margin-top: var(--space-3); font-size: var(--fs-body); line-height: 1.3; color: var(--paper-dim); }
+.haves li { display: flex; align-items: center; gap: 18px; }
+.haves li::before { content: ""; flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--orange); }
+
+.theirs {
+  position: absolute; left: var(--gutter); top: 684px;
+  font-family: var(--mono); font-size: var(--fs-machine); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+.until { margin-left: 24px; color: var(--orange); }
+.js .until { opacity: 0; }
+.js .is-active .until { animation: fade-in 0.5s ease 2.9s forwards; }
+
+/* ---------- 6 · The secret: the ask goes out, a working page rises through the horizon ---------- */
+
+.s-secret { justify-content: flex-start; padding-top: 150px; }
+.s-secret .column { max-width: 860px; }
+.s-secret .copy p { font-size: var(--fs-body); }
+.kicker { display: block; margin-bottom: var(--space-2); }
 
 .medium { position: absolute; top: 0; bottom: 0; right: var(--gutter); width: 420px; }
 
-.file {
-  position: absolute; left: 0;
-  padding: 6px 14px; border: 1.5px solid var(--line); border-radius: 6px;
-  font-family: var(--mono); font-size: var(--fs-machine); color: var(--muted);
-  opacity: 0.45;
+.ask {
+  position: absolute; left: 0; right: 0; top: 190px;
+  padding: 16px 20px; border: 1.5px solid var(--paper-dim); border-radius: 20px 20px 20px 4px;
+  font-size: 28px; line-height: 1.3; color: var(--paper);
 }
 
-.f-memo { top: 800px; }
-.f-deck { top: 800px; left: 200px; }
-
-.js .file { opacity: 1; color: var(--paper-dim); transform: translateY(-210px); }
-.js .is-active .file { animation: sink 0.8s var(--ease-fall) forwards; }
-.js .is-active .f-memo { animation-delay: 1.2s; }
-.js .is-active .f-deck { animation-delay: 1.35s; }
-
-@keyframes sink { to { opacity: 0.45; color: var(--muted); transform: none; } }
+.answered {
+  position: absolute; left: 0; top: 318px;
+  font-family: var(--mono); font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--orange);
+}
 
 .page {
-  position: absolute; left: 0; top: 250px; width: 420px;
+  position: absolute; left: 0; top: 370px; width: 420px;
   border: 2px solid var(--paper-dim); border-radius: 8px;
   background: var(--ink);
 }
 
 .page-bar {
+  display: flex; align-items: center; gap: 10px;
   padding: 10px 16px; border-bottom: 1px solid var(--line);
   font-family: var(--mono); font-size: 18px; color: var(--muted);
 }
+
+.page-bar .live { width: 10px; height: 10px; border-radius: 50%; background: var(--orange); }
 
 .page-body { display: flex; flex-direction: column; gap: 14px; padding: 26px 22px 28px; }
 .pl { display: block; height: 12px; width: 92%; border-radius: 3px; background: var(--line); }
@@ -428,53 +446,83 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 .pl-short { width: 58%; }
 .pl-cta { display: block; width: 132px; height: 38px; margin-top: 8px; border-radius: 6px; background: var(--orange); }
 
+.js .ask { opacity: 0; transform: translateY(20px); }
+.js .is-active .ask { animation: settle 0.7s var(--ease-out) 0.9s forwards; }
 .js .page { opacity: 0; transform: translateY(560px); }
-.js .is-active .page { animation: settle 1s var(--ease-lift) 1.9s forwards; }
+.js .is-active .page { animation: settle 1s var(--ease-lift) 1.7s forwards; }
+.js .answered { opacity: 0; }
+.js .is-active .answered { animation: fade-in 0.4s ease 2.7s forwards; }
 
-/* ---------- 6 · Engineers: the work happens below, in the machine voice ---------- */
+/* ---------- 7 · The loop: the dot laps the ring, building below the horizon and showing above ---------- */
 
-.s-eng { justify-content: flex-start; padding-top: 140px; }
-
-.s-eng .below {
-  display: grid; grid-template-columns: 1fr 340px; gap: var(--space-4); align-items: start;
-  margin-top: 86px;
-}
-
-.s-eng .copy { margin-top: 0; }
+.s-loop { justify-content: flex-start; padding-top: 140px; }
+.loop-note { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--paper-dim); }
 
 .log {
-  list-style: none; padding-top: 6px;
-  font-family: var(--mono); font-size: var(--fs-machine); line-height: 1.8; color: var(--muted);
+  list-style: none;
+  font-family: var(--mono); font-size: var(--fs-machine); line-height: 1.8; color: var(--paper-dim);
 }
 
-.log li::before { content: "✓  "; color: var(--muted); }
+.loop-log { position: absolute; left: var(--gutter); top: 556px; }
+.loop-log .t { display: inline-block; width: 110px; color: var(--muted); }
 
 .js .log li { opacity: 0; }
 .js .is-active .log li { animation: fade-in 1ms linear forwards; }
 .js .is-active .log li:nth-child(1) { animation-delay: 1.1s; }
-.js .is-active .log li:nth-child(2) { animation-delay: 1.3s; }
-.js .is-active .log li:nth-child(3) { animation-delay: 1.5s; }
-.js .is-active .log li:nth-child(4) { animation-delay: 1.7s; }
-.js .is-active .log li:nth-child(5) { animation-delay: 1.9s; }
+.js .is-active .log li:nth-child(2) { animation-delay: 1.4s; }
+.js .is-active .log li:nth-child(3) { animation-delay: 1.7s; }
+.js .is-active .log li:nth-child(4) { animation-delay: 2s; }
+.js .is-active .log li:nth-child(5) { animation-delay: 2.3s; }
 
-/* The protagonist, waiting low in the implementation zone */
-.you { display: flex; align-items: center; gap: 14px; margin-top: var(--space-4); }
-.you .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--orange); }
-.you .label { color: var(--paper-dim); }
-.js .you { opacity: 0; }
-.js .is-active .you { animation: fade-in 0.6s ease 2.3s forwards; }
+/* Centered on the horizon (520px), so each lap crosses it twice */
+.ring {
+  position: absolute; right: 250px; top: 390px; width: 260px; height: 260px;
+  border: 1.5px dashed var(--horizon); border-radius: 50%;
+}
 
-/* ---------- 7 · The mindset shift: the engineers dot crosses the horizon ---------- */
+.orbit { position: absolute; inset: 0; }
 
-.s-levels { justify-content: flex-start; padding-top: 140px; }
+.orbit .dot {
+  position: absolute; left: 50%; top: 0;
+  width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+  background: var(--orange);
+}
 
-.levels { position: absolute; left: var(--gutter); right: var(--gutter); top: 440px; height: 320px; }
+.js .is-active .orbit { animation: spin 6s linear infinite; }
+
+.stop {
+  position: absolute; white-space: nowrap;
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+.stop-show { left: 50%; top: -44px; transform: translateX(-50%); }
+.stop-fix { left: calc(100% + 18px); top: 78%; }
+.stop-make { right: calc(100% + 18px); top: 78%; }
+
+/* ---------- 8 · Rough is the point: its letters stay a little off ---------- */
+
+.s-rough { justify-content: flex-start; padding-top: 170px; }
+.s-rough .copy { max-width: 1180px; }
+
+.rough { display: inline-block; }
+.rough .ch { display: inline-block; transform: rotate(calc(var(--r) * 0.35)); transform-origin: 50% 80%; }
+
+.quote { margin-top: var(--space-4); max-width: 980px; font-family: var(--mono); font-size: var(--fs-machine); line-height: 1.6; color: var(--muted); }
+.quote cite { display: block; margin-top: 8px; font-style: normal; color: var(--paper-dim); }
+.quote cite::before { content: "— "; }
+
+/* ---------- 9 · The mindset shift: the you dot drops across the horizon, into building ---------- */
+
+.s-levels { justify-content: flex-start; padding-top: 560px; }
+
+.levels { position: absolute; left: var(--gutter); right: var(--gutter); top: 170px; height: 320px; }
 
 .level { display: flex; align-items: center; gap: var(--space-3); height: 160px; }
 .level .label { width: 260px; flex: none; }
 .level-text { font-size: var(--fs-body); }
-.level.high .level-text { color: var(--paper); }
-.level.low .level-text { color: var(--muted); }
+.level.high .level-text { color: var(--muted); }
+.level.low .level-text { color: var(--paper); }
 
 .who {
   position: absolute; display: flex; align-items: center; gap: 14px;
@@ -482,22 +530,17 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 }
 
 .who .dot { width: 20px; height: 20px; border-radius: 50%; }
-.who.exec { left: 900px; top: 66px; color: var(--paper-dim); }
-.who.exec .dot { background: var(--paper); }
-.who.eng { left: 1120px; top: 66px; color: var(--paper); }
-.who.eng .dot { background: var(--orange); }
+.who.you-dot { left: 1120px; top: 226px; color: var(--paper); }
+.who.you-dot .dot { background: var(--orange); }
 
-.js .who.eng { transform: translateY(160px); color: var(--muted); }
-.js .is-active .who.eng { animation: lift 1.1s var(--ease-lift) 1.5s forwards; }
+.js .who.you-dot { transform: translateY(-160px); color: var(--muted); }
+.js .is-active .who.you-dot { animation: drop 1.1s var(--ease-lift) 1.5s forwards; }
 
-@keyframes lift { to { transform: none; color: var(--paper); } }
+@keyframes drop { to { transform: none; color: var(--paper); } }
 
-/* ---------- 8 · Think like an executive: almost all space ---------- */
+.levels-note { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--paper-dim); }
 
-.s-think { justify-content: flex-start; padding-top: 210px; }
-.s-think .copy { max-width: 1040px; }
-
-/* ---------- 9 · Today ---------- */
+/* ---------- 10 · Today ---------- */
 
 .s-today { justify-content: flex-start; padding-top: 150px; }
 .s-today .lead-in { display: inline; font: inherit; }
@@ -507,7 +550,7 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 
 .steps li {
   display: grid; grid-template-columns: 96px 1fr; align-items: baseline;
-  padding: 14px 0; border-top: 1px solid var(--line);
+  padding: 10px 0; border-top: 1px solid var(--line);
   font-size: var(--fs-body); line-height: 1.25; color: var(--paper-dim);
 }
 
@@ -524,7 +567,7 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 .js .url .ch { opacity: 0; }
 .js .is-active .url .ch { animation: fade-in 1ms linear forwards; animation-delay: calc(var(--base) + var(--i) * 45ms); }
 
-/* ---------- 10 · Let's go: the dot appears, then bursts into the flood ---------- */
+/* ---------- 11 · Let's go: the dot appears, then bursts into the flood ---------- */
 
 .s-go { align-items: center; justify-content: center; text-align: center; color: var(--ink); }
 
@@ -557,10 +600,12 @@ body[data-slide="10"] .progress span { background: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .slide, .slide.is-past { transform: none; }
-  .js .rise, .js .qmark, .js .split .ch, .js .words .w, .js .word.new .ch, .js .url .ch, .js .l-new, .js .log li, .js .page, .js .you { opacity: 1; transform: none; }
+  .js .rise, .js .split .ch, .js .words .w, .js .word.new .ch, .js .url .ch, .js .l-new, .js .log li,
+  .js .ask, .js .page, .js .answered, .js .by-you, .js .until { opacity: 1; transform: none; }
   .js .word.old, .js .l-old { visibility: hidden; }
-  .js .file { opacity: 0.45; color: var(--muted); transform: none; }
-  .js .who.eng { transform: none; color: var(--paper); }
+  .js .strike { color: var(--muted); }
+  .js .strike::after { transform: scaleX(1); }
+  .js .who.you-dot { transform: none; color: var(--paper); }
   .js .flood { clip-path: none; }
   .js .final-sun { opacity: 0.13; transform: none; }
   .js .is-active .wire::before { transform: scaleX(1); }

@@ -580,7 +580,7 @@ body[data-slide="14"] .progress span { background: var(--ink); }
 
 @keyframes trace { to { stroke-dashoffset: 0; } }
 
-/* ---------- 12 · Warm-up: step 01 by hand; the steps on the left, examples on the right, a timer up top ---------- */
+/* ---------- 12 · Warm-up: step 01 by hand; the prompt on the left, examples on the right, a timer up top ---------- */
 
 .s-warmup { justify-content: flex-start; padding-top: 140px; }
 
@@ -594,16 +594,10 @@ body[data-slide="14"] .progress span { background: var(--ink); }
 .timer.done { animation: blink 0.5s steps(2) 6; }
 @keyframes blink { 50% { opacity: 0.2; } }
 
-.drill { list-style: none; position: absolute; left: var(--gutter); top: 390px; width: 800px; }
-
-.drill li {
-  display: grid; grid-template-columns: 72px 1fr;
-  padding: 14px 0; border-top: 1px solid var(--line);
-}
-
-.drill .n { grid-row: span 2; padding-top: 12px; font-family: var(--mono); font-size: var(--fs-label); color: var(--muted); }
-.drill-title { font-family: var(--display); font-weight: 900; font-size: 44px; line-height: 1.05; color: var(--paper); }
-.drill-body { margin-top: 4px; font-size: 30px; line-height: 1.2; color: var(--paper-dim); }
+/* 136px: the prompt's longer line ("I get annoyed") fills the column left of the examples */
+.prompt { position: absolute; left: var(--gutter); top: 390px; width: 832px; }
+.prompt-text { font-family: var(--display); font-weight: 900; font-size: 136px; line-height: 0.92; color: var(--paper); }
+.prompt-body { margin-top: var(--space-3); font-size: var(--fs-body); line-height: 1.2; color: var(--paper-dim); }
 
 .annoyances { position: absolute; left: 1000px; right: var(--gutter); top: 404px; }
 .annoyances ul { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }

@@ -97,8 +97,9 @@ body[data-slide="6"] { --hy: 770px; --ho: 1; }
 body[data-slide="7"] { --hy: 520px; --ho: 1; }
 body[data-slide="8"] { --hy: 760px; --ho: 1; }
 body[data-slide="9"] { --hy: 330px; --ho: 1; }
-body[data-slide="10"] { --hy: 862px; --ho: 1; }
-body[data-slide="11"] { --hy: 900px; --ho: 0; }
+body[data-slide="10"] { --hy: 600px; --ho: 1; }
+body[data-slide="11"] { --hy: 862px; --ho: 1; }
+body[data-slide="12"] { --hy: 900px; --ho: 0; }
 
 .horizon {
   position: absolute; left: 0; right: 0; top: 0; z-index: 1; height: 0;
@@ -147,8 +148,9 @@ body[data-slide="6"] .sun { transform: translate(1000px, -760px) scale(0.8) rota
 body[data-slide="7"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(140deg); opacity: 0; }
 body[data-slide="8"] .sun { transform: translate(760px, -800px) rotate(200deg); opacity: 0.26; }
 body[data-slide="9"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(220deg); opacity: 0; }
-body[data-slide="10"] .sun { transform: translate(1060px, -760px) scale(0.7) rotate(240deg); opacity: 0.16; }
-body[data-slide="11"] .sun { transform: translate(100px, -250px) scale(1.3) rotate(280deg); opacity: 0; }
+body[data-slide="10"] .sun { transform: translate(1000px, -900px) scale(0.8) rotate(230deg); opacity: 0; }
+body[data-slide="11"] .sun { transform: translate(1060px, -760px) scale(0.7) rotate(240deg); opacity: 0.16; }
+body[data-slide="12"] .sun { transform: translate(100px, -250px) scale(1.3) rotate(280deg); opacity: 0; }
 
 /* ---------- Chrome ---------- */
 
@@ -170,8 +172,8 @@ body[data-slide="11"] .sun { transform: translate(100px, -250px) scale(1.3) rota
   transition: transform 0.8s var(--ease-in-out), background 0.4s ease 0.4s;
 }
 
-body[data-slide="11"] .chrome { color: var(--ink); }
-body[data-slide="11"] .progress span { background: var(--ink); }
+body[data-slide="12"] .chrome { color: var(--ink); }
+body[data-slide="12"] .progress span { background: var(--ink); }
 
 /* ---------- Slides: next one rises in, previous one drifts up and out ---------- */
 
@@ -540,7 +542,39 @@ body[data-slide="11"] .progress span { background: var(--ink); }
 
 .levels-note { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--paper-dim); }
 
-/* ---------- 10 · Today ---------- */
+/* ---------- 10 · The design process: your steps above the horizon (600px), your agent's below ---------- */
+
+.s-process { justify-content: flex-start; padding-top: 140px; }
+.s-process .sub { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--muted); }
+
+/* Each step's dot sits at stage coordinates (the gutter plus 192px a column, at its row's --y),
+   so the path's points in index.html run through the dots' centers */
+.process { list-style: none; }
+
+.process li {
+  position: absolute; left: calc(var(--gutter) + var(--x) * 192px); top: calc(var(--y) - 12px); width: 176px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.process .mark { display: flex; align-items: center; gap: 12px; height: 24px; }
+.process .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--paper-dim); background: var(--ink); }
+.process .n { font-family: var(--mono); font-size: var(--fs-label); color: var(--muted); }
+.process .step { font-size: 30px; line-height: 1.1; color: var(--paper-dim); }
+.process .who-does { font-family: var(--mono); font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+.process .yours .dot { border-color: var(--orange); background: var(--orange); }
+.process .yours .step { color: var(--paper); }
+.process .yours .who-does { color: var(--orange); }
+
+.process-path { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.process-path polyline { fill: none; stroke: var(--orange); stroke-opacity: 0.55; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+.js .process-path polyline { stroke-dashoffset: 1; }
+.js .is-active .process-path polyline { animation: trace 1.8s var(--ease-in-out) 0.6s forwards; }
+
+@keyframes trace { to { stroke-dashoffset: 0; } }
+
+/* ---------- 11 · Today ---------- */
 
 .s-today { justify-content: flex-start; padding-top: 150px; }
 .s-today .lead-in { display: inline; font: inherit; }
@@ -567,7 +601,7 @@ body[data-slide="11"] .progress span { background: var(--ink); }
 .js .url .ch { opacity: 0; }
 .js .is-active .url .ch { animation: fade-in 1ms linear forwards; animation-delay: calc(var(--base) + var(--i) * 45ms); }
 
-/* ---------- 11 · Let's go: the dot appears, then bursts into the flood ---------- */
+/* ---------- 12 · Let's go: the dot appears, then bursts into the flood ---------- */
 
 .s-go { align-items: center; justify-content: center; text-align: center; color: var(--ink); }
 
@@ -606,6 +640,7 @@ body[data-slide="11"] .progress span { background: var(--ink); }
   .js .strike { color: var(--muted); }
   .js .strike::after { transform: scaleX(1); }
   .js .who.you-dot { transform: none; color: var(--paper); }
+  .js .process-path polyline { stroke-dashoffset: 0; }
   .js .flood { clip-path: none; }
   .js .final-sun { opacity: 0.13; transform: none; }
   .js .is-active .wire::before { transform: scaleX(1); }

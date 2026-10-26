@@ -546,12 +546,31 @@ body[data-slide="14"] .progress span { background: var(--ink); }
 
 .levels-note { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--paper-dim); }
 
-/* ---------- 10–11 · The design process: as taught, all seven above the horizon (760px); then with an agent, yours above it (600px) and your agent's below ---------- */
+/* ---------- 10 · The design process, as taught: a small title, then the seven steps big, all above the horizon ---------- */
+
+.s-taught { justify-content: flex-start; padding-top: 140px; }
+.s-taught .headline { font-size: 88px; }
+.s-taught .sub { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--muted); }
+
+/* Two columns, read down: 01–04, then 05–07 */
+.method {
+  list-style: none; margin-top: var(--space-4);
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column;
+  column-gap: var(--space-4);
+}
+
+.method li {
+  display: flex; align-items: baseline; gap: var(--space-2);
+  padding: 14px 0; border-top: 1px solid var(--line);
+  font-family: var(--display); font-weight: 900; font-size: 64px; line-height: 1; color: var(--paper);
+}
+
+.method .n { flex: none; width: 48px; font-family: var(--mono); font-weight: 400; font-size: var(--fs-label); color: var(--orange); }
+
+/* ---------- 11 · With an agent: yours above the horizon (600px), your agent's below ---------- */
 
 .s-process { justify-content: flex-start; padding-top: 140px; }
 .s-process .sub { margin-top: var(--space-2); font-size: var(--fs-body); color: var(--muted); }
-/* 104px: "The engineering design process." on one line */
-.s-taught .headline { font-size: 104px; }
 
 /* Each step's dot sits at stage coordinates (the gutter plus 192px a column, at its row's --y),
    so the path's points in index.html run through the dots' centers */
@@ -595,9 +614,10 @@ body[data-slide="14"] .progress span { background: var(--ink); }
 @keyframes blink { 50% { opacity: 0.2; } }
 
 /* 136px: the prompt's longer line ("I get annoyed") fills the column left of the examples */
-.prompt { position: absolute; left: var(--gutter); top: 390px; width: 832px; }
+.prompt { position: absolute; left: var(--gutter); top: 380px; width: 832px; }
+.task-label { margin-bottom: var(--space-1); color: var(--orange); }
 .prompt-text { font-family: var(--display); font-weight: 900; font-size: 136px; line-height: 0.92; color: var(--paper); }
-.prompt-body { margin-top: var(--space-3); font-size: var(--fs-body); line-height: 1.2; color: var(--paper-dim); }
+.prompt-body { margin-top: 28px; font-size: var(--fs-body); line-height: 1.2; color: var(--paper-dim); }
 
 .annoyances { position: absolute; left: 1000px; right: var(--gutter); top: 404px; }
 .annoyances ul { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }

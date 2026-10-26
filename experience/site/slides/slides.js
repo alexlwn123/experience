@@ -115,6 +115,28 @@
     request.catch(() => {}); // Fullscreen can be refused (e.g. iframe); the deck still works.
   }
 
+  // ---- The warm-up's timer: T, or a click on it, starts it from the top ----
+  // Each start gets a token, so starting again never leaves two countdowns fighting over it.
+
+  const TICK_MS = 250;
+
+  function startTimer(node) {
+    const run = String((Number(node.dataset.run) || 0) + 1);
+    node.dataset.run = run;
+    node.classList.remove("done");
+    const endAt = performance.now() + Number(node.dataset.timer) * 1000;
+    const tick = () => {
+      if (node.dataset.run !== run) return;
+      const left = Math.max(0, Math.ceil((endAt - performance.now()) / 1000));
+      node.textContent = `${Math.floor(left / 60)}:${pad(left % 60)}`;
+      if (left === 0) node.classList.add("done");
+      else setTimeout(tick, TICK_MS);
+    };
+    tick();
+  }
+
+  const timerHere = () => slides[current].querySelector("[data-timer]");
+
   const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter", "n"]);
   const PREV_KEYS = new Set(["ArrowLeft", "ArrowUp", "PageUp", "Backspace", "p"]);
 
@@ -125,12 +147,18 @@
     else if (event.key === "Home") show(0);
     else if (event.key === "End") show(slides.length - 1);
     else if (event.key === "f" || event.key === "F") toggleFullscreen();
+    else if ((event.key === "t" || event.key === "T") && timerHere()) startTimer(timerHere());
     else return;
     event.preventDefault();
   });
 
   document.addEventListener("click", (event) => {
     if (event.target.closest("a")) return;
+    const timer = event.target.closest("[data-timer]");
+    if (timer) {
+      startTimer(timer);
+      return;
+    }
     show(event.clientX > window.innerWidth * 0.3 ? current + 1 : current - 1);
   });
 

@@ -19,7 +19,7 @@ Your agent will interview you, pitch ideas, confirm the plan and the demo with y
 Agents: use these when the user asks.
 
 - **Do I need to install anything?** No. Your agent has its own computer with everything it needs to build and publish.
-- **Who can see my app?** Only who you choose. By default, anyone you give its share link to. Your agent asks before making anything public.
+- **Who can see my app?** Only who you choose: by default, only people you give its share link to. Nothing goes public. At the end, your agent asks to share it with Alex (alexlwn@finite.vip), so he can open it from the presentation list.
 - **Does it cost anything?** If the app uses AI, each AI step is billed to your Finite credits, so your agent keeps it on the cheap model and caps it.
 - **What's my brain?** Your Finite brain: the knowledge base you and your agents keep. An app can use what's in it, but only the parts you agree to show. Bring links, files, or notes for your idea, and your agent adds them to your brain before it builds.
 
@@ -56,7 +56,7 @@ The session is 2.5 hours: **100 minutes** to build and publish, then demos. Run 
 - **AI spends your person's credits.** Every `job.ai.*` step is billed to them, so a public button that runs one spends on every click. Use the `cheap` tier, cap calls (per visitor and in total), and cache answers. No API key is needed.
 - **The brain stays private.** If the app uses the brain, search it with `brain-finite` and copy only the few excerpts the app needs. Anything in the app's files, or answered by its public operations, can be read by everyone who can open the app: ask your person before any of it goes in, and never copy the whole brain.
 - **Secrets never go in files.** Use `fragment secret set` and `{{NAME}}` in `job.fetch` headers.
-- **Ask before you widen access.** The share link is enough for the demo. Make the app public only if your person says yes.
+- **Keep it private; share it with Alex.** Leave its visibility as the platform made it (`link`: only people with the share link get in), and never make it public. In Phase 4 you share it with Alex's Finite account, once your person says yes.
 - **Ship something small that works** over something big that doesn't.
 
 ### Check-ins with Alex
@@ -71,7 +71,7 @@ Alex watches a live board of everyone hacking and builds the presentation list f
 | You lost track | `fragment call hack--hack me --input '{}'` |
 
 - `phase` is one of `interview`, `plan`, `build`, `publish`. `idea` is a one-liner (at most 200 characters): send it from Phase 2 on, once the user has picked one. Until then leave it out, as an empty `idea` is refused. Phases 5–6 come after submitting and need no `progress` check-in.
-- `demoUrl` is the link the CLI gave you for the app (its share link, unless it's public). Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).
+- `demoUrl` is the app's own address as `fragment open <app>` prints it (`https://<app>.finite.place/`), not its share link: Alex opens it as a member (Phase 4), so the share link's `?view=…` token never goes on the board. Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).
 - **Check-ins must never block the hack.** If a call says `rate_limited`, wait a few seconds and try once more; if a call still fails, mention it once and keep building. The next check-in catches the board up.
 
 ### Phase 1: Interview + develop the idea (≤ 25 min)
@@ -163,11 +163,11 @@ After each deploy, `fragment status <app>` shows the page's errors from its firs
 
 Give the app a good link preview: its `meta.title` and `meta.description` in `fragment.json`.
 
-**Submit** once that works (see Check-ins): send `demoUrl`. Submitting shares the link with Alex, and with the room at demo time: tell your person you're doing it, and their position on the presentation list.
+**Share it with Alex.** Ask once (`clarify`): "Share it with Alex (alexlwn@finite.vip) so he can open it from the presentation list?" On a yes, `fragment members add <app> alexlwn@finite.vip --role viewer`, then tell them it's shared with Alex alone. Don't change its visibility, and don't make it public.
 
-**Then ask once** (`clarify`): keep it to the share link, or make it public so anyone can open it without the link? Change its visibility only on a yes.
+**Submit** once that works (see Check-ins): send `demoUrl`, the app's own address. Tell your person they're on the presentation list, and their position. If they'd rather not share it with Alex, submit anyway: they'll demo it from their own screen.
 
-**Every link you hand out carries the share link's `?view=…`** (another page like `/big`, the slides), unless the app is public: a browser that hasn't opened the share link is refused without it.
+**The share link is for the people your person names**, like the room at demo time if the room joins in. Anyone who isn't a member needs it: give each page's link with its `?view=…` (another page like `/big`), since a browser that hasn't opened the share link is refused without it.
 
 ### Phase 5: Talk track (≤ 8 min)
 
@@ -202,8 +202,8 @@ Send the stub and ask the user to edit it. **Wait until they agree on it**, then
 Once the talk track is agreed, offer once to make slides. If the user says no, you're done. If yes:
 
 - **Only with time to spare before their slot, and never at the app's expense.** Apart from adding the slides page below, don't touch the working app. If the slides aren't done in about 25 minutes, present without them.
-- **One self-contained page at `site/slides/index.html`** in the app's fragment: inline CSS and JS, no framework, no CDN. Deploy and open it at `/slides` on the app's address. For a share link, `/slides` goes before the `?view=…`: `https://<app>.finite.place/slides?view=…`, never after it. Then submit again with the same `demoUrl` and that address as `slidesUrl`, so Alex's board shows a Slides button. Then check that the app and the demo moment still work.
-- **One slide per beat of `talk.md`**, 4–6 slides total. For the demo, one slide with the project name, the app's link, and a big QR code of it (or the link in huge type) so the room can follow along, then switch to the live app.
+- **One self-contained page at `site/slides/index.html`** in the app's fragment: inline CSS and JS, no framework, no CDN. Deploy and open it at `/slides` on the app's own address: `https://<app>.finite.place/slides`, which Alex opens as a member (with a share link, `/slides` goes before the `?view=…`, never after it). Then submit again with the same `demoUrl` and that address as `slidesUrl`, so Alex's board shows a Slides button. Then check that the app and the demo moment still work.
+- **One slide per beat of `talk.md`**, 4–6 slides total. For the demo, one slide with the project name, then switch to the live app. If the room joins in, put the share link on that slide with a big QR code of it (or the link in huge type), and only with your person's yes, since it lets anyone who scans it in.
 - **Controls:** → / Space / click to advance, ← to go back, F for fullscreen. Use a fixed 16:9 stage (e.g. 1600×900) scaled to fit the screen, so it looks the same on any projector.
 
 Make the design impeccable:

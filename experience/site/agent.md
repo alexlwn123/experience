@@ -1,4 +1,4 @@
-# The Alex Lewin Experience
+# Agent Camp Hack-and-Tell
 
 **A 2.5-hour agent hack-and-tell on Finite.**
 

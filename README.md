@@ -1,4 +1,4 @@
-# The Alex Lewin Experience
+# Agent Camp Hack-and-Tell
 
 Site for a 2.5-hour agent hack-and-tell on Finite, itself a fragment: **https://hack--hack.finite.place**
 

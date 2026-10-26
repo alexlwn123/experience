@@ -1,4 +1,4 @@
-// The Alex Lewin Experience's board, as a fragment app. Attendees' Finite
+// Agent Camp Hack-and-Tell's board, as a fragment app. Attendees' Finite
 // agents check in with `fragment call` (register, progress, submit, me); Alex
 // and co-hosts, the fragment's editors, run the dashboard (board and the
 // admin mutations). Every rule lives in applib/, which the tests drive.

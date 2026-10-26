@@ -62,9 +62,9 @@ body::after {
 }
 
 h1 { font-family: var(--display); font-weight: 900; line-height: 0.9; }
-/* Sized from the available width so each line always fits on one line */
-.h-small { display: block; font-size: min(120px, calc((100vw - 2 * var(--gutter)) / 5.9)); }
-.h-big { display: block; font-size: min(280px, calc((100vw - 2 * var(--gutter)) / 4.3)); color: var(--orange); }
+/* Sized from the viewport, gutter to gutter, so each line fits on one line (past .home's max-width; nowrap keeps "Hack-and-Tell" from breaking at its hyphens) */
+.h-small { display: block; white-space: nowrap; font-size: min(145px, calc((100vw - 2 * var(--gutter)) / 4.9)); }
+.h-big { display: block; white-space: nowrap; font-size: min(220px, calc((100vw - 2 * var(--gutter)) / 5.45)); color: var(--orange); }
 
 .lede {
   max-width: 34ch; margin-top: 48px;

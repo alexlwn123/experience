@@ -1,8 +1,8 @@
 {
-  "name": "experience-site",
+  "name": "agent-camp-hack-and-tell",
   "version": "2.0.0",
   "private": true,
-  "description": "The Alex Lewin Experience, as a fragment on Finite",
+  "description": "Agent Camp Hack-and-Tell, as a fragment on Finite",
   "scripts": {
     "test": "node --disable-warning=ExperimentalWarning --test 'tests/*.test.mjs'",
     "deploy": "fragment deploy hack--hack --dir experience"

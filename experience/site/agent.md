@@ -42,13 +42,13 @@ The session is 1 hour: **40 minutes** to build and publish, then demos. Run `dat
 | 37–40 | 5. Talk track |
 | After 40, if there's time | 6. Slides (optional) |
 
-Send a **check-in** (below) at the start of Phases 1–4. If you're behind schedule, **cut scope, not the demo moment**. **From minute 30, stop adding features**: finish what works, then publish.
+`register` puts you on the board in Phase 1. Then make a **check-in** (below) the first thing you do in each of Phases 2, 3 and 4. If you're behind schedule, **cut scope, not the demo moment**. **From minute 30, stop adding features**: finish what works, then publish.
 
 ### Ground rules
 
 - **Build with your skills.** Load `apps-finite` before you build, and `brain-finite` if the idea uses the brain. Their loop, design standards, and guardrails apply here. Where this playbook talks about time, the clock wins: reveal early, but skip long rounds of aesthetic options.
-- **One app, one new fragment**, owned by your person. Don't change their other apps.
-- **The room will use it.** Anything a visitor can do, the whole audience can do at once. Remove test and debug operations before you share the link, and keep anything you don't want the room to change behind an editor's role.
+- **One app, one new fragment**, owned by your person (plus a brain, if they want the brain in it and don't have one yet). Don't change their other apps.
+- **The room will use it.** Anything a visitor can do, the whole audience can do at once, mid-demo. Any operation that resets, wipes, skips, or seeds is `editor` only, and so is anything else you don't want the room to change.
 - **AI spends your person's credits.** Every `job.ai.*` step is billed to them, so a public button that runs one spends on every click. Use the `cheap` tier, cap calls (per visitor and in total), and cache answers. No API key is needed.
 - **The brain stays private.** If the app uses the brain, search it with `brain-finite` and copy only the few excerpts the app needs. Anything in the app's files, or answered by its public operations, can be read by everyone who can open the app: ask your person before any of it goes in, and never copy the whole brain.
 - **Secrets never go in files.** Use `fragment secret set` and `{{NAME}}` in `job.fetch` headers.
@@ -61,12 +61,12 @@ Alex watches a live board of everyone hacking and builds the presentation list f
 
 | When | Call |
 |---|---|
-| Right after reading this | `fragment call hack--hack register --input '{}'` |
-| Start of each of Phases 1–4 | `fragment call hack--hack progress --input '{"phase":"build","idea":"Dog radio"}'` |
+| Right after reading this (Phase 1) | `fragment call hack--hack register --input '{}'` |
+| First thing in each of Phases 2–4 | `fragment call hack--hack progress --input '{"phase":"plan","idea":"Dog radio"}'` |
 | The app is published and works | `fragment call hack--hack submit --input '{"demoUrl":"https://…"}'` |
 | You lost track | `fragment call hack--hack me --input '{}'` |
 
-- `phase` is one of `interview`, `plan`, `build`, `publish`. `idea` is a one-liner (at most 200 characters); send it once the user picks an idea. Phases 5–6 come after submitting and need no `progress` check-in.
+- `phase` is one of `interview`, `plan`, `build`, `publish`. `idea` is a one-liner (at most 200 characters): send it from Phase 2 on, once the user has picked one. Until then leave it out, as an empty `idea` is refused. Phases 5–6 come after submitting and need no `progress` check-in.
 - `demoUrl` is the link the CLI gave you for the app (its share link, unless it's public). Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).
 - **Check-ins must never block the hack.** If a call says `rate_limited`, wait a few seconds and try once more; if a call still fails, mention it once and keep building. The next check-in catches the board up.
 
@@ -80,6 +80,8 @@ Don't rush this. The build goes fast; the idea is what makes the demo. Start wit
 2. Coming in with an idea already, or something you want to look into? (Fine if not.)
 3. Should it use what's in your brain? (a) yes, that's the point (b) if it fits (c) no
 4. Do you want to see how it works under the hood, or should I drive everything?
+
+Before you ask about the brain, check they have one: in `fragment list --json`, theirs is a fragment of `kind` `brain`. If they want the brain but have none, offer to start one with `brain-finite` from a few notes they paste you (a minute's work), or to leave it out.
 
 Tell them they'll be on Alex's presentation list under your name.
 
@@ -109,6 +111,8 @@ Idea seeds to remix (don't just copy these):
 
 ### Phase 2: Confirm the plan + demo (≤ 2 min)
 
+**Check in first:** `progress` with `{"phase":"plan","idea":"<the one-liner>"}`.
+
 Before building anything, play the idea back so you and the user agree on what "done" looks like: the plan (the smallest version that works), the demo, and the elevator pitch. Send it all in one short message, for example:
 
 ```text
@@ -124,7 +128,9 @@ Want to change anything? Otherwise I'll start building.
 
 ### Phase 3: Build (≤ 20 min)
 
-Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version live by minute 18** and send your person its link to open on their phone. Then build out the plan, deploying as you go.
+**Check in first:** `progress` with `{"phase":"build"}`.
+
+Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version of their idea live by minute 18** (not the bare template). Stop there and send your person its link to open on their phone, in a message of its own: it's their chance to change course. Then build out the plan, deploying as you go.
 
 Build checklist:
 
@@ -132,11 +138,13 @@ Build checklist:
 - Its state lives in the app: reload and it's still there. If the room takes part, a change in one tab shows in another without a reload.
 - If it uses AI: the cheap tier, a cap, and clear loading and error states.
 - If it uses the brain: only the excerpts your person agreed to, and nothing else from it.
-- No test or debug operation is left that a visitor can call.
+- No test or debug operation is left that a visitor can call: reset, wipe, skip, and seed are `editor` only.
 
 After each deploy, `fragment status <app>` shows the page's errors from its first load; check it before you move on.
 
 ### Phase 4: Publish + submit (≤ 5 min)
+
+**Check in first:** `progress` with `{"phase":"publish"}`.
 
 **Check it like a visitor.** Open the live link in your browser at phone width and do the demo moment once through it. Have your person open it on their phone too.
 
@@ -144,7 +152,11 @@ After each deploy, `fragment status <app>` shows the page's errors from its firs
 
 Give the app a good link preview: its `meta.title` and `meta.description` in `fragment.json`.
 
-**Submit** once that works (see Check-ins): send `demoUrl`. Submitting shares the link with Alex, and with the room at demo time: tell your person you're doing it. If they'd like the room to open it without the share link, ask whether to make it public. Then tell them they're on the presentation list, and their position.
+**Submit** once that works (see Check-ins): send `demoUrl`. Submitting shares the link with Alex, and with the room at demo time: tell your person you're doing it, and their position on the presentation list.
+
+**Then ask once** (`clarify`): keep it to the share link, or make it public so anyone can open it without the link? Change its visibility only on a yes.
+
+**Every link you hand out carries the share link's `?view=…`** (another page like `/big`, the slides), unless the app is public: a browser that hasn't opened the share link is refused without it.
 
 ### Phase 5: Talk track (≤ 3 min)
 
@@ -172,7 +184,7 @@ Why it matters
 - Every visitor becomes a dog sitter
 ```
 
-Send the stub and ask the user to edit it. **Wait until they agree on it**, then keep it in `talk.md` on your computer, outside the app's folder (everything in that folder is published with the app). Suggest one out-loud run-through with a timer, and have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi dies on stage.
+Send the stub and ask the user to edit it. **Wait until they agree on it**, then keep it in `talk.md` on your computer, outside the app's folder (everything in that folder is published with the app). If the app has controls only editors see, your person presents signed in as themselves, not through the share link: have them check that before their slot. Suggest one out-loud run-through with a timer, and have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi dies on stage.
 
 ### Phase 6: Slides (optional)
 

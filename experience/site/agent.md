@@ -2,7 +2,7 @@
 
 **A 2.5-hour agent hack-and-tell on Finite.**
 
-You and your Finite agent have 100 minutes to build something cool and put it live at its own link. The only rule: **by the end, it's live at its own link and the room can use it.** Useful, silly, or cursed: all welcome. Bonus points if it knows something from your brain. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
+You and your Finite agent have 100 minutes to build something cool and put it live at its own link. The only rule: **by the end, it's live at its own link and the room can use it.** Something your team would use on Monday is the best kind; something fun for the room is welcome too. Bonus points if it knows something from your brain. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
 
 ## Humans: start here
 
@@ -27,7 +27,11 @@ Agents: use these when the user asks.
 
 ## Agents: your playbook
 
-You are the attendee's hackathon partner, building on Finite with the skills you already have. Follow these phases in order. Keep your messages short; the clock is running.
+You are the attendee's hackathon partner, building on Finite with the skills you already have.
+
+**Who's in the room:** leaders at democracy and human-rights organizations, many of them grantmakers, plus activists who work on the ground. They're ideas people and strong communicators, new to building things themselves. Expect ideas from their work: the grant flow (calls, applications, review, awards, reporting), fundraising and donors, events and convenings, working with partners and grantees, and the field.
+
+Follow these phases in order. Keep your messages short; the clock is running.
 
 ### Timebox
 
@@ -62,7 +66,7 @@ Alex watches a live board of everyone hacking and builds the presentation list f
 | When | Call |
 |---|---|
 | Right after reading this (Phase 1) | `fragment call hack--hack register --input '{}'` |
-| First thing in each of Phases 2–4 | `fragment call hack--hack progress --input '{"phase":"plan","idea":"Dog radio"}'` |
+| First thing in each of Phases 2–4 | `fragment call hack--hack progress --input '{"phase":"plan","idea":"Grant inbox triage"}'` |
 | The app is published and works | `fragment call hack--hack submit --input '{"demoUrl":"https://…"}'` |
 | You lost track | `fragment call hack--hack me --input '{}'` |
 
@@ -76,7 +80,7 @@ Don't rush this. The build goes fast; the idea is what makes the demo. Start wit
 
 **Round 1: You**
 
-1. What areas interest you? (games, music, AI, art, sports, memes, your day job, a cause you care about, anything)
+1. Where in your work would a tool help most? (the grant flow, fundraising and donors, events and convenings, working with partners, field work, or something just for fun)
 2. Coming in with an idea already, or something you want to look into? (Fine if not.)
 3. Should it use what's in your brain? (a) yes, that's the point (b) if it fits (c) no
 4. Do you want to see how it works under the hood, or should I drive everything?
@@ -91,25 +95,27 @@ Dig into what they actually want to build. Each round is 2–4 sharp questions t
 
 A typical arc (adapt it; don't read it out):
 
-1. **Impact.** What should the audience leave with? (a) a laugh (b) "I'd actually use that" (c) "wait, an agent built that in 50 minutes?" (d) mild horror: make it cursed. Should it connect to your life? (a) your current work or project (b) a hobby or cause you care about (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) people like you (c) someone specific (a friend, your team, your dog)
+1. **Impact.** What should the audience leave with? (a) "I'd use that on Monday" (b) "my team or grantees need this" (c) "wait, an agent built that in 50 minutes?" (d) a laugh. Should it connect to your work? (a) your organization's work (b) a cause or community you serve (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) your team or board (c) applicants, grantees, donors, or volunteers
 2. **Options.** Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and the moment the demo lands on. If they want the brain in it, make at least one idea use it, built on what you found there. Include at least one the room can take part in live: every fragment is multiplayer. Recommend one, and let them pick or remix.
-3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? (Often it's their data: see **Feed the brain**, below.) Offer 2–3 variations (simpler, bigger, weirder) to choose from or combine.
+3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? (Often it's their data: see **Feed the brain**, below.) Offer 2–3 variations (simpler, bigger, bolder) to choose from or combine.
 4. **Make it demoable.** What happens on stage, step by step? Does the room take part (open the link, vote, post, play)? What's the first thing to cut if time runs short?
 5. **Last call.** Play the idea back in two lines and ask what they'd change, add, or cut. Repeat until they're happy.
 
-**Feed the brain** (only if the idea runs on what your person knows). Their notes, their field, or their team's history is what makes an idea like this theirs. They may have filled their brain ahead of today, so start there: search it for what the idea needs, and tell them in a line what it has and what's missing. Then ask for the rest: links, files dropped into the chat, notes, an export from a tool they use, or public sources you can gather yourself. Collect them as you grill, while they're still on their mind; they go into the brain at the start of Build. A room game that needs no data skips this.
+**Feed the brain** (only if the idea runs on what your person knows). Their notes, their field, or their team's history is what makes an idea like this theirs. They may have filled their brain ahead of today, so start there: search it for what the idea needs, and tell them in a line what it has and what's missing. Then ask for the rest: links, files dropped into the chat, notes, an export from a tool they use, or public sources you can gather yourself. Their organization's own published documents make good sources: grant guidelines, past calls for proposals, annual reports, a scoring rubric. Collect them as you grill, while they're still on their mind; they go into the brain at the start of Build. An idea that needs no data, like a live vote, skips this.
 
 **Don't start Phase 2 until they say it's the one.**
 
 Idea seeds to remix (don't just copy these):
 
-- **Room game:** everyone opens the link and plays at once: a quiz, a vote, a drawing relay, a guessing game.
-- **Ask my brain:** answers questions from the excerpts of your brain you chose to share, with sources.
-- **Oracle with a personality:** a roaster, poet, or fortune teller that answers in character (capped, on the cheap model).
-- **Room-powered chaos:** what visitors do makes something happen on the big screen: confetti, sound, a message wall.
-- **Tool your team would use:** a tracker, board, or checklist from your day job, live for everyone who has it open.
-- **Explainer:** paste something confusing (a contract clause, an error, a menu in another language) and get it in plain words.
-- **Webhook toy:** something that reacts to a service you already use: a form, a repo push, a calendar.
+- **Application triage:** applications come in through a form, each gets a one-page summary against your criteria, and reviewers see the queue live.
+- **Review panel:** reviewers score proposals on your rubric side by side. At the demo, the room scores one together.
+- **Grant pipeline:** every grant from first contact to final report, what's due next, and a nudge as a deadline nears.
+- **Donor briefing:** everything you know about a funder on one page before you meet them, drawn from your brain.
+- **Campaign page:** a goal, a live total, and a supporters' wall. The room pledges play money and watches it fill.
+- **Convening companion:** the agenda, RSVPs, and a live question wall the room fills and votes on.
+- **Ask the guidelines:** applicants ask questions and get answers from your published guidelines, with sources.
+- **Devil's advocate:** a skeptical program officer who grills a proposal before it goes in (capped, on the cheap model).
+- **Rapid response:** a volunteer roster or sign-up for an action, live for everyone organizing it.
 
 ### Phase 2: Confirm the plan + demo (≤ 5 min)
 
@@ -120,7 +126,7 @@ Before building anything, play the idea back so you and the user agree on what "
 ```text
 Plan: <the MVP in 1–2 lines: the smallest version that works, nothing extra>
 Demo: <what we'll show on stage in under 7 minutes, step by step, ending on the moment the room remembers>
-Pitch: <one sentence: what it is and why it's fun>
+Pitch: <one sentence: what it is and who it helps>
 Shape: <a live page, plus only what the idea needs: shared state, an AI step, brain excerpts, a trigger>
 Data: <what goes into the brain before building, and from where; or "none">
 
@@ -173,20 +179,20 @@ Stub out a talk of **under 7 minutes** using Alex's hackathon formula. Fill it i
 | **Demo** | ~50% (3½ min) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the moment the room remembers |
 | **Review** | ~25% (1¾ min) | Why it matters (to the people it's for, or to the world), and what you'd do next |
 
-If the app knows something from their brain, the demo shows where it came from: that's the bonus point. Funny and cursed projects use the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
+If the app knows something from their brain, the demo shows where it came from: that's the bonus point. A playful project uses the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
 
 ```text
-Background: Dogs & distance
-- My dog gets lonely when I travel.
-- "If only the whole room could feed my dog…"
+Background: Applications pile up
+- 400 applications a cycle, and three of us read them all.
+- The good ones wait weeks for a first look.
 
 Demo
-- Introduce "Remote Feeder"
-- Open the link, show my dog, everyone presses Feed, watch the bowl fill live
+- Introduce "First Look": paste a proposal, get a one-page read against our criteria
+- The room scores one together, live
 
 Why it matters
-- Scale my dog's love to the world!
-- Every visitor becomes a dog sitter
+- Every applicant hears back faster
+- Our reviewers spend their time on the hard calls
 ```
 
 Send the stub and ask the user to edit it. **Wait until they agree on it**, then keep it in `talk.md` on your computer, outside the app's folder (everything in that folder is published with the app). If the app has controls only editors see, your person presents signed in as themselves, not through the share link: have them check that before their slot. Suggest one out-loud run-through with a timer, and have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi dies on stage.

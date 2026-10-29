@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Control room · AI Summit Mini-Hack</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/dashboard/dashboard.css">
+</head>
+<body>
+<header class="hero dash-hero">
+  <p class="kicker">Control room</p>
+  <h1>AI Summit <span>Mini-Hack</span></h1>
+  <button type="button" id="projector" class="toggle">Projector mode</button>
+</header>
+<main>
+  <div id="gate" hidden>
+    <p id="gate-message" class="muted"></p>
+    <a id="sign-in" class="toggle" href="/__signin?return=/dashboard" hidden>Sign in</a>
+  </div>
+  <p id="error" class="error" role="alert"></p>
+  <div id="board"></div>
+</main>
+<script type="module" src="/dashboard/app.js"></script>
+</body>
+</html>

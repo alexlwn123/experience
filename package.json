@@ -2,9 +2,10 @@
   "name": "ai-summit-mini-hack",
   "version": "2.0.0",
   "private": true,
-  "description": "AI Summit Mini-Hack, as a Finite Site",
+  "description": "AI Summit Mini-Hack, as a fragment on Finite",
   "scripts": {
-    "board": "node board/board.mjs --watch 60",
+    "test": "node --disable-warning=ExperimentalWarning --test 'tests/*.test.mjs'",
+    "deploy": "fragment deploy mini-hack--hack --dir experience",
     "qa": "node qa/run.mjs"
   },
   "license": "ISC",

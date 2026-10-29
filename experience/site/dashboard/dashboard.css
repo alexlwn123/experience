@@ -1,0 +1,77 @@
+.dash-hero { padding-top: 3rem; padding-bottom: 1rem; }
+.dash-hero h1 { font-size: clamp(2rem, 6vw, 3.2rem); margin-bottom: 1rem; }
+
+.toggle,
+.admin button {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.admin button.danger { color: #ff8a7a; }
+.admin button.move { padding: 0.35rem 0.55rem; }
+.admin button:disabled { opacity: 0.3; cursor: default; }
+.admin { display: flex; gap: 0.4rem; justify-content: flex-end; }
+
+#gate { margin-bottom: 1.5rem; }
+a.toggle { display: inline-block; text-decoration: none; }
+[hidden] { display: none !important; }
+
+.error { color: #ff8a7a; min-height: 1.5em; }
+
+.stats { font-family: var(--mono); color: var(--accent); }
+.muted { color: var(--muted); }
+
+.ready-list { list-style: none; padding: 0; margin: 0; }
+.ready {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.ready .slot { font-family: var(--mono); font-size: 1.4rem; color: var(--accent); }
+.ready .who { display: flex; flex-direction: column; }
+.bot { display: inline-flex; align-items: center; gap: 0.6rem; }
+.avatar {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--line);
+}
+body.projector .avatar { width: 40px; height: 40px; }
+.ready .idea { color: var(--muted); font-size: 0.9rem; }
+.person { display: block; font-size: 0.9rem; }
+.ready .links { display: flex; gap: 0.8rem; }
+.ready.presented { opacity: 0.4; }
+.ready.presented strong { text-decoration: line-through; }
+
+.phase {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.phase-build, .phase-publish { border-color: var(--accent); color: var(--accent); }
+
+td.idea { color: var(--muted); }
+
+body.projector { font-size: 24px; }
+body.projector .admin,
+body.projector .hacking,
+body.projector .kicker { display: none; }
+body.projector .ready { grid-template-columns: 3rem 1fr auto; }
+
+@media (max-width: 640px) {
+  .ready { grid-template-columns: 2rem 1fr; }
+  .ready .links, .ready .admin { grid-column: 2; justify-content: flex-start; }
+}

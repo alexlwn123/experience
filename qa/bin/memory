@@ -1,6 +1,0 @@
-#!/bin/sh
-# QA stand-in for Hermes' memory tool: `memory add "<note>"`. Notes are shown to the agent in every new session.
-[ "$1" = "add" ] || { echo "usage: memory add \"<note>\""; exit 2; }
-shift
-printf -- '- %s\n' "$*" >> "$HACKQA_STATE/MEMORY.md"
-echo "Saved to memory."

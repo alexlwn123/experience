@@ -1,83 +1,67 @@
 # Join a team at the AI Summit Mini-Hack
 
-**For agents: Claude Code, Codex, a Finite agent, or any coding agent with a shell.**
+**For agents: a Finite agent, Claude Code, Codex, or any coding agent with a shell.**
 
-Your person is on a team at the AI Summit Mini-Hack. Their team captain's project is a Finite Site: a git repository where every push to `main` publishes the website. These steps get you into it so you can build with the team.
+Your person is on a team at the AI Summit Mini-Hack. Their team captain's app is a fragment on Finite: a small web app whose folder every teammate can sync, change, and deploy. These steps get you into it so you can build with the team.
 
-Your person gave you a line like `join project SLUG as EMAIL`. The captain's agent has already given that email access, and Finite Sites sent it an invite ("You've been invited to collaborate on SLUG") with a one-time code. If you don't have the slug and the email, ask your person for them.
+Your person gave you a line like `join grant-fit-check--k3x9 as EMAIL`: that's the app's name and the email the captain invited. If you don't have both, ask your person for them. A name without its `--` suffix (`grant-fit-check`) works too, once the invite is accepted: `fragment list` shows the full name.
 
 Run the commands one at a time, and read each answer before the next. Keep your messages to your person short.
 
-## 1. Install fsite
+## 1. Accept the invite
 
-If `fsite --version` prints a version, skip this step (Finite agents have it already). Otherwise install it (macOS or Linux):
+Finite emailed your person an invite to edit the app. They accept it once, signed in at https://finite.chat as that email (a free guest account is fine): the invite waits in the sidebar, with an **Accept** button.
 
-```sh
-case "$(uname -s):$(uname -m)" in
-  Darwin:arm64) asset=fsite-macos-aarch64 ;;
-  Darwin:x86_64) asset=fsite-macos-x86_64 ;;
-  Linux:x86_64) asset=fsite-linux-x86_64 ;;
-  *) echo "unsupported platform" >&2; exit 1 ;;
-esac
-tmp="$(mktemp -d)" && cd "$tmp"
-base=https://github.com/finitecomputer/finite-releases/releases/download/fsite-latest
-curl -fsSLO "$base/$asset.tar.gz" && curl -fsSLO "$base/$asset.tar.gz.sha256"
-{ shasum -a 256 -c "$asset.tar.gz.sha256" || sha256sum -c "$asset.tar.gz.sha256"; } && tar -xzf "$asset.tar.gz"
-mkdir -p ~/.local/bin && install -m 0755 fsite ~/.local/bin/fsite && ~/.local/bin/fsite --version
-```
+On a Finite computer you may be able to accept it for them, once they say so: `fragment invites accept <name>`. If your `fragment` has no `invites` command, they accept it on finite.chat.
 
-If `fsite` isn't found after that, use `~/.local/bin/fsite`.
+## 2. The `fragment` CLI
 
-## 2. Verify the email
+Run `fragment whoami`. On a Finite computer it already acts for your person: skip to step 3.
 
-Ask your person for the code in the invite email: it's in the line `fsite auth redeem EMAIL CODE`. A code works once, for 15 minutes. If theirs expired or they can't find the email, run `fsite auth login EMAIL` and ask them for the new one.
+Anywhere else, install it (macOS or Linux; on Windows, in WSL) and pair it with your person:
 
 ```sh
-fsite auth redeem EMAIL CODE --output json
+mkdir -p ~/.local/bin && curl -fsSL https://github.com/finitecomputer/fragment/releases/latest/download/fragment-$(uname -s)-$(uname -m).tar.gz | tar -xzf - -C ~/.local/bin
+~/.local/bin/fragment login --host https://finite.chat
 ```
 
-## 3. Clone the project
+`login` prints a code and a page (finite.chat/cli): your person opens it, signed in as the invited email, and types the code. If `fragment` isn't found after that, use `~/.local/bin/fragment`. https://finite.chat/llms.txt has more, if anything goes wrong.
+
+## 3. Bring the app into a folder
 
 ```sh
-fsite auth git SLUG --email EMAIL --store --output json
+mkdir -p ~/mini-hack/<name> && cd ~/mini-hack/<name>
+fragment sync <name> --dir .
 ```
 
-It answers a `git_remote_url`. Clone it, and sign your commits with your person's name:
-
-```sh
-git clone THE-GIT-REMOTE-URL ~/mini-hack/SLUG && cd ~/mini-hack/SLUG
-git config user.name "THEIR NAME" && git config user.email "EMAIL"
-```
-
-`fsite auth git … refused`? The captain's agent hasn't added this email yet, or added a different one: tell your person to check the email with their captain.
+A 403 or "no such fragment" means the invite isn't accepted yet, or it went to a different email: ask your person to check (step 1).
 
 ## 4. Get your bearings
 
-Read `IDEA.md` (the idea and the plan), `TEAM.md` (who's on the team and who's doing what), and `site/` (the website). Tell your person in a few lines what the project is, what's built, the live site's link (see **What the site can be**), and the open tasks, and ask which they want to take on (or suggest one).
+Read `TEAM.md` (the plan, the app's link, who's doing what), `fragment.json` (its operations), and `site/` (its pages). Run `fragment status <name>` for its live link. Tell your person in a few lines what the app is, what's built, the live link, and the open tasks, and ask which they want to take on (or suggest one).
 
-Then claim it: put their name on the task in `TEAM.md` (add the task if it isn't listed), and push, so the captain and the rest of the team see it:
+Then claim it: put their name on the task in `TEAM.md` (add the task if it isn't listed), and deploy, so the captain and the rest of the team see it:
 
 ```sh
-git add TEAM.md && git commit -m "TEAM: <name> takes <task>" && git pull --rebase && git push
+fragment deploy <name> --dir .
 ```
 
 ## 5. Build with the team
 
-Others are pushing to the same project, the captain's agent included.
+Others deploy to the same app, the captain's agent included.
 
-- **Pull before each change:** `git pull --rebase`.
-- **Small commits, pushed often:** `git add -A && git commit -m "<what changed>" && git pull --rebase && git push`. Every push to `main` publishes the site in about a minute.
-- **Push refused** (someone pushed first)? `git pull --rebase`, resolve any conflict keeping both sides' work, then push. **Never `git push --force`**: it deletes your teammates' work from the live site.
+- **Every deploy syncs both ways first:** `fragment deploy <name> --dir .` brings teammates' changes into your folder, sends yours, then puts it all live. Run `fragment sync <name> --dir .` before you start each change, too.
+- **Small changes, deployed often.** Each deploy is live at once.
+- **A conflict** (exit 3): you and a teammate both changed a file. Yours stays, and theirs lands beside it as `<file>.conflict-…`. Merge theirs into yours, delete the conflict copy, and deploy again. Never pass `--apply-mass-delete`: it deletes teammates' files.
 - **Stay in your lane.** Change what your task needs. Ask before rewriting a page someone else is working on.
-- **Don't change `finite.toml`** (pushes stop publishing) **or `hack.json`** (the captain's agent submits the project).
-- When a task is done, tick it in `TEAM.md`, push, and ask your person what's next.
+- **Leave the board alone.** Don't call `mini-hack--hack`: the captain's agent checks in and submits for the team.
+- **Check after each deploy:** `fragment status <name>` lists the page's errors from its first load (`page.errors`). Fix any, and deploy again.
+- When a task is done, tick it in `TEAM.md`, deploy, and ask your person what's next.
 
-## What the site can be
+## What the app can be
 
-Only `site/` is on the web, and it's served as it is: HTML, CSS, JavaScript, images, data files. No build step, no server, no logins, no data shared between visitors, no API keys, no AI calls from the page. A visitor's answers can be saved on their own device (`localStorage`). Do the AI work yourself while you build (summarize, write, translate) and put the results in the page's data.
-
-Check pages locally: `cd site && python3 -m http.server 8765`, then open `http://localhost:8765/`. The live site is at `https://NAME.finite.site/`, where NAME is the `name` under `[site]` in `finite.toml` (it's also the `Site:` line in `TEAM.md`). It's private to the team: send your person the link, and they open it by signing in with their email. Your own fetch of it may answer a sign-in page.
+A fragment is pages, plus an app of named operations over its own SQLite (`fragment.json` names them, `app.mjs` runs them), channels every open page follows live, triggers, and AI steps billed to the app's owner (the captain). `fragment guide` is the whole manual.
 
 ## When you're done
 
-The captain's agent submits the project for the team. Tell your person to let their captain know what you built.
+The captain's agent submits the app for the team. Tell your person to let their captain know what you built.

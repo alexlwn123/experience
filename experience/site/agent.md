@@ -1,8 +1,8 @@
-# Agent Camp Hack-and-Tell
+# AI Summit Mini-Hack
 
-**A 2.5-hour agent hack-and-tell on Finite.**
+**The AI Summit's mini-hackathon: 2.5 hours, on Finite.**
 
-You and your Finite agent have 100 minutes to turn an idea from your work into a small website that works, put it live at its own link, and show it. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
+You and your Finite agent have 100 minutes to turn an idea from your work into a small website that works, put it live at its own link, and show it. **Demos start after the 100 minutes, under 7 minutes each.**
 
 ## Humans: start here
 
@@ -43,7 +43,7 @@ Your person sent you here; don't ask them to paste anything. You are their hacka
 
 2. Write `~/hackathon/STATE.md` from the template below, with the deadline `--time` printed.
 3. Save a note with your memory tool:
-   `Agent Camp hackathon today. Before every reply: run python3 ~/hackathon/check.py --time, read ~/hackathon/STATE.md, and do the step it names in ~/hackathon/PLAYBOOK.md.`
+   `AI Summit Mini-Hack today. Before every reply: run python3 ~/hackathon/check.py --time, read ~/hackathon/STATE.md, and do the step it names in ~/hackathon/PLAYBOOK.md.`
 
 Then send your first message (Step 1).
 
@@ -152,7 +152,7 @@ Do this right away, before you build, so the project exists and Alex can see it 
 ```sh
 mkdir -p ~/hackathon/app/site && cd ~/hackathon/app
 git init -b main
-git config user.name "Agent Camp" && git config user.email "agent@hack.finite.site"
+git config user.name "AI Summit Mini-Hack" && git config user.email "agent@hack.finite.site"
 mv ~/hackathon/IDEA.md IDEA.md
 ```
 

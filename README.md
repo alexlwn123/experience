@@ -1,6 +1,6 @@
-# Agent Camp Hack-and-Tell
+# AI Summit Mini-Hack
 
-Site for a 2.5-hour agent hack-and-tell on Finite, served as a Finite Site: **https://hack.finite.site**
+Site for the AI Summit's 2.5-hour mini-hackathon on Finite, served as a Finite Site: **https://hack.finite.site**
 
 Attendees paste one line into their Finite agent's chat. The agent follows the playbook: it hears their problem, clarifies the idea with them over a few rounds, builds it as a Finite Site of their own, shares it with Alex, and submits it with its talk and slides. (The fragment edition, with a live check-in board, is the `fragment` branch.)
 

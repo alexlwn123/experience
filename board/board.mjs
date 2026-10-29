@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const run = promisify(execFile);
-const CACHE = join(homedir(), ".cache", "agent-camp-board");
+const CACHE = join(homedir(), ".cache", "ai-summit-mini-hack-board");
 const OUT = join(dirname(fileURLToPath(import.meta.url)), "out", "index.html");
 const MAX_TEXT = 4000;
 
@@ -65,11 +65,11 @@ function render(entries, at) {
   <p class="links">${e.url ? `<a href="${escape(e.url)}">Site</a>` : ""} ${slides} <span>${escape(e.status || "no hack.json")} · last push ${escape(e.lastPush || "never")}</span></p>${details}</div>
 </li>`;
   }).join("\n");
-  return `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="60"><title>Agent Camp board</title>
+  return `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="60"><title>AI Summit Mini-Hack board</title>
 <style>body{font:16px system-ui;max-width:60rem;margin:2rem auto;padding:0 1rem}li{display:flex;gap:1rem;padding:.75rem 0;border-top:1px solid #ddd}
 li:not(.ready){opacity:.6}li.presented{text-decoration:line-through;opacity:.4}h2{margin:0;font-size:1.2rem}small{font-weight:400;color:#666}
 .links span{color:#888;font-size:.85rem}pre{white-space:pre-wrap;background:#f6f6f6;padding:.5rem}ol{list-style:none;padding:0}</style>
-<h1>Agent Camp: ${entries.filter((e) => e.status === "ready").length} ready, ${entries.length} in all</h1><p>Updated ${escape(at)}. Tick a box once they've presented (kept in this browser).</p>
+<h1>AI Summit Mini-Hack: ${entries.filter((e) => e.status === "ready").length} ready, ${entries.length} in all</h1><p>Updated ${escape(at)}. Tick a box once they've presented (kept in this browser).</p>
 <ol>${rows}</ol>
 <script>document.querySelectorAll("li").forEach((li)=>{const box=li.querySelector("input"),key="presented:"+li.dataset.slug;
 const show=()=>li.classList.toggle("presented",box.checked);box.checked=localStorage.getItem(key)==="1";show();

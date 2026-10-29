@@ -1,4 +1,4 @@
-/* Agent Camp Hack-and-Tell: intro deck.
+/* AI Summit Mini-Hack: intro deck.
    One 1600×900 canvas, scaled to fit.
 
    Design language: altitude.
@@ -270,9 +270,9 @@ body[data-slide="14"] .progress span { background: var(--ink); }
   font-size: var(--fs-lede); line-height: 1; color: var(--paper-dim);
 }
 
-.s-title .l1 { font-family: var(--display); font-weight: 900; font-size: 160px; line-height: 0.95; }
-/* "Hack-and-Tell" is wider than the hero size allows: 236px fills the stage as the old title did */
-.s-title .l2 { font-family: var(--display); font-weight: 900; font-size: 236px; line-height: 0.9; color: var(--orange); }
+.s-title .l1 { font-family: var(--display); font-weight: 900; font-size: 188px; line-height: 0.95; }
+/* Sized so each line fills the stage as wide as the previous, longer title did */
+.s-title .l2 { font-family: var(--display); font-weight: 900; font-size: 315px; line-height: 0.9; color: var(--orange); }
 
 .hint {
   position: absolute; right: var(--gutter); bottom: 64px;

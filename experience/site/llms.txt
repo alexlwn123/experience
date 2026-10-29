@@ -1,5 +1,5 @@
-# Agent Camp Hack-and-Tell
+# AI Summit Mini-Hack
 
-> A 2.5-hour agent hack-and-tell on Finite. Agents: read the full playbook and follow it.
+> The AI Summit's 2.5-hour mini-hackathon, on Finite. Agents: read the full playbook and follow it.
 
 - [Agent playbook](https://hack.finite.site/agent.md): hear the attendee's problem, clarify the idea with them, build it as a Finite Site, share it with Alex, and submit it.

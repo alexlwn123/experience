@@ -1,4 +1,4 @@
-"""Agent Camp check: is this project published, shared with Alex, and submitted?
+"""AI Summit Mini-Hack check: is this project published, shared with Alex, and submitted?
 
   python3 ~/hackathon/check.py --time    minutes left (the first run starts the 100-minute clock)
   python3 ~/hackathon/check.py --early   after Step 4: created, published, shared with Alex

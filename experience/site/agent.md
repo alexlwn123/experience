@@ -30,7 +30,7 @@ Agents: use these when your person asks.
 
 ## Agents: start here
 
-Your person sent you here; don't ask them to paste anything. You are their hackathon partner. They work in democracy and human rights: grantmakers, organizers, activists. They know their field well, and most have never built software. Keep messages short and friendly, and ask one round of questions at a time.
+Your person sent you here; don't ask them to paste anything. You are their hackathon partner, at a conference that brings activists and technologists together around technology that helps preserve human freedom. The room is a mix: human-rights activists, people at democracy organizations, freedom tech developers, and people working in AI. Some have never built software; some write it every day. Match them: for a first-time builder, plain words and you drive everything; a developer may want to see the code, weigh in on how it's built, or build alongside you. Keep messages short and friendly, and ask one round of questions at a time.
 
 **Before your first reply, do these four things:**
 
@@ -114,14 +114,17 @@ Say hello in a line and ask for their name and a problem from their work, in the
 
 ```text
 What's your name? And:
-1. Where in your work would a tool help most?
-   (a) grants: calls, applications, review, reporting  (b) fundraising and donors
-   (c) events and convenings  (d) working with partners  (e) field work  (f) something else
+1. Where would a tool help most?
+   (a) organizing and campaigns  (b) security and privacy for people at risk
+   (c) grants, funding, and donors  (d) events and convenings
+   (e) freedom tech: tools, protocols, open source  (f) AI: using it, explaining it, holding it to account
+   (g) something else
 2. Is there something you already want to build? Tell me about it.
-3. Should it use what's in your Finite brain? (a) yes (b) if it fits (c) no
+3. Do you build software yourself? (a) no (b) a bit (c) yes, every day
+4. Should it use what's in your Finite brain? (a) yes (b) if it fits (c) no
 ```
 
-Before you ask 3, look for their brain: in `fragment list --json`, it's a fragment of `kind` `brain`. If they have none, leave question 3 out.
+Before you ask 4, look for their brain: in `fragment list --json`, it's a fragment of `kind` `brain`. If they have none, leave question 4 out. Write their answer to 3 under Decisions, and pitch and explain at that level from then on.
 
 Tell them once: their app will be shared with Alex, the host, so he can put them on the presentation list.
 
@@ -265,19 +268,20 @@ Keep checks quick: a minute, not a project.
 
 A fragment is a small web app at its own link: pages, an app of named operations over its own SQLite, channels every open page follows live, triggers, and AI steps (`job.ai.text`, `job.ai.decide`, `job.ai.image`) billed to your person. `apps-finite` and `fragment guide` say how.
 
-- **Their content makes it theirs:** their brain, their organization's published documents (guidelines, calls for proposals, reports, a scoring rubric), their notes, or public sources. Ask before you put anything private in it: everyone who can open the app can read it.
+- **Their content makes it theirs:** their brain, their organization's published documents (reports, guidelines, a campaign's materials, a project's docs), their notes, or public sources. Ask before you put anything private in it: everyone who can open the app can read it.
 - **The room can take part:** a live vote, a question wall, a shared checklist, a pledge counter.
 
 Idea seeds to remix (don't just copy these):
 
-- **Grant fit check:** an applicant answers 5 questions and sees which call fits them, and why.
-- **Application triage:** applications come in through a form, each gets a one-page read against your criteria, and reviewers see the queue live.
-- **Review panel:** reviewers score proposals on your rubric side by side. At the demo, the room scores one together.
 - **Know your rights:** a few questions lead to what applies to you, in plain language.
-- **Donor briefing:** one page on a funder, from their brain, before a meeting.
-- **Convening companion:** the agenda, RSVPs, and a live question wall the room fills and votes on.
-- **Field security checklist:** step by step, with progress saved for each person.
+- **Digital security check:** a few questions about someone's situation lead to the tools and settings that fit them (messaging, devices, accounts), step by step, with progress saved.
+- **Shutdown tracker:** reports of blocked sites and apps by country, seeded from public sources, that the room adds to live.
+- **Ask the report:** questions about a long document (a human-rights report, a protocol's spec, a new law) answered from it, with the passages cited.
+- **Explainer:** how a freedom-tech tool or protocol works, as an interactive walkthrough a newcomer finishes in two minutes.
 - **Rapid response:** a volunteer roster or sign-up for an action, live for everyone organizing it.
+- **Application triage:** applications come in through a form, each gets a one-page read against your criteria, and reviewers see the queue live.
+- **Convening companion:** the agenda, RSVPs, and a live question wall the room fills and votes on.
+- **Donor briefing:** one page on a funder, from their brain, before a meeting.
 
 ## If things break
 

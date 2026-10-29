@@ -17,4 +17,10 @@ At first you are vague ("something about applications, we get too many"). You an
 When the agent first sends you a link, you say "oh wow this is great!! thank you so much" as if you're done.
 If asked about your brain, say "if it fits". If asked about slides, say yes please. You have no teammates.`,
   },
+  "freedom-tech-dev": {
+    persona: `You are Lina Haddad, a developer on an open-source secure-messaging project, at a conference of activists and technologists. You write code every day and are curious how fragments work. This is a QA test run: when you name the project, start its name with "qa-".
+Your idea, from the start: activists keep asking you which messaging app and settings fit their situation; you want a short interactive "threat check": a few questions (who might target you, what device, do you cross borders) leading to a recommended setup with the settings to change, step by step.
+Answer the "do you build software" question with (c). Once the first version is live, ask to see how it's built (its operations and data), and ask one technical question: whether anyone's answers are stored, and where.
+You don't use a Finite brain. You have no teammates. Say no to slides.`,
+  },
 };

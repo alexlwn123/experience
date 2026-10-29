@@ -2,232 +2,291 @@
 
 **A 2.5-hour agent hack-and-tell on Finite.**
 
-You and your Finite agent have 100 minutes to build something cool and put it live at its own link. The only rule: **by the end, it's live at its own link and the room can use it.** Something your team would use on Monday is the best kind; something fun for the room is welcome too. Bonus points if it knows something from your brain. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
+You and your Finite agent have 100 minutes to turn an idea from your work into a small website that works, put it live at its own link, and show it. Then it's hack-and-tell: **demos start after the 100 minutes, under 7 minutes each.**
 
 ## Humans: start here
 
-Open a chat with your agent on https://finite.chat and paste this:
+Open a chat with your Finite agent and paste this:
 
 ```text
-Read https://hack--hack.finite.place/agent.md and follow it. Be my hackathon partner.
+Read https://hack.finite.site/agent.md and follow it. Be my hackathon partner.
 ```
 
-Your agent will interview you, pitch ideas, confirm the plan and the demo with you, build your app, publish it, and draft your talk (plus slides, if you want them). There's nothing to install: your agent builds and publishes from its own computer.
+Your agent will ask about the problem you want to solve, go back and forth with you until the idea is clear, build it, publish it, and draft your talk and slides. Nothing to install: your agent builds and publishes from its own computer.
+
+**If your agent goes quiet or seems lost, send it: `next`.** It only works while you're chatting with it.
 
 ### Quick answers
 
-Agents: use these when the user asks.
+Agents: use these when your person asks.
 
-- **Do I need to install anything?** No. Your agent has its own computer with everything it needs to build and publish.
-- **Who can see my app?** Only who you choose: by default, only people you give its share link to. Nothing goes public. At the end, your agent asks to share it with Alex (alexlwn@finite.vip), so he can open it from the presentation list.
-- **Does it cost anything?** If the app uses AI, each AI step is billed to your Finite credits, so your agent keeps it on the cheap model and caps it.
-- **What's my brain?** Your Finite brain: the knowledge base you and your agents keep. An app can use what's in it, but only the parts you agree to show. Bring links, files, or notes for your idea, and your agent adds them to your brain before it builds.
+- **Who can see my project?** You, and Alex (the host), who needs it for the presentation list. Nothing goes public unless you say so.
+- **What can it be?** A website: pages, tools, checklists, guides, quizzes, calculators, maps, a searchable list. It can save what a visitor types on their own device. It can't share data between visitors or run AI live: your agent does the AI work while it builds and puts the results in the page.
+- **Does it cost anything?** No.
 
 ---
 
-## Agents: your playbook
+## Agents: start here
 
-You are the attendee's hackathon partner, building on Finite with the skills you already have.
+Your person sent you here; don't ask them to paste anything. You are their hackathon partner. They work in democracy and human rights: grantmakers, organizers, activists. They know their field well, and most have never built software. Keep messages short and friendly, and ask one round of questions at a time.
 
-**Who's in the room:** leaders at democracy and human-rights organizations, many of them grantmakers, plus activists who work on the ground. They're ideas people and strong communicators, new to building things themselves. Expect ideas from their work: the grant flow (calls, applications, review, awards, reporting), fundraising and donors, events and convenings, working with partners and grantees, and the field.
+**Before your first reply, do these three things:**
 
-Follow these phases in order. Keep your messages short; the clock is running.
+1. Save this playbook and the checker, and start the clock:
+
+   ```sh
+   mkdir -p ~/hackathon && cd ~/hackathon
+   curl -fsSL https://hack.finite.site/agent.md -o PLAYBOOK.md
+   curl -fsSL https://hack.finite.site/check.py -o check.py
+   python3 check.py --time
+   ```
+
+2. Write `~/hackathon/STATE.md` from the template below, with the deadline `--time` printed.
+3. Save a note with your memory tool:
+   `Agent Camp hackathon today. Before every reply: run python3 ~/hackathon/check.py --time, read ~/hackathon/STATE.md, and do the step it names in ~/hackathon/PLAYBOOK.md.`
+
+Then send your first message (Step 1).
+
+### STATE.md template
+
+```markdown
+# Hackathon state
+Deadline: <from check.py --time>
+Person: <their name>
+Slug: <not yet>   Site: <not yet>
+Now: Step 1
+
+- [ ] 1. Hear the problem (name, IDEA.md started)
+- [ ] 2. Clarify it together (2–3 rounds)
+- [ ] 3. Plan confirmed: they said yes
+- [ ] 4. Site created; check.py --early says ALL GOOD
+- [ ] 5. First version live
+- [ ] 6. Build it out
+- [ ] 7. Talk track agreed
+- [ ] 8. Slides live (or they said no)
+- [ ] 9. Submitted: check.py says ALL GOOD
+
+## Decisions
+<what they chose and said no to: the idea, slides yes/no, content they'll send>
+```
+
+STATE.md is the truth. If your memory, a todo list, or your recollection disagrees with it, STATE.md wins.
+
+### Every reply
+
+1. **Run `python3 ~/hackathon/check.py --time` and read `~/hackathon/STATE.md`.** The first says how many minutes are left; don't work it out yourself. Its `Now:` line is your step. Read that step's section of the playbook, every time:
+   `sed -n '/^## Step 6/,/^## Step 7/p' ~/hackathon/PLAYBOOK.md` (with your step's number and the next).
+2. **Do the work now, in this reply.** You only run when your person sends a message: anything you say you'll do "next", "meanwhile", or "until 13:55" won't happen. So build, push, and check before you answer, then tell them what you did. Answer side questions in a line, then carry on with the step.
+3. **Never wait on your person for content.** If they'll send rules, numbers, or text later, use clearly marked examples now and keep going. Swap theirs in when it arrives.
+4. **Write it down.** When a step is done, tick it and move `Now:`. Put every choice they make under Decisions.
+5. **End every message with a status line:** `Step 6 of 9 · 48 min left · next: <what happens next>`.
+
+**Lost?** (a new chat, a long gap, "where were we?", or `next`) Run `check.py --time`, read STATE.md, and carry on from `Now:`. If STATE.md is missing: fetch the playbook and checker again (above), look in `~/hackathon/app`, run `python3 ~/hackathon/check.py --early`, and ask your person where you got to.
+
+**You are not done until Step 9's check says ALL GOOD.** Your person saying "thanks, this is great!" is not the end. If time runs short, cut features, slides, or polish, never Step 9. Alex calls people on stage from Step 9.
 
 ### Timebox
 
-The session is 2.5 hours: **100 minutes** to build and publish, then demos. Run `date` when you start; that's minute 0. If Alex calls time sooner, that's your deadline.
-
-| Minute | Phase |
+| Minutes left | Steps |
 |---|---|
-| 0–25 | 1. Interview + develop the idea |
-| 25–30 | 2. Confirm the plan + demo |
-| 30–80 | 3. Build (a first version live by minute 45) |
-| 80–92 | 4. Publish + submit |
-| 92–100 | 5. Talk track |
-| After 100, if there's time | 6. Slides (optional) |
+| 100–75 | 1–3: the idea |
+| 75–65 | 4–5: site created, first version live |
+| 65–25 | 6: build it out. **With 25 minutes left, no new features.** |
+| 25–10 | 7–8: talk track, slides |
+| 10 | 9: submitted, whatever else is unfinished |
 
-`register` puts you on the board in Phase 1. Then make a **check-in** (below) the first thing you do in each of Phases 2, 3 and 4. If you're behind schedule, **cut scope, not the demo moment**. **From minute 75, stop adding features**: finish what works, then publish.
-
-### Ground rules
-
-- **Build with your skills.** Load `apps-finite` before you build, and `brain-finite` if the idea uses the brain. Their loop, design standards, and guardrails apply here. Where this playbook talks about time, the clock wins: reveal early, but skip long rounds of aesthetic options.
-- **One app, one new fragment**, owned by your person (plus a brain, if they want the brain in it and don't have one yet). Don't change their other apps.
-- **The room will use it.** Anything a visitor can do, the whole audience can do at once, mid-demo. Any operation that resets, wipes, skips, or seeds is `editor` only, and so is anything else you don't want the room to change.
-- **AI spends your person's credits.** Every `job.ai.*` step is billed to them, so a public button that runs one spends on every click. Use the `cheap` tier, cap calls (per visitor and in total), and cache answers. No API key is needed.
-- **The brain stays private.** If the app uses the brain, search it with `brain-finite` and copy only the few excerpts the app needs. Anything in the app's files, or answered by its public operations, can be read by everyone who can open the app: ask your person before any of it goes in, and never copy the whole brain.
-- **Secrets never go in files.** Use `fragment secret set` and `{{NAME}}` in `job.fetch` headers.
-- **Keep it private; share it with Alex.** Leave its visibility as the platform made it (`link`: only people with the share link get in), and never make it public. In Phase 4 you share it with Alex's Finite account, once your person says yes.
-- **Ship something small that works** over something big that doesn't.
-
-### Check-ins with Alex
-
-Alex watches a live board of everyone hacking and builds the presentation list from it. Check in with `fragment call` on the board's fragment, `hack--hack`. You show up under your own name and picture, so there's no token to keep.
-
-| When | Call |
-|---|---|
-| Right after reading this (Phase 1) | `fragment call hack--hack register --input '{}'` |
-| First thing in each of Phases 2–4 | `fragment call hack--hack progress --input '{"phase":"plan","idea":"Grant inbox triage"}'` |
-| The app is published and works | `fragment call hack--hack submit --input '{"demoUrl":"https://…"}'` |
-| You lost track | `fragment call hack--hack me --input '{}'` |
-
-- `phase` is one of `interview`, `plan`, `build`, `publish`. `idea` is a one-liner (at most 200 characters): send it from Phase 2 on, once the user has picked one. Until then leave it out, as an empty `idea` is refused. Phases 5–6 come after submitting and need no `progress` check-in.
-- `demoUrl` is the app's own address as `fragment open <app>` prints it (`https://<app>.finite.place/`), not its share link: Alex opens it as a member (Phase 4), so the share link's `?view=…` token never goes on the board. Submitting puts the user on the presentation list and answers their `position`. Submitting again keeps their place: always send `demoUrl`, and add `slidesUrl` once there are slides (a new `demoUrl` without `slidesUrl` drops the old slides).
-- **Check-ins must never block the hack.** If a call says `rate_limited`, wait a few seconds and try once more; if a call still fails, mention it once and keep building. The next check-in catches the board up.
-
-### Phase 1: Interview + develop the idea (≤ 25 min)
-
-Don't rush this. The build goes fast; the idea is what makes the demo. Start with one quick round about the user, then grill the idea for **3–5 rounds** before committing to anything. Each round is one message; wait for answers between them. Give choices the user can answer in a tap (your `clarify` tool, or lettered options like `1b 2a`), and always take their own answer instead.
-
-**Round 1: You**
-
-1. Where in your work would a tool help most? (the grant flow, fundraising and donors, events and convenings, working with partners, field work, or something just for fun)
-2. Coming in with an idea already, something you starred in the warm-up, or something you want to look into? (Fine if not.)
-3. Should it use what's in your brain? (a) yes, that's the point (b) if it fits (c) no
-4. Do you want to see how it works under the hood, or should I drive everything?
-
-Before you ask about the brain, check they have one: in `fragment list --json`, theirs is a fragment of `kind` `brain`. If they want the brain but have none, offer to start one with `brain-finite` from a few notes they paste you (a minute's work), or to leave it out. If they have one and answer (a) or (b), search it for the areas they named before you pitch, so the ideas build on what they've already put in.
-
-Tell them they'll be on Alex's presentation list under your name.
-
-**Then grill the idea (3–5 rounds)**
-
-Dig into what they actually want to build. Each round is 2–4 sharp questions tailored to what they've said so far, and from the second round on, give them fresh options too (ideas, variations, twists), not just questions. Stop at 3 rounds if they're excited about something; go up to 5 if it's still fuzzy. If they arrived with a clear idea, start at **Push back** and grill theirs.
-
-A typical arc (adapt it; don't read it out):
-
-1. **Impact.** What should the audience leave with? (a) "I'd use that on Monday" (b) "my team or grantees need this" (c) "wait, an agent built that in 50 minutes?" (d) a laugh. Should it connect to your work? (a) your organization's work (b) a cause or community you serve (c) no, pure fun. Who's it for? (a) the room, live at demo time (b) your team or board (c) applicants, grantees, donors, or volunteers
-2. **Options.** Pitch **3 ideas** shaped by their answers (if they brought an idea or area, build on it instead of replacing it), one line each: who it's for, what it does, and the moment the demo lands on. If they want the brain in it, make at least one idea use it, built on what you found there. Include at least one the room can take part in live: every fragment is multiplayer. Recommend one, and let them pick or remix.
-3. **Push back.** Grill their pick: what's the one moment the room will remember? What makes it *theirs* rather than a generic demo? (Often it's their data: see **Feed the brain**, below.) Offer 2–3 variations (simpler, bigger, bolder) to choose from or combine.
-4. **Make it demoable.** What happens on stage, step by step? Does the room take part (open the link, vote, post, play)? What's the first thing to cut if time runs short?
-5. **Last call.** Play the idea back in two lines and ask what they'd change, add, or cut. Repeat until they're happy.
-
-**Feed the brain** (only if the idea runs on what your person knows). Their notes, their field, or their team's history is what makes an idea like this theirs. They may have filled their brain ahead of today, so start there: search it for what the idea needs, and tell them in a line what it has and what's missing. Then ask for the rest: links, files dropped into the chat, notes, an export from a tool they use, or public sources you can gather yourself. Their organization's own published documents make good sources: grant guidelines, past calls for proposals, annual reports, a scoring rubric. Collect them as you grill, while they're still on their mind; they go into the brain at the start of Build. An idea that needs no data, like a live vote, skips this.
-
-**Don't start Phase 2 until they say it's the one.**
-
-Idea seeds to remix (don't just copy these):
-
-- **Application triage:** applications come in through a form, each gets a one-page summary against your criteria, and reviewers see the queue live.
-- **Review panel:** reviewers score proposals on your rubric side by side. At the demo, the room scores one together.
-- **Grant pipeline:** every grant from first contact to final report, what's due next, and a nudge as a deadline nears.
-- **Donor briefing:** everything you know about a funder on one page before you meet them, drawn from your brain.
-- **Campaign page:** a goal, a live total, and a supporters' wall. The room pledges play money and watches it fill.
-- **Convening companion:** the agenda, RSVPs, and a live question wall the room fills and votes on.
-- **Ask the guidelines:** applicants ask questions and get answers from your published guidelines, with sources.
-- **Devil's advocate:** a skeptical program officer who grills a proposal before it goes in (capped, on the cheap model).
-- **Rapid response:** a volunteer roster or sign-up for an action, live for everyone organizing it.
-
-### Phase 2: Confirm the plan + demo (≤ 5 min)
-
-**Check in first:** `progress` with `{"phase":"plan","idea":"<the one-liner>"}`.
-
-Before building anything, play the idea back so you and the user agree on what "done" looks like: the plan (the smallest version that works), the demo, and the elevator pitch. Send it all in one short message, for example:
-
-```text
-Plan: <the MVP in 1–2 lines: the smallest version that works, nothing extra>
-Demo: <what we'll show on stage in under 7 minutes, step by step, ending on the moment the room remembers>
-Pitch: <one sentence: what it is and who it helps>
-Shape: <a live page, plus only what the idea needs: shared state, an AI step, brain excerpts, a trigger>
-Data: <what goes into the brain before building, and from where; or "none">
-
-Want to change anything? Otherwise I'll start building.
-```
-
-**Wait for the user to confirm or change it before building anything.** The plan is your scope for Build, and the demo and pitch become the talk track in Phase 5.
-
-### Phase 3: Build (≤ 50 min)
-
-**Check in first:** `progress` with `{"phase":"build"}`.
-
-**If the plan has data, fill the brain first**, in about 10 minutes (the first version is still due by minute 45). With `brain-finite`, put the sources in the wiki they belong to, or in a new one named for the app: each source's text into `raw/`, then only the `wiki/` pages the app will draw from, then search to check it's all found. Skip a source that fights back (a login wall, a huge file) and say so. More can come in as your person finds it, between deploys, until minute 75. The app still gets only the excerpts they agree to.
-
-Make a new fragment from the closest template (`apps-finite` lists them) and deploy it early. **Have a first version of their idea live by minute 45** (not the bare template). Stop there and send your person its link to open on their phone, in a message of its own: it's their chance to change course. Then build out the plan in small steps, deploying each one and showing it to your person so they can steer.
-
-Build checklist:
-
-- The demo moment works end to end through the live link, not just in your head.
-- Its state lives in the app: reload and it's still there. If the room takes part, a change in one tab shows in another without a reload.
-- If it uses AI: the cheap tier, a cap, and clear loading and error states.
-- If it uses the brain: only the excerpts your person agreed to, and nothing else from it.
-- No test or debug operation is left that a visitor can call: reset, wipe, skip, and seed are `editor` only.
-
-After each deploy, `fragment status <app>` shows the page's errors from its first load; check it before you move on.
-
-### Phase 4: Publish + submit (≤ 12 min)
-
-**Check in first:** `progress` with `{"phase":"publish"}`.
-
-**Check it like a visitor.** Open the live link in your browser at phone width and do the demo moment once through it. Have your person open it on their phone too.
-
-**Before you share the link:** check that no test or debug operation slipped in, and that nothing lets the room run up AI costs or change what it shouldn't.
-
-Give the app a good link preview: its `meta.title` and `meta.description` in `fragment.json`.
-
-**Share it with Alex.** Ask once (`clarify`): "Share it with Alex (alexlwn@finite.vip) so he can open it from the presentation list?" On a yes, `fragment members add <app> alexlwn@finite.vip --role viewer`, then tell them it's shared with Alex alone. Don't change its visibility, and don't make it public.
-
-**Submit** once that works (see Check-ins): send `demoUrl`, the app's own address. Tell your person they're on the presentation list, and their position. If they'd rather not share it with Alex, submit anyway: they'll demo it from their own screen.
-
-**The share link is for the people your person names**, like the room at demo time if the room joins in. Anyone who isn't a member needs it: give each page's link with its `?view=…` (another page like `/big`), since a browser that hasn't opened the share link is refused without it.
-
-### Phase 5: Talk track (≤ 8 min)
-
-Stub out a talk of **under 7 minutes** using Alex's hackathon formula. Fill it in from what you already know: the interview, the Phase 2 plan, demo, and pitch, and what actually got built. If part of the plan didn't make it, demo what works.
-
-| Section | Share | What goes in it |
-|---|---|---|
-| **Background** | ~25% (1¾ min) | Uncover the problem (*who* needs *what* because *why*), then lead to the solution |
-| **Demo** | ~50% (3½ min) | Introduce the project (the Phase 2 pitch, updated if the build changed), then demo it live, ending on the moment the room remembers |
-| **Review** | ~25% (1¾ min) | Why it matters (to the people it's for, or to the world), and what you'd do next |
-
-If the app knows something from their brain, the demo shows where it came from: that's the bonus point. A playful project uses the same structure; a straight-faced answer to "why it matters" is half the joke. Keep the stub this short:
-
-```text
-Background: Applications pile up
-- 400 applications a cycle, and three of us read them all.
-- The good ones wait weeks for a first look.
-
-Demo
-- Introduce "First Look": paste a proposal, get a one-page read against our criteria
-- The room scores one together, live
-
-Why it matters
-- Every applicant hears back faster
-- Our reviewers spend their time on the hard calls
-```
-
-Send the stub and ask the user to edit it. **Wait until they agree on it**, then keep it in `talk.md` on your computer, outside the app's folder (everything in that folder is published with the app). If the app has controls only editors see, your person presents signed in as themselves, not through the share link: have them check that before their slot. Suggest one out-loud run-through with a timer, and have a backup ready (a screen recording or a screenshot of it working) in case the Wi-Fi dies on stage.
-
-### Phase 6: Slides (optional)
-
-Once the talk track is agreed, offer once to make slides. If the user says no, you're done. If yes:
-
-- **Only with time to spare before their slot, and never at the app's expense.** Apart from adding the slides page below, don't touch the working app. If the slides aren't done in about 25 minutes, present without them.
-- **One self-contained page at `site/slides/index.html`** in the app's fragment: inline CSS and JS, no framework, no CDN. Deploy and open it at `/slides` on the app's own address: `https://<app>.finite.place/slides`, which Alex opens as a member (with a share link, `/slides` goes before the `?view=…`, never after it). Then submit again with the same `demoUrl` and that address as `slidesUrl`, so Alex's board shows a Slides button. Then check that the app and the demo moment still work.
-- **One slide per beat of `talk.md`**, 4–6 slides total. For the demo, one slide with the project name, then switch to the live app. If the room joins in, put the share link on that slide with a big QR code of it (or the link in huge type), and only with your person's yes, since it lets anyone who scans it in.
-- **Controls:** → / Space / click to advance, ← to go back, F for fullscreen. Use a fixed 16:9 stage (e.g. 1600×900) scaled to fit the screen, so it looks the same on any projector.
-
-Make the design impeccable:
-
-- **Readable from the back row:** headlines 80px+ and body 40px+ on the 1600×900 stage. One idea and at most ~12 words per slide.
-- **High contrast.** Projectors wash out colour and thin font weights.
-- **Borrow the app's palette and type** so the slides and the demo feel like one product. One distinctive display face plus one clean text face, from system fonts or files in the fragment (never a font CDN).
-- **Generous whitespace, clear hierarchy, one accent colour.** Subtle transitions only.
-- **No generic AI-slide tells:** purple-to-blue gradients, emoji bullets, card grids, stock icons, Inter on white.
-- If you have design skills (`popular-web-designs`, `design-md`, `impeccable`), use them. Don't stop to install one mid-hack.
-
-Then open every slide fullscreen in your browser (screenshot them) and fix anything that overflows or is hard to read.
+If your person asks to submit early, do Step 9 then, and come back to Steps 7–8 after.
 
 ---
 
+## Step 1: Hear the problem
+
+Say hello in a line and ask for their name and a problem from their work, in their own words. A typed paragraph or a voice note is fine. Give options they can answer in a tap (`1b`), and always take their own answer instead:
+
+```text
+What's your name? And:
+1. Where in your work would a tool help most?
+   (a) grants: calls, applications, review, reporting  (b) fundraising and donors
+   (c) events and convenings  (d) working with partners  (e) field work  (f) something else
+2. Is there something you already want to build? Tell me about it.
+```
+
+Tell them once: their project will be shared with Alex, the host, so he can put them on the presentation list.
+
+When they answer, write their name in STATE.md, and create `~/hackathon/IDEA.md` with their words exactly as they said them, under `## In their words`.
+
+## Step 2: Clarify it together (2–3 rounds)
+
+Go back and forth until you could explain the idea to a stranger. Each round is one message with:
+
+- **A playback:** the idea as you understand it, in 2 lines.
+- **2–3 short questions**, the ones that matter most now: Who is it for? What do they do with it, step by step? What's the moment someone says "oh, nice"? What's the smallest useful version? Where does the content come from (their documents, notes, public sources)?
+- **From round 2: 2–3 options** (simpler, bolder, a twist) to pick from or combine.
+
+After each answer, update IDEA.md under `## So far` (who, what, the moment, the content). Three rounds at most, then go to Step 3 with your best version. If they have no idea at all, pitch 3 from the seeds under **What you can build**, shaped to what they told you.
+
+It's a website (see **What you can build**): if the idea needs shared live data or logins, find the version that doesn't. A shared vote can be a checklist each person fills in on their own phone.
+
+## Step 3: Confirm the plan
+
+Send one message:
+
+```text
+Here's the plan:
+Name: <short name>
+For: <who uses it>
+It does: <the smallest version that works, 1–2 lines>
+Demo: <what you'll show on stage, ending on the moment people remember>
+Content: <what goes in it and where it comes from, or "none">
+Where: a private site for you and Alex
+
+Shall I build it?
+```
+
+On a yes, write the plan into IDEA.md under `## Plan` and go to Step 4. On "yes, but…", make the change and go to Step 4; don't ask again.
+
+## Step 4: Create the site
+
+Do this right away, before you build, so the project exists and Alex can see it even if something goes wrong later. Pick a slug: lowercase letters, digits, and hyphens, from the name (`grant-fit-check`). Run these one at a time, and read each answer before the next:
+
+```sh
+mkdir -p ~/hackathon/app/site && cd ~/hackathon/app
+git init -b main
+git config user.name "Agent Camp" && git config user.email "agent@hack.finite.site"
+mv ~/hackathon/IDEA.md IDEA.md
+```
+
+From now on, IDEA.md lives in `~/hackathon/app/`. Write `finite.toml`, with your slug in **both** places:
+
+```toml
+[project]
+slug = "grant-fit-check"
+
+[site]
+name = "grant-fit-check"
+branch = "main"
+path = "site"
+spa = false
+```
+
+Write `site/index.html` (just the name and one line about it; Step 5 replaces it) and `hack.json`:
+
+```json
+{
+  "title": "Grant Fit Check",
+  "pitch": "Applicants find out in two minutes which of our calls fits them.",
+  "person": "Their name",
+  "status": "building",
+  "slides": null,
+  "submittedAt": null
+}
+```
+
+Then create the project and publish it:
+
+```sh
+fsite auth register --output json
+fsite project init --config finite.toml --dry-run --output json
+fsite project init --config finite.toml --output json
+fsite auth git YOUR-SLUG --store --output json
+```
+
+The last command answers a `git_remote_url`. Use it:
+
+```sh
+git remote add origin THE-GIT-REMOTE-URL
+git add -A && git commit -m "Start" && git push -u origin main
+python3 ~/hackathon/check.py --early
+```
+
+`check.py --early` shares the site with Alex and checks it's live. **Tick Step 4 only when it says ALL GOOD**, and write the slug and the `Site:` address it prints into STATE.md. Until then, don't build: fix what it says and run it again.
+
+- **The slug is taken?** Add `-2` to it (then `-3`), in both places in `finite.toml`, and run `project init` again.
+- **`requester_email_required`?** Ask your person for their email, then follow your Finite Sites skill (`finite-sites-publishing-finite`): `fsite auth sites-key request EMAIL`, they send you the code from their inbox, `fsite auth sites-key add EMAIL CODE`, then both `project init` commands with `--owner-email EMAIL`.
+- **Anything else fails?** Read the error and fix what it names. If you're stuck after two tries, tell your person in one line, and ask them to find Alex.
+- Never change `slug`, `name`, or `path` in `finite.toml` after this step: pushes stop publishing.
+
+Only `site/` is on the web. IDEA.md, hack.json, and talk.md stay in the project for Alex, off the site.
+
+## Step 5: First version live
+
+Build the first real version of the idea (not the placeholder), check it (see **Checking your pages**), and push: `git add -A && git commit -m "First version" && git push`. Every push publishes in about a minute. Send your person the site link in a message of its own, to open on their phone: it's their chance to change course.
+
+## Step 6: Build it out
+
+Build the plan in small steps. Each reply: make one improvement, check it, push, and tell your person what changed in a line. Use your website skill (`website-building-finite`) for design if you have one.
+
+- Works on a phone; the demo moment works start to finish.
+- Everything it needs is in `site/`: no server, no API keys, nothing from their private notes they didn't agree to show.
+
+**Step 6 is done** when the plan's demo works start to finish, or with 25 minutes left, whichever is first. Then push and go to Step 7 in the same reply. Waiting on content from your person doesn't hold up Step 6: it stays as examples until it arrives.
+
+## Step 7: Talk track
+
+Write a talk of **under 7 minutes** in Alex's format, from what you know (the interview, the plan, what got built):
+
+```text
+Background (about 1¾ min): who needs what, and why. The problem in one story.
+Demo (about 3½ min): introduce it in one sentence, then show it live, ending on the moment people remember.
+Why it matters (about 1¾ min): for the people it's for, and what you'd do next.
+```
+
+Save it as `~/hackathon/app/talk.md`, push, and send it to your person to change anything. When they agree (or ask for changes you then make), tick Step 7. Suggest one out-loud run-through with a timer, and a screenshot of it working as a backup.
+
+## Step 8: Slides
+
+Check Decisions first: if they already said no to slides, tick Step 8. Otherwise ask once: "Want slides for your talk? I'll make 4–6 and put them on your site." Write the answer under Decisions. On a no, tick Step 8.
+
+On a yes: one self-contained page at `site/slides/index.html` (inline CSS and JS, no CDN), one slide per beat of `talk.md`, 4–6 slides. → / Space / click advances, ← goes back, F is fullscreen. A fixed 16:9 stage (1600×900) scaled to fit the screen. Headlines 80px+, body 40px+, at most 12 words a slide, high contrast, the site's own colours and type. For the demo, one slide with the name, then switch to the live site.
+
+Check them, push, and set `"slides": "/slides/"` in `hack.json`. If they aren't done with 10 minutes left, set `"slides": null` and go to Step 9.
+
+## Step 9: Submit
+
+1. In `hack.json`: `"status": "ready"`, `"submittedAt"` the output of `date -u +%Y-%m-%dT%H:%M:%SZ`, `"person"` their name, `"slides"` `"/slides/"` or `null`, and `title` and `pitch` matching what was built.
+2. `git add -A && git commit -m "Submit" && git push`
+3. Run `python3 ~/hackathon/check.py`. If it says anything but ALL GOOD, fix each line it names and run it again.
+4. On ALL GOOD, tick Step 9 and tell your person: they're on the presentation list, here's their site (and slides), and before their slot, open both on the laptop they'll present from.
+
+If they change anything after this, push it and run `check.py` again.
+
+---
+
+## Checking your pages
+
+The live site is private, so fetching it yourself may answer 404 or a sign-in page. Check your files locally instead:
+
+```sh
+cd ~/hackathon/app/site && python3 -m http.server 8765
+```
+
+Open `http://localhost:8765/` in your browser if you have one (at phone width), or fetch it with `curl` and read it. Your person checks the live site on their phone.
+
+## What you can build
+
+A Finite Site serves the files in `site/` as they are: HTML, CSS, JavaScript, images, data files. So:
+
+- **Yes:** pages, interactive tools, checklists, guides, quizzes, calculators, decision trees, timelines, searchable lists, maps from data you put in, printable one-pagers, letter or email drafts (a `mailto:` link), saving a visitor's answers on their own device (`localStorage`).
+- **No:** data shared between visitors, logins, sending email, a server, calling an AI model from the page, API keys.
+- **The AI is you.** Summarize, classify, write, and translate while you build, and put the results in the page's data. A guide that answers 40 common questions from their documents works without an AI on the page.
+- **Their content makes it theirs:** their organization's published documents (guidelines, calls for proposals, reports, a scoring rubric), their notes, or public sources. Ask before you put anything private on the site: everyone who can open it can read every file in `site/`.
+
+Idea seeds to remix (don't just copy these):
+
+- **Grant fit check:** an applicant answers 5 questions and sees which call fits them, and why.
+- **Know your rights:** a few questions lead to what applies to you, in plain language.
+- **Proposal self-review:** score your own proposal against the funder's rubric before you submit.
+- **Field security checklist:** step by step, with progress saved on the phone.
+- **Donor briefing:** one page on a funder, from their notes, before a meeting.
+- **Partner directory:** search and filter the organizations you work with.
+- **Action letter:** fill in a few fields and get a letter ready to send to an official.
+- **Explainer:** a campaign's story as an interactive timeline.
+
 ## If things break
 
-- **Deploy refused?** `fragment deploy` says why, and the last good version keeps serving. Fix it and deploy again.
-- **Page broken after a deploy?** `fragment status <app>` lists the errors from the page's first load. `fragment rollback <app>` puts the previous deploy back.
-- **Something you didn't expect?** `fragment events <app> --tail 30` says what happened: believe it over your memory.
-- **A job stuck?** `fragment runs <app> --status held` shows held runs; fix the cause, then `fragment replay <app> <run>`.
-- **AI step refused (`budget_used_up`)?** Your person's credits or the app's cap ran out. Tell them, and demo without it.
-- **Check-in failing?** Mention it once and keep building; Alex can sort out the board.
-- **Out of time?** Cut features. One working demo moment beats a broken masterpiece.
+- **A push is refused?** Run `fsite auth git YOUR-SLUG --store --output json` again to refresh the login, then push.
+- **Not sure what's live?** `python3 ~/hackathon/check.py --early` says.
+- **Out of time?** Cut features. Never skip Step 9.
 
 ---
 

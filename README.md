@@ -1,38 +1,41 @@
 # Agent Camp Hack-and-Tell
 
-Site for a 2.5-hour agent hack-and-tell on Finite, itself a fragment: **https://hack--hack.finite.place**
+Site for a 2.5-hour agent hack-and-tell on Finite, served as a Finite Site: **https://hack.finite.site**
 
-Attendees paste one line into their Finite agent's chat. The agent follows the playbook, builds an app with them as a fragment of their own, publishes it, and checks in on Alex's board, under the agent's own name and picture.
+Attendees paste one line into their Finite agent's chat. The agent follows the playbook: it hears their problem, clarifies the idea with them over a few rounds, builds it as a Finite Site of their own, shares it with Alex, and submits it with its talk and slides. (The fragment edition, with a live check-in board, is the `fragment` branch.)
 
 | Path | What |
 |---|---|
 | `/` | Homepage: the prompt to paste into a Finite agent |
 | `/agent.md` | The agent playbook (`experience/site/agent.md`) |
+| `/check.py` | The finish-line check agents run before they're done |
 | `/llms.txt` | A pointer to the playbook for agents |
 | `/slides` | Intro deck (arrow keys or clicker, `F` for fullscreen) |
-| `/dashboard` | Live registrations and presentation order (the fragment's editors) |
 
 ## How it works
 
-`experience/` is the fragment's folder, deployed as it is (no build step):
+`experience/site/` is served as it is (`finite.toml`; no build step). Finite Sites serves static files only, so there is no check-in API; the attendees' own projects are the record:
 
-- `fragment.json` declares the operations; `app.mjs` runs them over the app's SQLite, and `applib/` holds the rules.
-- Agents check in with `fragment call hack--hack register | progress | submit | me` (public operations). The platform tells the app which agent is calling, for which person (`call.agent`, `call.principal`), so there are no tokens; anonymous calls are refused.
-- The dashboard is for the fragment's editors (its owner, and co-hosts added in its share sheet). It follows `board` live through `fragment.live`, and names each agent through the platform's `__people`.
-- An attendee's slides are whatever `slidesUrl` their agent submits.
+- **The agent keeps its place on disk.** It saves the playbook to `~/hackathon/PLAYBOOK.md`, keeps a nine-step checklist in `~/hackathon/STATE.md`, and saves a memory note pointing at both, so a compacted context or a new chat picks up where it was. Every message ends with `Step N of 9 · next: …`.
+- **Sharing happens first, not last.** Right after the plan is agreed (Step 4), the agent creates the project, grants `alexlwn@finite.vip` editor on it (`fsite project grant --nip05`), shares the site with him as a viewer, and pushes a placeholder. From then on every push publishes.
+- **Submitting is a file.** Each project carries `hack.json` (title, pitch, person, status, slides), `IDEA.md` (the idea in the attendee's words, then clarified), and `talk.md`, outside the served `site/`. Step 9 sets `"status": "ready"` and runs `check.py`, which checks the site is published, Alex is on it, `hack.json` is complete, and everything is pushed. The agent isn't done until it prints ALL GOOD.
 
-## Develop
+## The board
+
+`fsite project list` on Alex's key lists every project granted to him. The board fetches each one and writes `board/out/index.html`: ready projects in the order they submitted, with links to each site and its slides, the talk track, and the idea.
 
 ```bash
-npm test          # node:test over applib/ and the board's helpers (Node 22.13+, for node:sqlite)
+npm run board     # node board/board.mjs --watch 60 (needs fsite, signed in as alexlwn@finite.vip)
+```
+
+## QA
+
+`qa/run.mjs` runs the playbook end to end with a headless agent (standing in for a Finite agent on a small model) and a simulated attendee (`qa/scenarios.mjs`), against a stand-in `fsite` backed by local git repos (`qa/bin/`). Each scenario moves the agent to a new chat partway through, to test that it finds its place again. The transcript, the agent's files, fsite's call log, and `check.py`'s verdict land in `/tmp/hackqa/<scenario>-<time>/`.
+
+```bash
+node qa/run.mjs vague-grantmaker [--agent-model haiku] [--persona-model sonnet] [--turns 26]
 ```
 
 ## Deploy
 
-With the [fragment CLI](https://finite.chat/llms.txt) paired (`fragment login`) to the fragment's owner or an editor:
-
-```bash
-npm run deploy    # fragment deploy hack--hack --dir experience
-```
-
-The fragment is `public`, as it must be: an agent acting for its person reaches a fragment that isn't theirs only at the public role. Add co-hosts with `fragment members add hack--hack <email> --role editor`.
+With `fsite` signed in as the owner, push to the Project Repository's `main` (`fsite auth git hack --store` for its remote). The first time, `fsite project init --config finite.toml`, then make the site public: `fsite project share hack --public --yes-public`.

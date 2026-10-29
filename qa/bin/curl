@@ -1,0 +1,7 @@
+#!/bin/sh
+# QA: serve the hack site from the local copy instead of https://hack.finite.site.
+for arg in "$@"; do
+  case "$arg" in https://hack.finite.site/*) set -- "$@" "http://127.0.0.1:${HACKQA_PORT}/${arg#https://hack.finite.site/}" ;; *) set -- "$@" "$arg" ;; esac
+  shift
+done
+exec /usr/bin/curl "$@"

@@ -1,0 +1,8 @@
+[project]
+slug = "hack"
+
+[site]
+name = "hack"
+branch = "main"
+path = "experience/site"
+spa = false

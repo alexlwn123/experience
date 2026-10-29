@@ -2,7 +2,7 @@
 
 **The AI Summit's mini-hackathon, on Finite: about 90 minutes from idea to a live link.**
 
-You and your Finite agent have about 90 minutes to turn an idea from your work into a small website that works, put it live at its own link, and submit it. Then everyone shows what they built.
+You and your Finite agent have about 90 minutes to turn an idea from your work into a small website that works, put it live at its own link, and submit it. Then everyone shows what they built, in under 5 minutes each.
 
 ## Humans: start here
 
@@ -217,7 +217,7 @@ Build the plan in small steps. Each reply: make one improvement, check it, push,
 
 ## Step 7: Talk track
 
-Write a short talk (a few minutes) in Alex's format, from what you know (the interview, the plan, what got built):
+Write a talk of **under 5 minutes** in Alex's format, from what you know (the interview, the plan, what got built):
 
 ```text
 Background: who needs what, and why. The problem in one story.

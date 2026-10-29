@@ -1,6 +1,6 @@
 """AI Summit Mini-Hack check: is this project published, shared with Alex, and submitted?
 
-  python3 ~/hackathon/check.py --time    minutes left (the first run starts the 100-minute clock)
+  python3 ~/hackathon/check.py --time    minutes left (the first run starts the 90-minute clock)
   python3 ~/hackathon/check.py --early   after Step 4: created, published, shared with Alex
   python3 ~/hackathon/check.py           Step 9: all of that, plus submitted
 
@@ -20,7 +20,8 @@ ALEX = "alexlwn@finite.vip"
 REQUIRED_FIELDS = ("title", "pitch", "person")
 APP = os.path.expanduser("~/hackathon/app")
 DEADLINE = os.path.expanduser("~/hackathon/deadline")
-BUILD_MINUTES = 100
+BUILD_MINUTES = 90
+SUBMIT_BY_MINUTES = 15
 
 
 def run(args, cwd):
@@ -138,10 +139,8 @@ def minutes_left():
         deadline = int(handle.read().strip())
     left = max(0, round((deadline - time.time()) / 60))
     print(f"{left} min left (deadline {time.strftime('%H:%M', time.localtime(deadline))}).")
-    if left <= 10:
-        print("Time to submit: go to Step 9 now.")
-    elif left <= 25:
-        print("No new features: finish what works, then Steps 7-9.")
+    if left <= SUBMIT_BY_MINUTES:
+        print("Almost time: make sure you've submitted. If Step 9 isn't ticked in STATE.md, do it now, before anything else.")
     return 0
 
 

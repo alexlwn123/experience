@@ -1,8 +1,8 @@
 # AI Summit Mini-Hack
 
-**The AI Summit's mini-hackathon: 2.5 hours, on Finite.**
+**The AI Summit's mini-hackathon, on Finite: about 90 minutes from idea to a live link.**
 
-You and your Finite agent have 100 minutes to turn an idea from your work into a small website that works, put it live at its own link, and show it. **Demos start after the 100 minutes, under 7 minutes each.**
+You and your Finite agent have about 90 minutes to turn an idea from your work into a small website that works, put it live at its own link, and submit it. Then everyone shows what they built.
 
 ## Humans: start here
 
@@ -85,15 +85,9 @@ STATE.md is the truth. If your memory, a todo list, or your recollection disagre
 
 **You are not done until Step 9's check says ALL GOOD.** Your person saying "thanks, this is great!" is not the end. If time runs short, cut features, slides, or polish, never Step 9. Alex calls people on stage from Step 9.
 
-### Timebox
+### Time
 
-| Minutes left | Steps |
-|---|---|
-| 100–75 | 1–3: the idea |
-| 75–65 | 4–5: site created, first version live |
-| 65–25 | 6: build it out. **With 25 minutes left, no new features.** |
-| 25–10 | 7–8: talk track, slides |
-| 10 | 9: submitted, whatever else is unfinished |
+The whole thing takes about 90 minutes. Move through the steps at your person's pace; there's no schedule to keep. **When `check.py --time` says 15 minutes or less, make sure Step 9 is done:** if it isn't ticked, submit what works now, then come back to anything unfinished.
 
 If your person asks to submit early, do Step 9 then, and come back to Steps 7–8 after.
 
@@ -219,16 +213,16 @@ Build the plan in small steps. Each reply: make one improvement, check it, push,
 - Works on a phone; the demo moment works start to finish.
 - Everything it needs is in `site/`: no server, no API keys, nothing from their private notes they didn't agree to show.
 
-**Step 6 is done** when the plan's demo works start to finish, or with 25 minutes left, whichever is first. Then push and go to Step 7 in the same reply. Waiting on content from your person doesn't hold up Step 6: it stays as examples until it arrives.
+**Step 6 is done** when the plan's demo works start to finish. Then push and go to Step 7 in the same reply. Waiting on content from your person doesn't hold up Step 6: it stays as examples until it arrives.
 
 ## Step 7: Talk track
 
-Write a talk of **under 7 minutes** in Alex's format, from what you know (the interview, the plan, what got built):
+Write a short talk (a few minutes) in Alex's format, from what you know (the interview, the plan, what got built):
 
 ```text
-Background (about 1¾ min): who needs what, and why. The problem in one story.
-Demo (about 3½ min): introduce it in one sentence, then show it live, ending on the moment people remember.
-Why it matters (about 1¾ min): for the people it's for, and what you'd do next.
+Background: who needs what, and why. The problem in one story.
+Demo (the longest part): introduce it in one sentence, then show it live, ending on the moment people remember.
+Why it matters: for the people it's for, and what you'd do next.
 ```
 
 Save it as `~/hackathon/app/talk.md`, push, and send it to your person to change anything. When they agree (or ask for changes you then make), tick Step 7. Suggest one out-loud run-through with a timer, and a screenshot of it working as a backup.
@@ -239,7 +233,7 @@ Check Decisions first: if they already said no to slides, tick Step 8. Otherwise
 
 On a yes: one self-contained page at `site/slides/index.html` (inline CSS and JS, no CDN), one slide per beat of `talk.md`, 4–6 slides. → / Space / click advances, ← goes back, F is fullscreen. A fixed 16:9 stage (1600×900) scaled to fit the screen. Headlines 80px+, body 40px+, at most 12 words a slide, high contrast, the site's own colours and type. For the demo, one slide with the name, then switch to the live site.
 
-Check them, push, and set `"slides": "/slides/"` in `hack.json`. If they aren't done with 10 minutes left, set `"slides": null` and go to Step 9.
+Check them, push, and set `"slides": "/slides/"` in `hack.json`. If they aren't done when there are 15 minutes left, set `"slides": null` and go to Step 9.
 
 ## Step 9: Submit
 

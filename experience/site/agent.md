@@ -23,6 +23,7 @@ Agents: use these when your person asks.
 - **Who can see my project?** You, and Alex (the host), who needs it for the presentation list. Nothing goes public unless you say so.
 - **What can it be?** A website: pages, tools, checklists, guides, quizzes, calculators, maps, a searchable list. It can save what a visitor types on their own device. It can't share data between visitors or run AI live: your agent does the AI work while it builds and puts the results in the page.
 - **Does it cost anything?** No.
+- **Can my team help build it?** Yes. Send your agent their emails. It gives them access and a line to paste into their own agent (Claude Code, Codex, or Finite).
 
 ---
 
@@ -67,7 +68,7 @@ Now: Step 1
 - [ ] 9. Submitted: check.py says ALL GOOD
 
 ## Decisions
-<what they chose and said no to: the idea, slides yes/no, content they'll send>
+<what they chose and said no to: the idea, slides yes/no, content they'll send, teammates' emails>
 ```
 
 STATE.md is the truth. If your memory, a todo list, or your recollection disagrees with it, STATE.md wins.
@@ -195,6 +196,8 @@ python3 ~/hackathon/check.py --early
 
 `check.py --early` shares the site with Alex and checks it's live. **Tick Step 4 only when it says ALL GOOD**, and write the slug and the `Site:` address it prints into STATE.md. Until then, don't build: fix what it says and run it again.
 
+Then ask once: "Is anyone on your team building with you? Send me their emails and I'll give them access." Write the answer under Decisions. Emails now or later: follow **Teammates** below, then carry on.
+
 - **The slug is taken?** Add `-2` to it (then `-3`), in both places in `finite.toml`, and run `project init` again.
 - **`requester_email_required`?** Ask your person for their email, then follow your Finite Sites skill (`finite-sites-publishing-finite`): `fsite auth sites-key request EMAIL`, they send you the code from their inbox, `fsite auth sites-key add EMAIL CODE`, then both `project init` commands with `--owner-email EMAIL`.
 - **Anything else fails?** Read the error and fix what it names. If you're stuck after two tries, tell your person in one line, and ask them to find Alex.
@@ -204,11 +207,11 @@ Only `site/` is on the web. IDEA.md, hack.json, and talk.md stay in the project 
 
 ## Step 5: First version live
 
-Build the first real version of the idea (not the placeholder), check it (see **Checking your pages**), and push: `git add -A && git commit -m "First version" && git push`. Every push publishes in about a minute. Send your person the site link in a message of its own, to open on their phone: it's their chance to change course.
+Build the first real version of the idea (not the placeholder), check it (see **Checking your pages**), and push: `git add -A && git commit -m "First version" && git pull --rebase && git push`. Every push publishes in about a minute. Send your person the site link in a message of its own, to open on their phone: it's their chance to change course.
 
 ## Step 6: Build it out
 
-Build the plan in small steps. Each reply: make one improvement, check it, push, and tell your person what changed in a line. Use your website skill (`website-building-finite`) for design if you have one.
+Build the plan in small steps. Each reply: `git pull --rebase` first (teammates may have pushed), make one improvement, check it, push, and tell your person what changed in a line. Use your website skill (`website-building-finite`) for design if you have one.
 
 - Works on a phone; the demo moment works start to finish.
 - Everything it needs is in `site/`: no server, no API keys, nothing from their private notes they didn't agree to show.
@@ -238,13 +241,44 @@ Check them, push, and set `"slides": "/slides/"` in `hack.json`. If they aren't 
 ## Step 9: Submit
 
 1. In `hack.json`: `"status": "ready"`, `"submittedAt"` the output of `date -u +%Y-%m-%dT%H:%M:%SZ`, `"person"` their name, `"slides"` `"/slides/"` or `null`, and `title` and `pitch` matching what was built.
-2. `git add -A && git commit -m "Submit" && git push`
+2. `git add -A && git commit -m "Submit" && git pull --rebase && git push`
 3. Run `python3 ~/hackathon/check.py`. If it says anything but ALL GOOD, fix each line it names and run it again.
 4. On ALL GOOD, tick Step 9 and tell your person: they're on the presentation list, here's their site (and slides), and before their slot, open both on the laptop they'll present from.
 
 If they change anything after this, push it and run `check.py` again.
 
 ---
+
+## Teammates
+
+Captains often have teammates (engineers) who build with them from their own agents: Claude Code, Codex, or a Finite agent. For each email your person gives you:
+
+```sh
+fsite project grant YOUR-SLUG --email THEIR-EMAIL --role editor --send-invite --output json
+fsite project share YOUR-SLUG --add-email THEIR-EMAIL --output json
+```
+
+The first lets them push to the project and emails them an invite with a one-time code; the second lets them open the live site. Then, if there's no `TEAM.md` yet, write one in `~/hackathon/app/` from the plan, and push it:
+
+```markdown
+# Team
+Captain: <your person's name>
+Site: <the Site: address from STATE.md>
+- <teammate email>: <task, or "not started">
+
+## Tasks
+- [ ] <a piece of the plan someone can build alone, e.g. "the Arabic translations"> (<who>)
+```
+
+Give your person one line per teammate to send them:
+
+```text
+Paste this into your coding agent (Claude Code, Codex, or Finite): Read https://hack.finite.site/join.md and join project YOUR-SLUG as THEIR-EMAIL
+```
+
+Their agent asks them for the code from the invite email. If a grant fails, read the error, fix what it names (often a typo in the email), and try again.
+
+Working together: teammates push to the same `main`. Run `git pull --rebase` before every change and before every push. If a push is refused, pull with `--rebase`, keep both sides' work, and push again. Never `git push --force`: it deletes your teammates' work. You alone submit (Step 9), and you alone change `hack.json` and `finite.toml`. After each pull, read `TEAM.md` and `git log --oneline -5`, and tell your person in a line what teammates pushed.
 
 ## Checking your pages
 
@@ -278,7 +312,8 @@ Idea seeds to remix (don't just copy these):
 
 ## If things break
 
-- **A push is refused?** Run `fsite auth git YOUR-SLUG --store --output json` again to refresh the login, then push.
+- **A push is refused because someone pushed first** (`rejected`, `fetch first`, `non-fast-forward`)? `git pull --rebase`, keep both sides' work, push again. Never `git push --force`.
+- **A push is refused for any other reason?** Run `fsite auth git YOUR-SLUG --store --output json` again to refresh the login, then push.
 - **Not sure what's live?** `python3 ~/hackathon/check.py --early` says.
 - **Out of time?** Cut features. Never skip Step 9.
 

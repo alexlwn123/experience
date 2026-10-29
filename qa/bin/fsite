@@ -4,6 +4,7 @@
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { randomBytes } from "node:crypto";
 
 const STATE = process.env.HACKQA_STATE;
 const AGENT_NPUB = "npub1agentagentagentagentagentagentagentagentagentagentqa";
@@ -22,6 +23,20 @@ const remote = (slug) => join(STATE, "remotes", `${slug}.git`);
 const load = (slug) => existsSync(projectPath(slug)) ? JSON.parse(readFileSync(projectPath(slug), "utf8")) : null;
 const save = (p) => writeFileSync(projectPath(p.slug), JSON.stringify(p, null, 2));
 const resolve = (nip05) => KNOWN[nip05] || fail("nip05_not_found", `no NIP-05 name ${nip05}`);
+
+// Email principals: invites and logins "send" a one-time token to $HACKQA_STATE/mail/<email>.txt;
+// redeem marks the email verified (in verified.json) so auth git --email works.
+const mailbox = (email) => join(STATE, "mail", `${email}.txt`);
+const tokensPath = join(STATE, "tokens.json");
+const verifiedPath = join(STATE, "verified.json");
+const readJson = (path, fallback) => (existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : fallback);
+function sendToken(email, intro) {
+  const token = randomBytes(4).toString("hex").toUpperCase();
+  writeFileSync(tokensPath, JSON.stringify({ ...readJson(tokensPath, {}), [email]: token }));
+  mkdirSync(join(STATE, "mail"), { recursive: true });
+  appendFileSync(mailbox(email), `\n--- email from Finite Sites, ${new Date().toISOString()} ---\n${intro}\n\n` +
+    `Run this command to verify ${email}:\n\n  fsite auth redeem ${email} ${token}\n\nThe token works once and expires in 15 minutes. If it expires, run: fsite auth login ${email}\n`);
+}
 
 function versions(slug, path) {
   try {
@@ -47,8 +62,25 @@ if (group === "--version") { console.log("fsite 0.6.0"); process.exit(0); }
 if (group === "describe") { console.log("machine-readable description: see the finite-sites-publishing-finite skill."); process.exit(0); }
 if (group === "auth" && verb === "register") out({ registered: false, npub: AGENT_NPUB });
 if (group === "auth" && verb === "status") out({ exists: true, npub: AGENT_NPUB });
+if (group === "auth" && verb === "login") {
+  sendToken(target, "Your Finite Sites sign-in code.");
+  console.log(`A verification token was sent to ${target}.`);
+  process.exit(0);
+}
+if (group === "auth" && verb === "redeem") {
+  const token = args[3];
+  const tokens = readJson(tokensPath, {});
+  if (!token || tokens[target] !== token) fail("invalid_token", "the token is wrong, used, or expired: run fsite auth login EMAIL for a fresh one");
+  delete tokens[target];
+  writeFileSync(tokensPath, JSON.stringify(tokens));
+  writeFileSync(verifiedPath, JSON.stringify([...new Set([...readJson(verifiedPath, []), target])]));
+  out({ email: target, verified: true, linked_native: has("--link-native") });
+}
 if (group === "auth" && verb === "git") {
   const p = load(target) || fail("project_not_found", `no project ${target}`);
+  const email = flag("--email");
+  if (email && !readJson(verifiedPath, []).includes(email)) fail("email_not_verified", `${email} is not verified on this machine: fsite auth login ${email}, then fsite auth redeem ${email} TOKEN`);
+  if (email && !p.collaborators.some((c) => c.email === email)) fail("forbidden", `${email} is not a collaborator on ${p.slug}`);
   out({ project: p.slug, git_remote_url: `file://${remote(p.slug)}`, stored: has("--store") });
 }
 if (group === "project" && verb === "init") {
@@ -74,6 +106,7 @@ if (group === "project" && verb === "grant") {
   if (!npub) fail("usage", "one of --email, --nip05, --npub is required");
   if (!p.collaborators.some((c) => c.npub === npub)) p.collaborators.push({ npub, role: flag("--role") || "editor", email: flag("--email") || "" });
   save(p);
+  if (flag("--email") && has("--send-invite")) sendToken(flag("--email"), `You have been invited to collaborate on ${p.slug} as ${flag("--role") || "editor"}.`);
   out({ project: p.slug, granted: { npub, role: flag("--role") || "editor" } });
 }
 if (group === "project" && verb === "share") {

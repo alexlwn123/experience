@@ -1,6 +1,14 @@
 // Simulated attendees. Each one stresses a way an agent can lose its place or skip the
 // finish line. resetAt: the turn at which the attendee's next message lands in a new chat.
 // taken: slugs fsite refuses as taken. squeezeAt: the turn at which only 12 minutes are left.
+// Teams: setup runs before the first turn, otherPush(box) runs at otherPushAt (a teammate's push),
+// inbox names the mailbox the persona can read, and verdict(box, checkOutput) replaces check.py's.
+import { captainProject, captainTeamProblems, pushFromSomeoneElse, teammateVerdict } from "./team.mjs";
+
+const CODING_AGENT_PROMPT = `You are a coding agent (like Claude Code or Codex) running in a terminal on a software engineer's laptop.
+Your person's messages arrive as user turns; your final text each turn is what they see.
+You have a shell (the Bash tool) with git, python3, node and curl, and the file tools. Keep messages short.`;
+
 export const SCENARIOS = {
   "vague-grantmaker": {
     resetAt: 7,
@@ -39,5 +47,32 @@ Your idea, once asked: a page that helps volunteers answer the 10 questions newl
 You answer questions briefly and happily. When you see the first version, you love it and say "this is perfect, I'm so happy with it!".
 After that, you mostly reply with short things like "great", "sounds good", "ok!".
 Never ask about submitting, slides, or the deadline yourself. If asked about slides, say "sure, if there's time".`,
+  },
+  "team-captain": {
+    resetAt: 9,
+    otherPushAt: 7,
+    otherPush: pushFromSomeoneElse,
+    verdict: (box, checked) => {
+      const problems = captainTeamProblems(box, ["dana@example.org", "lee@example.org"]);
+      return problems.length ? `${checked}\n\nTEAM PROBLEMS:\n- ${problems.join("\n- ")}` : `${checked}\n\nTeam: both granted and shared, TEAM.md on main, the teammate's push kept.`;
+    },
+    persona: `You are Sam Okafor, team captain from a refugee-rights coalition. Friendly, not technical. Two engineers from your organisation are here to build with you.
+Your idea: a page that helps volunteers answer the 10 questions newly arrived refugees ask most in Berlin, in English and Arabic.
+When the agent asks if anyone is building with you, give both emails: dana@example.org and lee@example.org. If it never asks, after the first version is live, ask "my two engineers want to help, how do they get in?" and give the emails.
+When the agent gives you lines for your teammates, say you've sent them.
+Say no to slides. Answer questions briefly.`,
+  },
+  "teammate-joins": {
+    agentPrompt: CODING_AGENT_PROMPT,
+    setup: captainProject,
+    inbox: "dana@example.org",
+    otherPushAt: 3,
+    otherPush: pushFromSomeoneElse,
+    firstMessage: "Read https://hack.finite.site/join.md and join project berlin-questions as dana@example.org",
+    verdict: (box) => teammateVerdict(box),
+    persona: `You are Dana Weiss, a software engineer at a refugee-rights coalition, helping your team captain Sam at the AI Summit Mini-Hack. You're using a coding agent on your laptop.
+When the agent asks for the code from the invite email, look in your inbox (shown after the agent's message) and give the newest code. If there's no email there, say so.
+When asked what to work on, pick the Arabic translations.
+When the agent has pushed a change and says it's live, say thanks, that's all for now.`,
   },
 };

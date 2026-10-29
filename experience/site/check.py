@@ -96,11 +96,15 @@ def check_git(app):
     if out:
         problems.append("Some changes are not pushed: git add -A && git commit -m Update && git push")
     run(["git", "fetch", "-q", "origin", "main"], app)
-    head, _ = run(["git", "rev-parse", "HEAD"], app)
     remote, _ = run(["git", "rev-parse", "origin/main"], app)
     if remote is None or remote.returncode != 0:
-        problems.append("Nothing is pushed yet: git push -u origin main")
-    elif head is None or head.stdout.strip() != remote.stdout.strip():
+        return problems + ["Nothing is pushed yet: git push -u origin main"]
+    counts, _ = run(["git", "rev-list", "--left-right", "--count", "HEAD...origin/main"], app)
+    ahead, behind = (int(n) for n in counts.stdout.split()) if counts and counts.returncode == 0 else (1, 0)
+    if behind:
+        problems.append(f"Teammates pushed {behind} commit(s) you don't have: git pull --rebase, then git push "
+                        "(never --force).")
+    elif ahead:
         problems.append("Your latest commit is not pushed: git push origin main")
     return problems
 

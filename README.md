@@ -8,6 +8,7 @@ Attendees paste one line into their Finite agent's chat. The agent follows the p
 |---|---|
 | `/` | Homepage: the prompt to paste into a Finite agent |
 | `/agent.md` | The agent playbook (`experience/site/agent.md`) |
+| `/join.md` | For teammates' agents (Claude Code, Codex, Finite): join the captain's project and build with them |
 | `/check.py` | The finish-line check agents run before they're done |
 | `/llms.txt` | A pointer to the playbook for agents |
 | `/slides` | Intro deck (arrow keys or clicker, `F` for fullscreen) |
@@ -18,6 +19,7 @@ Attendees paste one line into their Finite agent's chat. The agent follows the p
 
 - **The agent keeps its place on disk.** It saves the playbook to `~/hackathon/PLAYBOOK.md`, keeps a nine-step checklist in `~/hackathon/STATE.md`, and saves a memory note pointing at both, so a compacted context or a new chat picks up where it was. Every message ends with `Step N of 9 · next: …`.
 - **Sharing happens first, not last.** Right after the plan is agreed (Step 4), the agent creates the project, grants `alexlwn@finite.vip` editor on it (`fsite project grant --nip05`), shares the site with him as a viewer, and pushes a placeholder. From then on every push publishes.
+- **Teams build together.** Captains send their agent teammates' emails; it grants each one editor (`fsite project grant --email --send-invite`), shares the site with them, writes `TEAM.md`, and hands back one line per teammate: `Read https://hack.finite.site/join.md and join project SLUG as EMAIL`. The teammate's agent installs the public `fsite`, redeems the invite code, clones, claims a task in `TEAM.md`, and pushes to the same `main` (pull --rebase, never force). Only the captain's agent submits.
 - **Submitting is a file.** Each project carries `hack.json` (title, pitch, person, status, slides), `IDEA.md` (the idea in the attendee's words, then clarified), and `talk.md`, outside the served `site/`. Step 9 sets `"status": "ready"` and runs `check.py`, which checks the site is published, Alex is on it, `hack.json` is complete, and everything is pushed. The agent isn't done until it prints ALL GOOD.
 
 ## The board
@@ -35,6 +37,8 @@ npm run board     # node board/board.mjs --watch 60 (needs fsite, signed in as a
 ```bash
 node qa/run.mjs vague-grantmaker [--agent-model haiku] [--persona-model sonnet] [--turns 26]
 ```
+
+`team-captain` adds two teammates while someone else pushes to the project; `teammate-joins` runs a coding agent through `join.md` against a captain's project (`qa/team.mjs`).
 
 ## Deploy
 

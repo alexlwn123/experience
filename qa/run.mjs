@@ -2,6 +2,7 @@
 // chats with one of your agents through `fragment ask`, in a fresh chat each run, so the
 // agent works on its real model, computer, and fragment CLI. Usage:
 //   node qa/run.mjs <scenario> --agent <agent> [--persona-model sonnet] [--turns 20] [--wait 1200]
+//     [--home <dir>]   run fragment with this HOME: a second account's pairing, for a teammate's agent
 // Before the run it clears the agent's ~/hackathon (in a chat of its own) and takes the
 // agent off the board, so each run starts fresh. The apps it makes are yours: delete them
 // after with `fragment rm`. The transcript and the board's entry land in
@@ -27,9 +28,12 @@ function parseArgs(argv) {
   return opts;
 }
 
+let fragmentHome = null; // --home: the CLI's pairing lives under HOME; claude keeps the real one
+
 function run(command, args, { input, timeoutMs = 30 * 60 * 1000 } = {}) {
+  const env = command === "fragment" && fragmentHome ? { ...process.env, HOME: fragmentHome } : process.env;
   return new Promise((resolve, reject) => {
-    const child = execFile(command, args, { timeout: timeoutMs, maxBuffer: 64 * 1024 * 1024 }, (error, stdout, stderr) =>
+    const child = execFile(command, args, { env, timeout: timeoutMs, maxBuffer: 64 * 1024 * 1024 }, (error, stdout, stderr) =>
       error && !stdout ? reject(new Error(`${command} ${args[0]}: ${(stderr || error.message).trim().split("\n").pop()}`)) : resolve(stdout),
     );
     child.stdin.end(input ?? "");
@@ -74,6 +78,7 @@ async function freshStart(opts, identity, say) {
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
   const scenario = SCENARIOS[opts.scenario];
+  fragmentHome = opts.home ?? null;
   const dir = join("/tmp/mini-hack-qa", `${opts.scenario}-${new Date().toISOString().replace(/[:.]/g, "-")}`);
   mkdirSync(dir, { recursive: true });
   const log = join(dir, "transcript.md");
@@ -81,7 +86,8 @@ async function main() {
   console.log(`${opts.scenario}: ${dir}`);
 
   const identity = (await fragment("status", opts.agent)).npub;
-  await freshStart(opts, identity, say);
+  // A teammate's agent never talks to the board (its account isn't the board's editor).
+  if (!scenario.teammate) await freshStart(opts, identity, say);
   const chat = await fragment("create", `mh-qa-${opts.scenario}-${Date.now().toString(36)}`, "--template", "chat", "--title", `Mini-hack QA: ${opts.scenario}`);
   say("harness", `Chat ${chat.name}, agent ${opts.agent} (${identity}).`);
 
@@ -102,7 +108,7 @@ async function main() {
     message = next.text;
   }
 
-  const board = await fragment("call", BOARD, "board", "--input", "{}");
+  const board = scenario.teammate ? { participants: [] } : await fragment("call", BOARD, "board", "--input", "{}");
   const entry = board.participants.find((p) => p.id === identity) ?? null;
   say("board entry", "```json\n" + JSON.stringify(entry, null, 2) + "\n```");
   const summary = { scenario: opts.scenario, chat: chat.name, turns: turn + 1, personaCost: Number(cost.toFixed(2)), submitted: entry?.phase === "ready", entry, dir };

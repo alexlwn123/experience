@@ -38,7 +38,10 @@ npm test          # node:test over applib/ and the board's helpers (Node 22.13+,
 
 ```bash
 node qa/run.mjs captain --agent <your agent's name> [--persona-model sonnet] [--turns 20]
+node qa/teammate-cc.mjs <captain's app> <invited email> <that account's paired config.json>
 ```
+
+Scenarios: `captain` (invites a teammate), `vague-grantmaker` (brain, slides, half-answers), `freedom-tech-dev` (a developer who audits the app), and `teammate` (a teammate's own Finite agent, run with `--home` holding that account's pairing). `teammate-cc.mjs` is a teammate on Claude Code: a fresh agent in an empty home with only that account's pairing, which installs the released CLI and follows `join.md` into the captain's app.
 
 ## Deploy
 

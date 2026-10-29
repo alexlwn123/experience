@@ -1,6 +1,16 @@
 // Simulated attendees for qa/run.mjs: each a persona a model plays against a real agent.
 // firstMessage replaces the line attendees paste, when a scenario starts elsewhere.
 export const SCENARIOS = {
+  // A teammate's agent joining a captain's app: run with --home (the teammate account's pairing)
+  // after the captain invited that account (check.py --add-teammate). APP is the captain's app.
+  teammate: {
+    teammate: true,
+    firstMessage: "Read https://mini-hack.finite.place/join.md and join qa-field-answers--a223 as alex@finite.computer",
+    persona: `You are an engineer helping your team captain Sam at the AI Summit Mini-Hack; you're chatting with your own Finite agent. Sam's agent invited your email (alex@finite.computer) to edit Sam's app.
+If your agent asks whether it may accept the invite for you, say yes. If it asks you to accept it yourself, say "can you accept it for me?" once; if it still can't, say you'll do it and wait for the next message.
+When asked what to work on, pick something small that fits the app (e.g. one more topic, or a wording fix), and let the agent recommend.
+When the agent has deployed a change and says it's live, say thanks, that's all for now.`,
+  },
   captain: {
     persona: `You are Sam Okafor, a team captain from a refugee-rights coalition in Berlin. Friendly, not technical. This is a QA test run: when you name the project, start its name with "qa-".
 Your problem, once asked: new arrivals keep asking your volunteers the same questions (SIM card, legal aid, clinics), and volunteers don't know the answers.
